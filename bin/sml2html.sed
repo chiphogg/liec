@@ -44,8 +44,27 @@
 # Added <caption>, <ref> tags. See Devel/tutorial.sml
 # Modified 02/24/2006 (DC) - Added boolean overbar
 # Modified 03/05/2006 (DC) - Expanded capability of <url> tags
+# Modified 03/07/2006 (DC) - Added <hyperlink>, <hypertarget> tags 
 # Modified 03/09/2006 (DC) - Added left and right double quotes
 # Modified 03/09/2006 (DC) - Added <thebibliography><bibitem><cite> tags
+# Modified 03/09/2006 (DC) - changed <cite> tags to separate bib.html file
+# Modified 03/15/2007 (DC) - Added [page.html] to <hyperlink> 
+# Modified 03/15/2007 (DC) - <htmlo>,<tex> work have two forms.
+# Modified 03/22/2007 (DC) - <tabular>,<tr>,<td>,<th><allowbreak>
+# Modified 03/23/2007 (DC) - Added latex floating table with caption
+# Modified 03/23/2007 (DC) - Added <latexin>
+# Modified 04/29/2007 (DC) - Added <pageref> </pageref>
+# Modified 04/30/2007 (DC) - Added <sectiontitle*>
+# Modified 07/01/2007 (DC) - Added <proofread>
+# Modified 07/07/2007 (DC) - Added <ref> now handles 9 per line
+# Modified 07/29/2007 (DC) - Fixed  <ref> for .tbl extension
+# Modified 09/10/2007 (DC) - Change \} to } in <tabular> per Devin Bayer
+# Modified 03/21/2008 (DC) - Added back in nonfloating image <imagenf> tags
+# Modified 04/07/2009 (DC) - Changed <bibitem>, added </li> tag at end
+# Modified 01/16/2009 (DC) - duplicated <image> as <imagen>
+# Modified 11/03/2010 (DC) - corrected bibtex underscore problem 
+#                             
+##########################################################################
 #
 ##########################################################################
 # Prevents ampersands (&) from being interpreted as HTML entity markers.
@@ -67,6 +86,21 @@ s/''/\&rdquo;/g
 ##########################################################################
 
 
+##########################################################################
+# Special dashes, must come before <minitoc>, <comment>  substitutions
+# No substitution required in sml2latx.sed. Improper display in mozilla.  
+#
+#s+---+\&mdash;+g
+s+\([a-z,A-Z,0-1, ]\)---\([a-z,A-Z,0-1, ]\)+\1\&mdash;\2+g
+s+\([a-z,A-Z,0-1]\)--+\1\&ndash;+g
+s/<minus>/-/g
+#
+s/<doubledash>/--/g
+#s/<ndash>/&ndash;/g
+#s/<mdash>/&mdash;/g
+##########################################################################
+
+
 
 ##########################################################################
 # <comment> tags: for marking sections of text NOT to be processed
@@ -78,21 +112,26 @@ s/<\/comment>/-->/g
 
 ##########################################################################
 # <tex> tags: maker for text to insert into .tex, .latex files
-# Both tags must have their own line, nothing else
+# Two forms: 1) Between tags on a line 2) group of lines
+# 2) Both tags must have their own line, nothing else
 # deleted from .txt, .html, .groff
-/<tex>.*<\/tex>/d
+s+\(<tex>\)\(.*\)\(</tex>\)++g
 /<tex>/,/<\/tex>/d
 ##########################################################################
+
 
  
 ##########################################################################
 # <htmlo> tags: maker for text to insert into .html file only
+# Two forms: 1) Between tags on a line 2) group of lines
+# 2) Both tags must have their own line, nothing else
 # Both tags must have their own line, nothing else
 # deleted from .txt, .tex, .latex,  .groff
 s/<htmlo>//
 s/<\/htmlo>//
 ##########################################################################
  
+
 
 
 ##########################################################################
@@ -119,16 +158,24 @@ s/<\/chaptertitle>/<\/h1> \
 ##########################################################################
 
 
+##########################################################################
+# <proofread> flags chapter as needing proofreading, put at top of chapter
+s/<proofread>//g
+##########################################################################
+
 
 
 ##########################################################################
 # <section> and <sectiontitle> tags: mark the beginning and end of a 
 # section, and mark the title of a section, respectively.
+# <sectiontitle*> omitts sectiontitle from TOC in LaTeX
 #
 s/<section>/<hr>/g
 s/<\/section>//g
 s/<sectiontitle>/<h2><u>/g
+s/<sectiontitle\*>/<h2><u>/g
 s/<\/sectiontitle>/<\/u><\/h2>/g
+s/<\/sectiontitle\*>/<\/u><\/h2>/g
 ##########################################################################
 
 
@@ -170,14 +217,28 @@ s+\(<url>\)\(.*\)\(\[\)\(.*\)\(\]\)\(</url>\)+<a href="\2">\4</a>+g
 s/<url>/<a href="/g
 s/<\/url>/">[*]<\/a>/g
 ##########################################################################
-#<a name="exit">
+
 
 ##########################################################################
-#<hyperlink> tags- jump to local link, to hypertarget
-#<hyperlink>linkname[text]</hyperlink>
-#<a name="#linkname">text</a>
+##begin hyperlink
+# two sections follow for different versions of hyperlink
+# The two must be in the order given here
+##########################################################################
+# with page name [page.html]
+# <hyperlink> tags- jump to local link, to hypertarget
+# <hyperlink>linkname[text][page.html]</hyperlink>
+# <a name="#linkname">text</a>
+s+\(<hyperlink>\)\(.*\)\(\[\)\(.*\)\(\]\)\(\[\)\(.*\)\(\]\)\(</hyperlink>\)+<a href="\7#\2">\4</a>+g
+##########################################################################
+#
+##########################################################################
+# without page name
+# <hyperlink> tags- jump to local link, to hypertarget
+# <hyperlink>linkname[text]</hyperlink>
+# <a name="#linkname">text</a>
 s+\(<hyperlink>\)\(.*\)\(\[\)\(.*\)\(\]\)\(</hyperlink>\)+<a href="#\2">\4</a>+g
 ##########################################################################
+## end hyperlink
 
 ##########################################################################
 #<hypertarget> tags-- sets a target for <hyperlink>
@@ -199,14 +260,44 @@ s+<thebibliography>+<hr> \
 <ol>+g
 s/<\/thebibliography>/<\/ol>/g
 
-s+\(<bibitem>\)\(\[\)\(.*\)\(\]\)\(.*$\)+<li><a name="\3.bibitem">\[\3\]\5+g
+s+\(<bibitem>\)\(\[\)\(.*\)\(\]\)\(.*$\)+<li><a name="\3.bibitem">\[\3\]\5</li>+g
 s+</bibitem>+</a>+g
+
+#corrects bibtex underscore problem %5F is substituted for underscore _ in .sml.
+# html don't need it.
+# this substitutes \% with % , \=\\\ %=%
+/<li>/s+\\\%+%+g
 
 #<cite> tags- jump to local link, to hypertarget
 #<cite>linkname[text]</cite>
 #<cite>linkname</cite>
 #<a name="#linkname">text</a>
-s+\(<cite>\)\(.*\)\(</cite>\)+<a href="#\2.bibitem">\[\2]</a>+g
+/<\/cite>/s/<\/cite>/<x1>/
+/<\/cite>/s/<\/cite>/<x2>/
+/<\/cite>/s/<\/cite>/<x3>/
+/<\/cite>/s/<\/cite>/<x4>/
+/<\/cite>/s/<\/cite>/<x5>/
+/<\/cite>/s/<\/cite>/<x6>/
+/<\/cite>/s/<\/cite>/<x7>/
+/<\/cite>/s/<\/cite>/<x8>/
+/<\/cite>/s/<\/cite>/<x9>/
+
+
+
+#s+\(<cite>\)\(.*\)\(</cite>\)+<a href="#\2.bibitem">\[\2]</a>+g
+/<x1>/s+\(<cite>\)\(.*\)\(<x1>\)+<a href="#\2.bibitem">\[\2]</a>+g
+/<x2>/s+\(<cite>\)\(.*\)\(<x2>\)+<a href="#\2.bibitem">\[\2]</a>+g
+/<x3>/s+\(<cite>\)\(.*\)\(<x3>\)+<a href="#\2.bibitem">\[\2]</a>+g
+/<x4>/s+\(<cite>\)\(.*\)\(<x4>\)+<a href="#\2.bibitem">\[\2]</a>+g
+/<x5>/s+\(<cite>\)\(.*\)\(<x5>\)+<a href="#\2.bibitem">\[\2]</a>+g
+/<x6>/s+\(<cite>\)\(.*\)\(<x6>\)+<a href="#\2.bibitem">\[\2]</a>+g
+/<x7>/s+\(<cite>\)\(.*\)\(<x7>\)+<a href="#\2.bibitem">\[\2]</a>+g
+/<x8>/s+\(<cite>\)\(.*\)\(<x8>\)+<a href="#\2.bibitem">\[\2]</a>+g
+/<x9>/s+\(<cite>\)\(.*\)\(<x9>\)+<a href="#\2.bibitem">\[\2]</a>+g
+#
+#<allowbreak> used in latex only for ling bibliography url's
+s+<allowbreak>++g
+
 ##########################################################################
 
 
@@ -236,6 +327,15 @@ s+\(<image>\)\(.*\.[pj][np][g]\)\(<caption>\)\(.*\)\(</caption>\)\(<label>\)\(.*
 \3\4\5 \
 +g
 
+
+##########################################################################
+# 04/25/2007 isolated <label> tags not caught above 
+s+<label>+<a name="+g
+s+</label>+"</a>+g
+# <figure> not needed in html, only in latex
+s+<figure>++g
+s+</figure>++g
+
 # normal case of captioned image, must preceed other image, caption subs
 s+\(<image>\)\(.*\.[pj][np][g]\)\(<caption>.*</caption>\)\(.*</image>\)+ \
 <a name="\2"></a> \
@@ -243,10 +343,20 @@ s+\(<image>\)\(.*\.[pj][np][g]\)\(<caption>.*</caption>\)\(.*</image>\)+ \
 \3 \
 +g
 
+#01/18/2008 duplicate of above for nonfloating captioned image
+#more details in sml2latx.sed
+# normal case of captioned image, must preceed other image, caption subs
+s+\(<imagen>\)\(.*\.[pj][np][g]\)\(<caption>.*</caption>\)\(.*</imagen>\)+ \
+<a name="\2"></a> \
+\1\2\4 \
+\3 \
++g
+
+
 s/<image>/<p> <img src="/g
 s/<\/image>/"> <\/p>/g
-s/<caption>/<p><i>/g
-s/<\/caption>/<\/i><\/p>/g
+/<p> <img/s/<caption>/<p><i>/g
+/"> </s/<\/caption>/<\/i><\/p>/g
 
 ##########################################################################
 
@@ -260,11 +370,127 @@ s/<\/caption>/<\/i><\/p>/g
 #
 s/<image>/<p> <img src="/g
 s/<\/image>/"> <\/p>/g
+#
+# See sml2latx.sed for <imagenf>  image, no float.
+#
+s/<imagenf>/<p> <img src="/g
+s/<\/imagenf>/"> <\/p>/g
+#
+#01/18/2008 duplicate of above for nonfloating captioned image
+s/<imagen>/<p> <img src="/g
+s/<\/imagen>/"> <\/p>/g
+
+
+
 ##########################################################################
 #figure<ref>test.png above</ref>
-#<a href="#edit">jump</a><br>
-s+\(<ref>\)\(.*\.[pj][np][g]\)\(.*\)\(</ref>\)+ <a href="#\2"> \3</a>+g
+# from: <ref>03121.png above</ref> to: <a href="#03121.png">above</a>
+# 07/07/2007 It now handles 9 references per line.
+###s+\(<ref>\)\(.*\.[pj][np][g]\)\(.*\)\(</ref>\)+ <a href="#\2"> \3</a>+g
+#{
+#:jref
+#/<ref>/s+\(<ref>......png\)+\1">+
+#/<ref>/s+\(<ref>.png.*\)<//ref>+\1">+
+#/<ref>/s+</ref>+</a>+
+#s+<ref>+<a href="#+
+#}
+#tjref
 
+/<\/ref>/s/<\/ref>/<x1>/
+/<\/ref>/s/<\/ref>/<x2>/
+/<\/ref>/s/<\/ref>/<x3>/
+/<\/ref>/s/<\/ref>/<x4>/
+/<\/ref>/s/<\/ref>/<x5>/
+/<\/ref>/s/<\/ref>/<x6>/
+/<\/ref>/s/<\/ref>/<x7>/
+/<\/ref>/s/<\/ref>/<x8>/
+/<\/ref>/s/<\/ref>/<x9>/
+
+/<x1>/s+\(<ref>\)\(.*\.[pjt][npb][gl]\)\(.*\)\(<x1>\)+ <a href="#\2"> \3</a>+g
+/<x2>/s+\(<ref>\)\(.*\.[pjt][npb][gl]\)\(.*\)\(<x2>\)+ <a href="#\2"> \3</a>+g
+/<x3>/s+\(<ref>\)\(.*\.[pjt][npb][gl]\)\(.*\)\(<x3>\)+ <a href="#\2"> \3</a>+g
+/<x4>/s+\(<ref>\)\(.*\.[pjt][npb][gl]\)\(.*\)\(<x4>\)+ <a href="#\2"> \3</a>+g
+/<x5>/s+\(<ref>\)\(.*\.[pjt][npb][gl]\)\(.*\)\(<x5>\)+ <a href="#\2"> \3</a>+g
+/<x6>/s+\(<ref>\)\(.*\.[pjt][npb][gl]\)\(.*\)\(<x6>\)+ <a href="#\2"> \3</a>+g
+/<x7>/s+\(<ref>\)\(.*\.[pjt][npb][gl]\)\(.*\)\(<x7>\)+ <a href="#\2"> \3</a>+g
+/<x8>/s+\(<ref>\)\(.*\.[pjt][npb][gl]\)\(.*\)\(<x8>\)+ <a href="#\2"> \3</a>+g
+/<x9>/s+\(<ref>\)\(.*\.[pjt][npb][gl]\)\(.*\)\(<x9>\)+ <a href="#\2"> \3</a>+g
+
+# By looping, can have multiple ref's per line.
+##########################################################################
+
+
+##########################################################################
+##begin pageref
+# two sections follow for different versions of hyperlink
+# The two must be in the order given here
+##########################################################################
+# with page name [page.html]
+# <pageref> tags- jump to local link, to hypertarget
+# <pageref>linkname[text][page.html]</pageref>
+# <a name="#linkname">text</a>
+s+\(<pageref>\)\(.*\)\(\[\)\(.*\)\(\]\)\(\[\)\(.*\)\(\]\)\(</pageref>\)+<a href="\7#\2">\4</a>+g
+##########################################################################
+#
+##########################################################################
+# without page name
+# <pageref> tags- jump to local link, to label as target
+# <pageref>linkname[text]</pageref>
+# <a name="#linkname">text</a>
+s+\(<pageref>\)\(.*\)\(\[\)\(.*\)\(\]\)\(</pageref>\)+<a href="#\2">\4</a>+g
+##########################################################################
+## end pageref
+
+
+
+##########################################################################
+# 03/23/2007 (DC) Added floating table in latex. See Devel/tutorial.sml 
+#
+# This will caption and float a table if a caption is found
+# <table>labelname<caption>My figure</caption></table>
+#
+# allows reference to label of table
+# normal case of captioned image, must preceed other image, caption subs
+s+\(<table>\)\(.*\.tbl\)\(<caption>.*</caption>\)+ \
+<a name="\2">\3</a>+g
+s/<caption>/<p><i>/g
+s/<\/caption>/<\/i><\/p>/g
+#dispose of any captionless table tags
+s+<table>++g
+s+<\/table>++g
+#
+#allows for referencing the captioned table
+s+\(<ref>\)\(.*\.tbl\)\(.*\)\(</ref>\)+ <a href="#\2"> \3</a>+g
+#
+########################################################################
+#new
+
+##########################################################################
+# <tabular> tags: mark a block of text to set as table.
+#
+##s+\(<tabular>\)\(\[\)\(.*\)\(\]\)\(.*$\)+<table>+g
+
+s+\(<tabular>\)\(\.*[ {]\)\(.*\)\(}\)+<table border="1" style="background-color: #E0FFFF; " >+g
+s+<tabular>+<table>+g
+s/<\/tabular>/<\/table>/g
+
+
+# <tr> tags: mark a block of text for a row in a  table.
+s/<tr>/<tr>/g
+s/<\/tr>/<\/tr>/g
+# <td>, (th) tags: mark a block of text for column data in a row of a  table.
+s/<td>/<td>/g
+s/<\/td>/<\/td>/g
+s/<th>/<th>/g
+s/<\/th>/<\/th>/g
+
+# <tablularcaption> tags: mark a block of text for a caption in  a  table.
+##s+<tabularcaption>+<caption style="background-color: #C1FFFF" ><a>+g
+##s+</tabularcaption>+</a></caption>+g
+#
+#get rid of <ht> for table, used in .latex
+s+<hr>++g
+##########################################################################
 
 
 ##########################################################################
@@ -273,6 +499,10 @@ s+\(<ref>\)\(.*\.[pj][np][g]\)\(.*\)\(</ref>\)+ <a href="#\2"> \3</a>+g
 s/<quotation>/<blockquote>/g
 s/<\/quotation>/<\/blockquote>/g
 ##########################################################################
+
+
+
+
 
 
 ##########################################################################
@@ -433,11 +663,11 @@ s/<registered>/\&#174;/g
 
 
 ##########################################################################
-# Special dashes
 #
-s/<minus>/-/g
+# backslash \
+# only needed to accomodate backslash in sml2latx.sed
 #
-s/<doubledash>/--/g
+s+<backslash>+\\+g
 ##########################################################################
 
 
@@ -608,6 +838,14 @@ s/<!>/\&#161;/g
 #
 s/<lt>/\&#60;/g
 s/<gt>/\&#62;/g
+##########################################################################
+
+##########################################################################
+#<latexin> </latexin> not used in HTML, strip out everything
+#For inlining latex commands into latex only
+#
+s+\(<latexin>\)\(.*\)\(</latexin>\)++g
+/<latexin>/,/<\/latexin>/d
 ##########################################################################
 
 
