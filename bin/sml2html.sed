@@ -152,7 +152,7 @@ s/<\/book>/<\/body> \
 #
 s/<chapter>/<hr>/g
 s/<\/chapter>//g
-s/<chaptertitle>/<h1>/g
+s/<chaptertitle>/<h1 class="chapter">/g
 s/<\/chaptertitle>/<\/h1> \
 <!--minitoc-->/g
 ##########################################################################
@@ -172,8 +172,8 @@ s/<proofread>//g
 #
 s/<section>/<hr>/g
 s/<\/section>//g
-s/<sectiontitle>/<h2><u>/g
-s/<sectiontitle\*>/<h2><u>/g
+s/<sectiontitle>/<h2 class="section"><u>/g
+s/<sectiontitle\*>/<h2 class="section"><u>/g
 s/<\/sectiontitle>/<\/u><\/h2>/g
 s/<\/sectiontitle\*>/<\/u><\/h2>/g
 ##########################################################################
