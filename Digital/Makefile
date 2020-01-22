@@ -104,67 +104,6 @@ html : $(SRC) sml2html.sed
 
 
 
-# Converts SubML source into TeX source
-numbers.tex : numbers.sml
-	sed -f sml2tex.sed numbers.sml > numbers.tex
-
-binary.tex : binary.sml
-	sed -f sml2tex.sed binary.sml > binary.tex
-
-gates.tex : gates.sml
-	sed -f sml2tex.sed gates.sml > gates.tex
-
-switches.tex : switches.sml
-	sed -f sml2tex.sed switches.sml > switches.tex
-
-relays.tex : relays.sml
-	sed -f sml2tex.sed relays.sml > relays.tex
-
-ladder.tex : ladder.sml
-	sed -f sml2tex.sed ladder.sml > ladder.tex
-
-boolean.tex : boolean.sml
-	sed -f sml2tex.sed boolean.sml > boolean.tex
-
-karnaugh.tex : karnaugh.sml
-	sed -f sml2tex.sed karnaugh.sml > karnaugh.tex
-
-combin.tex : combin.sml
-	sed -f sml2tex.sed combin.sml > combin.tex
-
-multivib.tex : multivib.sml
-	sed -f sml2tex.sed multivib.sml > multivib.tex
-
-counters.tex : counters.sml
-	sed -f sml2tex.sed counters.sml > counters.tex
-
-shiftreg.tex : shiftreg.sml
-	sed -f sml2tex.sed shiftreg.sml > shiftreg.tex
-
-a2d.tex : a2d.sml
-	sed -f sml2tex.sed a2d.sml > a2d.tex
-
-commun.tex : commun.sml
-	sed -f sml2tex.sed commun.sml > commun.tex
-
-memory.tex : memory.sml
-	sed -f sml2tex.sed memory.sml > memory.tex
-
-computer.tex : computer.sml
-	sed -f sml2tex.sed computer.sml > computer.tex
-
-about.tex : about.sml
-	sed -f sml2tex.sed about.sml > about.tex
-
-contrib.tex : contrib.sml
-	sed -f sml2tex.sed contrib.sml > contrib.tex
-
-dsl.tex : dsl.sml
-	sed -f sml2tex.sed dsl.sml > dsl.tex
-
-
-
-
 # Converts SubML source into LaTeX source
 numbers.latex : numbers.sml sml2latx.sed
 	sed -f sml2latx.sed numbers.sml > numbers.latex
@@ -232,66 +171,6 @@ dsl.latex : dsl.sml sml2latx.sed
 	cp dsl.latex dsl.latex~
 	sed  s/\\minitoc//g dsl.latex~ >dsl.latex
 
-
-
-
-# Converts SubML source into plain ASCII text
-numbers.txt : numbers.sml sml2latx.sed
-	sed -f sml2txt.sed numbers.sml > numbers.txt
-
-binary.txt : binary.sml
-	sed -f sml2txt.sed binary.sml > binary.txt
-
-gates.txt : gates.sml
-	sed -f sml2txt.sed gates.sml > gates.txt
-
-switches.txt : switches.sml
-	sed -f sml2txt.sed switches.sml > switches.txt
-
-relays.txt : relays.sml
-	sed -f sml2txt.sed relays.sml > relays.txt
-
-ladder.txt : ladder.sml
-	sed -f sml2txt.sed ladder.sml > ladder.txt
-
-boolean.txt : boolean.sml
-	sed -f sml2txt.sed boolean.sml > boolean.txt
-
-karnaugh.txt : karnaugh.sml
-	sed -f sml2txt.sed karnaugh.sml > karnaugh.txt
-
-combin.txt : combin.sml
-	sed -f sml2txt.sed combin.sml > combin.txt
-
-multivib.txt : multivib.sml
-	sed -f sml2txt.sed multivib.sml > multivib.txt
-
-counters.txt : counters.sml
-	sed -f sml2txt.sed counters.sml > counters.txt
-
-shiftreg.txt : shiftreg.sml
-	sed -f sml2txt.sed shiftreg.sml > shiftreg.txt
-
-a2d.txt : a2d.sml
-	sed -f sml2txt.sed a2d.sml > a2d.txt
-
-commun.txt : commun.sml
-	sed -f sml2txt.sed commun.sml > commun.txt
-
-memory.txt : memory.sml
-	sed -f sml2txt.sed memory.sml > memory.txt
-
-computer.txt : computer.sml
-	sed -f sml2txt.sed computer.sml > computer.txt
-
-about.txt : about.sml
-	sed -f sml2txt.sed about.sml > about.txt
-
-contrib.txt : contrib.sml
-	sed -f sml2txt.sed contrib.sml > contrib.txt
-
-dsl.txt : dsl.sml
-	sed -f sml2txt.sed dsl.sml > dsl.txt
 
 
 
@@ -428,53 +307,6 @@ DIGI_A3.html : dsl.sml hi_A3.html bye_A3.html sml2html.sed
 
 
 
-# Generates DVI output using TeX
-tex : $(SRC) sml2html.sed
-	make numbers.tex      
-	make binary.tex
-	make gates.tex
-	make switches.tex
-	make relays.tex
-	make ladder.tex
-	make boolean.tex
-	make karnaugh.tex
-	make combin.tex
-	make multivib.tex
-	make counters.tex
-	make shiftreg.tex
-	make a2d.tex
-	make commun.tex
-	make memory.tex
-	make computer.tex
-	make about.tex
-	make contrib.tex
-	make dsl.tex
-	cat hi.tex \
-           numbers.tex \
-           binary.tex \
-           gates.tex \
-           switches.tex \
-           relays.tex \
-           ladder.tex \
-           boolean.tex \
-           karnaugh.tex \
-           combin.tex \
-           multivib.tex \
-           counters.tex \
-           shiftreg.tex \
-           a2d.tex \
-           commun.tex \
-           memory.tex \
-           computer.tex \
-           about.tex \
-           contrib.tex \
-           dsl.tex \
-           bye.tex > DIGI.tex
-	tex DIGI.tex
-	touch tex
-
-
-
 # Generates DVI output using LaTeX
 latex : $(SRC) sml2latx.sed
 	make numbers.latex      
@@ -523,50 +355,6 @@ latex : $(SRC) sml2latx.sed
 	latex DIGI.latex
 	latex DIGI.latex
 	touch latex
-
-
-
-# Generates plain ASCII output
-txt : $(SRC)
-	make numbers.txt      
-	make binary.txt
-	make gates.txt
-	make switches.txt
-	make relays.txt
-	make ladder.txt
-	make boolean.txt
-	make karnaugh.txt
-	make combin.txt
-	make multivib.txt
-	make counters.txt 
-	make shiftreg.txt 
-	make a2d.txt 
-	make commun.txt 
-	make memory.txt 
-	make computer.txt 
-	make about.txt 
-	make contrib.txt
-	make dsl.txt
-	cat numbers.txt \
-           binary.txt \
-           gates.txt \
-           switches.txt \
-           relays.txt \
-           ladder.txt \
-           boolean.txt \
-           karnaugh.txt \
-           combin.txt \
-           multivib.txt \
-           counters.txt \
-           shiftreg.txt \
-           a2d.txt \
-           commun.txt \
-           memory.txt \
-           computer.txt \
-           about.txt \
-           contrib.txt \
-           dsl.txt > DIGI.txt
-	touch txt
 
 
 

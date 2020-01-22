@@ -101,66 +101,6 @@ html : $(SRC) sml2html.sed
 
  
 
-# Converts SubML source into TeX source
-basiccon.tex : basiccon.sml
-	sed -f sml2tex.sed basiccon.sml > basiccon.tex
-
-ohm.tex : ohm.sml
-	sed -f sml2tex.sed ohm.sml > ohm.tex
-
-safety.tex : safety.sml
-	sed -f sml2tex.sed safety.sml > safety.tex
-
-scientif.tex : scientif.sml
-	sed -f sml2tex.sed scientif.sml > scientif.tex
-
-s_and_p.tex : s_and_p.sml
-	sed -f sml2tex.sed s_and_p.sml > s_and_p.tex
-
-divider.tex : divider.sml
-	sed -f sml2tex.sed divider.sml > divider.tex
-
-s_p.tex : s_p.sml
-	sed -f sml2tex.sed s_p.sml > s_p.tex
-
-dcmeter.tex : dcmeter.sml
-	sed -f sml2tex.sed dcmeter.sml > dcmeter.tex
-
-dcsignal.tex : dcsignal.sml
-	sed -f sml2tex.sed dcsignal.sml > dcsignal.tex
-
-dcnet.tex : dcnet.sml
-	sed -f sml2tex.sed dcnet.sml > dcnet.tex
-
-batt.tex : batt.sml
-	sed -f sml2tex.sed batt.sml > batt.tex
-
-conduct.tex : conduct.sml
-	sed -f sml2tex.sed conduct.sml > conduct.tex
-
-cap.tex : cap.sml
-	sed -f sml2tex.sed cap.sml > cap.tex
-
-magnet.tex : magnet.sml
-	sed -f sml2tex.sed magnet.sml > magnet.tex
-
-inductor.tex : inductor.sml
-	sed -f sml2tex.sed inductor.sml > inductor.tex
-
-time.tex : time.sml
-	sed -f sml2tex.sed time.sml > time.tex
-
-about.tex : about.sml
-	sed -f sml2tex.sed about.sml > about.tex
-
-contrib.tex : contrib.sml
-	sed -f sml2tex.sed contrib.sml > contrib.tex
-
-dsl.tex : dsl.sml
-	sed -f sml2tex.sed dsl.sml > dsl.tex
-
-
-
 # Converts SubML source into LaTeX source
 basiccon.latex : basiccon.sml sml2latx.sed
 	sed -f sml2latx.sed basiccon.sml > basiccon.latex
@@ -230,66 +170,6 @@ dsl.latex : dsl.sml sml2latx.sed
 	cp dsl.latex dsl.latex~
 	sed  s/\\minitoc//g dsl.latex~ >dsl.latex
 	rm dsl.latex~ 
-
-
-# Converts SubML source into plain ASCII text
-basiccon.txt : basiccon.sml
-	sed -f sml2txt.sed basiccon.sml > basiccon.txt
-
-ohm.txt : ohm.sml
-	sed -f sml2txt.sed ohm.sml > ohm.txt
-
-safety.txt : safety.sml
-	sed -f sml2txt.sed safety.sml > safety.txt
-
-scientif.txt : scientif.sml
-	sed -f sml2txt.sed scientif.sml > scientif.txt
-
-s_and_p.txt : s_and_p.sml
-	sed -f sml2txt.sed s_and_p.sml > s_and_p.txt
-
-divider.txt : divider.sml
-	sed -f sml2txt.sed divider.sml > divider.txt
-
-s_p.txt : s_p.sml
-	sed -f sml2txt.sed s_p.sml > s_p.txt
-
-dcmeter.txt : dcmeter.sml
-	sed -f sml2txt.sed dcmeter.sml > dcmeter.txt
-
-dcsignal.txt : dcsignal.sml
-	sed -f sml2txt.sed dcsignal.sml > dcsignal.txt
-
-dcnet.txt : dcnet.sml
-	sed -f sml2txt.sed dcnet.sml > dcnet.txt
-
-batt.txt : batt.sml
-	sed -f sml2txt.sed batt.sml > batt.txt
-
-conduct.txt : conduct.sml
-	sed -f sml2txt.sed conduct.sml > conduct.txt
-
-cap.txt : cap.sml
-	sed -f sml2txt.sed cap.sml > cap.txt
-
-magnet.txt : magnet.sml
-	sed -f sml2txt.sed magnet.sml > magnet.txt
-
-inductor.txt : inductor.sml
-	sed -f sml2txt.sed inductor.sml > inductor.txt
-
-time.txt : time.sml
-	sed -f sml2txt.sed time.sml > time.txt
-
-about.txt : about.sml
-	sed -f sml2txt.sed about.sml > about.txt
-
-contrib.txt : contrib.sml
-	sed -f sml2txt.sed contrib.sml > contrib.txt
-
-dsl.txt : dsl.sml
-	sed -f sml2txt.sed dsl.sml > dsl.txt
-
 
 
 # Converts SubML source into HTML source
@@ -425,53 +305,6 @@ DC_A3.html : dsl.sml hi_A3.html bye_A3.html sml2html.sed
 
 
 
-# Generates DVI output using TeX
-tex : $(SRC)
-	make basiccon.tex
-	make ohm.tex
-	make safety.tex
-	make scientif.tex
-	make s_and_p.tex
-	make divider.tex
-	make s_p.tex
-	make dcmeter.tex
-	make dcsignal.tex
-	make dcnet.tex
-	make batt.tex
-	make conduct.tex
-	make cap.tex
-	make magnet.tex
-	make inductor.tex
-	make time.tex
-	make about.tex
-	make contrib.tex
-	make dsl.tex
-	cat hi.tex \
-           basiccon.tex \
-           ohm.tex \
-           safety.tex \
-           scientif.tex \
-           s_and_p.tex \
-           divider.tex \
-           s_p.tex \
-           dcmeter.tex \
-           dcsignal.tex \
-           dcnet.tex \
-           batt.tex \
-           conduct.tex \
-           cap.tex \
-           magnet.tex \
-           inductor.tex \
-           time.tex \
-           about.tex \
-           contrib.tex \
-           dsl.tex \
-           bye.tex > DC.tex
-	tex DC.tex
-	touch tex
-
-
-
 # Generates DVI output using LaTeX
 latex : $(SRC) sml2latx.sed
 	make basiccon.latex
@@ -520,51 +353,6 @@ latex : $(SRC) sml2latx.sed
 	latex DC.latex
 	latex DC.latex
 	touch latex
-
-
-
-# Generates plain ASCII output
-txt : $(SRC)
-	make basiccon.txt
-	make ohm.txt
-	make safety.txt
-	make scientif.txt
-	make s_and_p.txt
-	make divider.txt
-	make s_p.txt
-	make dcmeter.txt
-	make dcsignal.txt
-	make dcnet.txt
-	make batt.txt
-	make conduct.txt
-	make cap.txt
-	make magnet.txt
-	make inductor.txt
-	make time.txt
-	make about.txt
-	make contrib.txt
-	make dsl.txt
-	cat basiccon.txt \
-           ohm.txt \
-           safety.txt \
-           scientif.txt \
-           s_and_p.txt \
-           divider.txt \
-           s_p.txt \
-           dcmeter.txt \
-           dcsignal.txt \
-           dcnet.txt \
-           batt.txt \
-           conduct.txt \
-           cap.txt \
-           magnet.txt \
-           inductor.txt \
-           time.txt \
-           about.txt \
-           contrib.txt \
-           dsl.txt > DC.txt
-	touch txt
-
 
 
 

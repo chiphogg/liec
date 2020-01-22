@@ -91,57 +91,6 @@ html : $(SRC)
 
 
 
-# Converts SubML source into TeX source
-amplif.tex : amplif.sml
-	sed -f sml2tex.sed amplif.sml > amplif.tex
-
-theory.tex : theory.sml
-	sed -f sml2tex.sed theory.sml > theory.tex
-
-diode.tex : diode.sml
-	sed -f sml2tex.sed diode.sml > diode.tex
-
-bjt.tex : bjt.sml
-	sed -f sml2tex.sed bjt.sml > bjt.tex
-
-jfet.tex : jfet.sml
-	sed -f sml2tex.sed jfet.sml > jfet.tex
-
-mosfet.tex : mosfet.sml
-	sed -f sml2tex.sed mosfet.sml > mosfet.tex
-
-thyr.tex : thyr.sml
-	sed -f sml2tex.sed thyr.sml > thyr.tex
-
-opamp.tex : opamp.sml
-	sed -f sml2tex.sed opamp.sml > opamp.tex
-
-analog.tex : analog.sml
-	sed -f sml2tex.sed analog.sml > analog.tex
-
-active.tex : active.sml
-	sed -f sml2tex.sed active.sml > active.tex
-
-dcdrive.tex : dcdrive.sml
-	sed -f sml2tex.sed dcdrive.sml > dcdrive.tex
-
-acdrive.tex : acdrive.sml
-	sed -f sml2tex.sed acdrive.sml > acdrive.tex
-
-tubes.tex : tubes.sml
-	sed -f sml2tex.sed tubes.sml > tubes.tex
-
-about.tex : about.sml
-	sed -f sml2tex.sed about.sml > about.tex
-
-contrib.tex : contrib.sml
-	sed -f sml2tex.sed contrib.sml > contrib.tex
-
-dsl.tex : dsl.sml
-	sed -f sml2tex.sed dsl.sml > dsl.tex
-
-
-
 # Converts SubML source into LaTeX source
 amplif.latex : amplif.sml sml2latx.sed
 	sed -f sml2latx.sed amplif.sml > amplif.latex
@@ -202,58 +151,6 @@ dsl.latex : dsl.sml sml2latx.sed
 	cp dsl.latex dsl.latex~
 	sed  s/\\minitoc//g dsl.latex~ >dsl.latex
 	rm dsl.latex~
-
-
-# Converts SubML source into plain ASCII text
-amplif.txt : amplif.sml
-	sed -f sml2txt.sed amplif.sml > amplif.txt
-
-theory.txt : theory.sml
-	sed -f sml2txt.sed theory.sml > theory.txt
-
-diode.txt : diode.sml
-	sed -f sml2txt.sed diode.sml > diode.txt
-
-bjt.txt : bjt.sml
-	sed -f sml2txt.sed bjt.sml > bjt.txt
-
-jfet.txt : jfet.sml
-	sed -f sml2txt.sed jfet.sml > jfet.txt
-
-mosfet.txt : mosfet.sml
-	sed -f sml2txt.sed mosfet.sml > mosfet.txt
-
-thyr.txt : thyr.sml
-	sed -f sml2txt.sed thyr.sml > thyr.txt
-
-opamp.txt : opamp.sml
-	sed -f sml2txt.sed opamp.sml > opamp.txt
-
-analog.txt : analog.sml
-	sed -f sml2txt.sed analog.sml > analog.txt
-
-active.txt : active.sml
-	sed -f sml2txt.sed active.sml > active.txt
-
-dcdrive.txt : dcdrive.sml
-	sed -f sml2txt.sed dcdrive.sml > dcdrive.txt
-
-acdrive.txt : acdrive.sml
-	sed -f sml2txt.sed acdrive.sml > acdrive.txt
-
-tubes.txt : tubes.sml
-	sed -f sml2txt.sed tubes.sml > tubes.txt
-
-about.txt : about.sml
-	sed -f sml2txt.sed about.sml > about.txt
-
-contrib.txt : contrib.sml
-	sed -f sml2txt.sed contrib.sml > contrib.txt
-
-dsl.txt : dsl.sml
-	sed -f sml2txt.sed dsl.sml > dsl.txt
-
-
 
 
 # Converts SubML source into HTML source
@@ -368,47 +265,6 @@ SEMI_A3.html : dsl.sml  hi_A3.html bye_A3.html sml2html.sed
 
 
 
-# Generates DVI output using TeX
-tex : $(SRC)
-	make amplif.tex
-	make theory.tex
-	make diode.tex
-	make bjt.tex
-	make jfet.tex
-	make mosfet.tex
-	make thyr.tex
-	make opamp.tex
-	make analog.tex
-	make active.tex
-	make dcdrive.tex
-	make acdrive.tex
-	make tubes.tex
-	make about.tex
-	make contrib.tex
-	make dsl.tex
-	cat hi.tex \
-           amplif.tex \
-           theory.tex \
-           diode.tex \
-           bjt.tex \
-           jfet.tex \
-           mosfet.tex \
-           thyr.tex \
-           opamp.tex \
-           analog.tex \
-           active.tex \
-           dcdrive.tex \
-           acdrive.tex \
-           tubes.tex \
-           about.tex \
-           contrib.tex \
-           dsl.tex \
-           bye.tex > SEMI.tex
-	tex SEMI.tex
-	touch tex
-
-
-
 # Generates DVI output using LaTeX
 latex : $(SRC) sml2latx.sed
 	make amplif.latex
@@ -451,45 +307,6 @@ latex : $(SRC) sml2latx.sed
 	latex SEMI.latex
 	latex SEMI.latex
 	touch latex
-
-
-
-# Generates plain ASCII output
-txt : $(SRC)
-	make amplif.txt
-	make theory.txt
-	make diode.txt
-	make bjt.txt
-	make jfet.txt
-	make mosfet.txt
-	make thyr.txt
-	make opamp.txt
-	make analog.txt
-	make active.txt
-	make dcdrive.txt
-	make acdrive.txt
-	make tubes.txt
-	make about.txt
-	make contrib.txt
-	make dsl.txt
-	cat amplif.txt \
-           theory.txt \
-           diode.txt \
-           bjt.txt \
-           jfet.txt \
-           mosfet.txt \
-           thyr.txt \
-           opamp.txt \
-           analog.txt \
-           active.txt \
-           dcdrive.txt \
-           acdrive.txt \
-           tubes.txt \
-           about.txt \
-           contrib.txt \
-           dsl.txt > SEMI.txt
-	touch txt
-
 
 
 

@@ -68,41 +68,6 @@ html : $(SRC) sml2html.sed
 	make EXP_A3.html
 
 
-# Converts SubML source into TeX source
-intro.tex : intro.sml
-	sed -f sml2tex.sed intro.sml > intro.tex
-
-basic.tex : basic.sml
-	sed -f sml2tex.sed basic.sml > basic.tex
-
-dc.tex : dc.sml
-	sed -f sml2tex.sed dc.sml > dc.tex
-
-ac.tex : ac.sml
-	sed -f sml2tex.sed ac.sml > ac.tex
-
-discrete.tex : discrete.sml
-	sed -f sml2tex.sed discrete.sml > discrete.tex
-
-a_ic.tex : a_ic.sml
-	sed -f sml2tex.sed a_ic.sml > a_ic.tex
-
-d_ic.tex : d_ic.sml
-	sed -f sml2tex.sed d_ic.sml > d_ic.tex
-
-555.tex : 555.sml
-	sed -f sml2tex.sed 555.sml > 555.tex
-
-about.tex : about.sml
-	sed -f sml2tex.sed about.sml > about.tex
-
-contrib.tex : contrib.sml
-	sed -f sml2tex.sed contrib.sml > contrib.tex
-
-dsl.tex : dsl.sml
-	sed -f sml2tex.sed dsl.sml > dsl.tex
-
-
 # Converts SubML source into LaTeX source
 intro.latex : intro.sml sml2latx.sed
 	sed -f sml2latx.sed intro.sml > intro.latex
@@ -148,41 +113,6 @@ dsl.latex : dsl.sml sml2latx.sed
 	cp dsl.latex dsl.latex~
 	sed  s/\\minitoc//g dsl.latex~ >dsl.latex
 	rm dsl.latex~
-
-
-# Converts SubML source into plain ASCII text
-intro.txt : intro.sml sml2latx.sed
-	sed -f sml2txt.sed intro.sml > intro.txt
-
-basic.txt : basic.sml
-	sed -f sml2txt.sed basic.sml > basic.txt
-
-dc.txt : dc.sml
-	sed -f sml2txt.sed dc.sml > dc.txt
-
-ac.txt : ac.sml
-	sed -f sml2txt.sed ac.sml > ac.txt
-
-discrete.txt : discrete.sml
-	sed -f sml2txt.sed discrete.sml > discrete.txt
-
-a_ic.txt : a_ic.sml
-	sed -f sml2txt.sed a_ic.sml > a_ic.txt
-
-d_ic.txt : d_ic.sml
-	sed -f sml2txt.sed d_ic.sml > d_ic.txt
-
-555.txt : 555.sml
-	sed -f sml2txt.sed 555.sml > 555.txt
-
-about.txt : about.sml
-	sed -f sml2txt.sed about.sml > about.txt
-
-contrib.txt : contrib.sml
-	sed -f sml2txt.sed contrib.sml > contrib.txt
-
-dsl.txt : dsl.sml
-	sed -f sml2txt.sed dsl.sml > dsl.txt
 
 
 # Converts SubML source into HTML source
@@ -260,36 +190,6 @@ EXP_A3.html : dsl.sml hi_A3.html bye_A3.html  sml2html.sed
 	cat bye_A3.html >> EXP_A3.html
 
 
-# Generates DVI output using TeX
-tex : $(SRC) sml2html.sed
-	make intro.tex
-	make basic.tex
-	make dc.tex
-	make ac.tex
-	make discrete.tex
-	make a_ic.tex
-	make d_ic.tex
-	make about.tex
-	make contrib.tex
-	make dsl.tex
-	make 555.tex
-	cat hi.tex \
-           intro.tex \
-           basic.tex \
-           dc.tex \
-           ac.tex \
-           discrete.tex \
-           a_ic.tex \
-           d_ic.tex \
-           555.tex \
-           about.tex \
-           contrib.tex \
-           dsl.tex \
-           bye.tex > EXP.tex
-	tex EXP.tex
-	touch tex
-
-
 # Generates DVI output using LaTeX
 latex : $(SRC) sml2latx.sed
 	make intro.latex
@@ -322,33 +222,6 @@ latex : $(SRC) sml2latx.sed
 	latex EXP.latex
 	latex EXP.latex
 	touch latex
-
-
-# Generates plain ASCII output
-txt : $(SRC)
-	make intro.txt
-	make basic.txt
-	make dc.txt
-	make ac.txt
-	make discrete.txt
-	make a_ic.txt
-	make d_ic.txt
-	make 555.txt
-	make about.txt
-	make contrib.txt
-	make dsl.txt
-	cat intro.txt \
-           basic.txt \
-           dc.txt \
-           ac.txt \
-           discrete.txt \
-           a_ic.txt \
-           d_ic.txt \
-           555.txt \
-           about.txt \
-           contrib.txt \
-           dsl.txt > EXP.txt
-	touch txt
 
 
 # Generates compressed PostScript and PDF output

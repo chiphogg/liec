@@ -74,50 +74,6 @@ html : $(SRC) sml2html.sed
 
 
 
-# Converts SubML source into TeX source
-equation.tex : equation.sml
-	sed -f sml2tex.sed equation.sml > equation.tex
-
-colors.tex : colors.sml
-	sed -f sml2tex.sed colors.sml > colors.tex
-
-citable.tex : citable.sml
-	sed -f sml2tex.sed citable.sml > citable.tex
-
-algebra.tex : algebra.sml
-	sed -f sml2tex.sed algebra.sml > algebra.tex
-
-trig.tex : trig.sml
-	sed -f sml2tex.sed trig.sml > trig.tex
-
-calculus.tex : calculus.sml
-	sed -f sml2tex.sed calculus.sml > calculus.tex
-
-spice.tex : spice.sml
-	sed -f sml2tex.sed spice.sml > spice.tex
-
-trouble.tex : trouble.sml
-	sed -f sml2tex.sed trouble.sml > trouble.tex
-
-symbol.tex : symbol.sml
-	sed -f sml2tex.sed symbol.sml > symbol.tex
-
-periodic.tex : periodic.sml
-	sed -f sml2tex.sed periodic.sml > periodic.tex
-
-about.tex : about.sml
-	sed -f sml2tex.sed about.sml > about.tex
-
-contrib.tex : contrib.sml
-	sed -f sml2tex.sed contrib.sml > contrib.tex
-
-dsl.tex : dsl.sml
-	sed -f sml2tex.sed dsl.sml > dsl.tex
-
-
-
-
-
 # Converts SubML source into LaTeX source
 equation.latex : equation.sml sml2latx.sed
 	sed -f sml2latx.sed equation.sml > equation.latex
@@ -167,49 +123,6 @@ dsl.latex : dsl.sml sml2latx.sed
 	cp dsl.latex dsl.latex~
 	sed  s/\\minitoc//g dsl.latex~ >dsl.latex
 
-
-
-
-
-# Converts SubML source into plain ASCII text
-equation.txt : equation.sml
-	sed -f sml2txt.sed equation.sml > equation.txt
-
-colors.txt : colors.sml
-	sed -f sml2txt.sed colors.sml > colors.txt
-
-citable.txt : citable.sml
-	sed -f sml2txt.sed citable.sml > citable.txt
-
-algebra.txt : algebra.sml
-	sed -f sml2txt.sed algebra.sml > algebra.txt
-
-trig.txt : trig.sml
-	sed -f sml2txt.sed trig.sml > trig.txt
-
-calculus.txt : calculus.sml
-	sed -f sml2txt.sed calculus.sml > calculus.txt
-
-spice.txt : spice.sml
-	sed -f sml2txt.sed spice.sml > spice.txt
-
-trouble.txt : trouble.sml
-	sed -f sml2txt.sed trouble.sml > trouble.txt
-
-symbol.txt : symbol.sml
-	sed -f sml2txt.sed symbol.sml > symbol.txt
-
-periodic.txt : periodic.sml
-	sed -f sml2txt.sed periodic.sml > periodic.txt
-
-about.txt : about.sml
-	sed -f sml2txt.sed about.sml > about.txt
-
-contrib.txt : contrib.sml
-	sed -f sml2txt.sed contrib.sml > contrib.txt
-
-dsl.txt : dsl.sml
-	sed -f sml2txt.sed dsl.sml > dsl.txt
 
 
 
@@ -312,43 +225,6 @@ REF_A3.html : dsl.sml hi_A3.html bye_A3.html sml2html.sed
 
 
 
-# Generates DVI output using TeX
-tex : $(SRC)
-	make equation.tex
-	make colors.tex
-	make citable.tex
-	make algebra.tex
-	make trig.tex
-	make calculus.tex
-	make spice.tex
-	make trouble.tex
-	make symbol.tex
-	make periodic.tex
-	make about.tex
-	make contrib.tex
-	make dsl.tex
-	cat hi.tex \
-           equation.tex \
-           colors.tex \
-           citable.tex \
-           algebra.tex \
-           trig.tex \
-           calculus.tex \
-           spice.tex \
-           trouble.tex \
-           symbol.tex \
-           periodic.tex \
-           about.tex \
-           contrib.tex \
-           dsl.tex \
-           bye.tex > REF.tex
-	tex REF.tex
-	touch tex
-
-
-
-
-
 # Generates DVI output using LaTeX
 latex : $(SRC) sml2latx.sed
 	make equation.latex
@@ -387,39 +263,6 @@ latex : $(SRC) sml2latx.sed
 	touch latex
 
 
-
-
-
-
-# Generates plain ASCII output
-txt : $(SRC)
-	make equation.txt
-	make colors.txt
-	make citable.txt
-	make algebra.txt
-	make trig.txt
-	make calculus.txt
-	make spice.txt
-	make trouble.txt
-	make symbol.txt
-	make periodic.txt
-	make about.txt
-	make contrib.txt
-	make dsl.txt
-	cat equation.txt \
-           colors.txt \
-           citable.txt \
-           algebra.txt \
-           trig.txt \
-           calculus.txt \
-           spice.txt \
-           trouble.txt \
-           symbol.txt \
-           periodic.txt \
-           about.txt \
-           contrib.txt \
-           dsl.txt > REF.txt
-	touch txt
 
 
 

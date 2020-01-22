@@ -111,60 +111,6 @@ html : $(SRC) sml2html.sed
 
 
 
-# Converts SubML source into TeX source
-basicac.tex : basicac.sml 
-	sed -f sml2tex.sed basicac.sml > basicac.tex
-
-complex.tex : complex.sml
-	sed -f sml2tex.sed complex.sml > complex.tex
-
-xzl.tex : xzl.sml
-	sed -f sml2tex.sed xzl.sml > xzl.tex
-
-xzc.tex : xzc.sml
-	sed -f sml2tex.sed xzc.sml > xzc.tex
-
-xzrlc.tex : xzrlc.sml
-	sed -f sml2tex.sed xzrlc.sml > xzrlc.tex
-
-resonant.tex : resonant.sml
-	sed -f sml2tex.sed resonant.sml > resonant.tex
-
-mixed.tex : mixed.sml
-	sed -f sml2tex.sed mixed.sml > mixed.tex
-
-filters.tex : filters.sml
-	sed -f sml2tex.sed filters.sml > filters.tex
-
-trans.tex : trans.sml
-	sed -f sml2tex.sed trans.sml > trans.tex
-
-poly.tex : poly.sml
-	sed -f sml2tex.sed poly.sml > poly.tex
-
-acpower.tex : acpower.sml
-	sed -f sml2tex.sed acpower.sml > acpower.tex
-
-acmeter.tex : acmeter.sml
-	sed -f sml2tex.sed acmeter.sml > acmeter.tex
-
-acmotor.tex : acmotor.sml
-	sed -f sml2tex.sed acmotor.sml > acmotor.tex
-
-lines.tex : lines.sml
-	sed -f sml2tex.sed lines.sml > lines.tex
-
-about.tex : about.sml
-	sed -f sml2tex.sed about.sml > about.tex
-
-contrib.tex : contrib.sml
-	sed -f sml2tex.sed contrib.sml > contrib.tex
-
-dsl.tex : dsl.sml
-	sed -f sml2tex.sed dsl.sml > dsl.tex
-
-
-
 # Converts SubML source into LaTeX source
 basicac.latex : basicac.sml sml2latx.sed
 	sed -f sml2latx.sed basicac.sml > basicac.latex
@@ -226,61 +172,6 @@ dsl.latex : dsl.sml sml2latx.sed
 	cp dsl.latex dsl.latex~
 	sed  s/^.minitoc//g dsl.latex~ >dsl.latex
 	
-
-
-# Converts SubML source into plain ASCII text
-basicac.txt : basicac.sml sml2latx.sed
-	sed -f sml2txt.sed basicac.sml > basicac.txt
-
-complex.txt : complex.sml
-	sed -f sml2txt.sed complex.sml > complex.txt
-
-xzl.txt : xzl.sml
-	sed -f sml2txt.sed xzl.sml > xzl.txt
-
-xzc.txt : xzc.sml
-	sed -f sml2txt.sed xzc.sml > xzc.txt
-
-xzrlc.txt : xzrlc.sml
-	sed -f sml2txt.sed xzrlc.sml > xzrlc.txt
-
-resonant.txt : resonant.sml
-	sed -f sml2txt.sed resonant.sml > resonant.txt
-
-mixed.txt : mixed.sml
-	sed -f sml2txt.sed mixed.sml > mixed.txt
-
-filters.txt : filters.sml
-	sed -f sml2txt.sed filters.sml > filters.txt
-
-trans.txt : trans.sml
-	sed -f sml2txt.sed trans.sml > trans.txt
-
-poly.txt : poly.sml
-	sed -f sml2txt.sed poly.sml > poly.txt
-
-acpower.txt : acpower.sml
-	sed -f sml2txt.sed acpower.sml > acpower.txt
-
-acmeter.txt : acmeter.sml
-	sed -f sml2txt.sed acmeter.sml > acmeter.txt
-
-acmotor.txt : acmotor.sml
-	sed -f sml2txt.sed acmotor.sml > acmotor.txt
-
-lines.txt : lines.sml
-	sed -f sml2txt.sed lines.sml > lines.txt
-
-about.txt : about.sml
-	sed -f sml2txt.sed about.sml > about.txt
-
-contrib.txt : contrib.sml
-	sed -f sml2txt.sed contrib.sml > contrib.txt
-
-dsl.txt : dsl.sml
-	sed -f sml2txt.sed dsl.sml > dsl.txt
-
-
 
 
 # Converts SubML source into HTML source
@@ -404,49 +295,6 @@ AC_A3.html : dsl.sml hi_A3.html bye_A3.html sml2html.sed
 
 
 
-# Generates DVI output using TeX
-tex : $(SRC)
-	make basicac.tex
-	make complex.tex
-	make xzl.tex
-	make xzc.tex
-	make xzrlc.tex
-	make resonant.tex
-	make mixed.tex
-	make filters.tex
-	make trans.tex
-	make poly.tex
-	make acpower.tex
-	make acmeter.tex
-	make acmotor.tex
-	make lines.tex
-	make about.tex
-	make contrib.tex
-	make dsl.tex
-	cat hi.tex \
-           basicac.tex \
-           complex.tex \
-           xzl.tex \
-           xzc.tex \
-           xzrlc.tex \
-           resonant.tex \
-           mixed.tex \
-           filters.tex \
-           trans.tex \
-           poly.tex \
-           acpower.tex \
-           acmeter.tex \
-           make acmotor.tex \
-           make lines.tex \
-           about.tex \
-           contrib.tex \
-           dsl.tex \
-           bye.tex > AC.tex
-	tex AC.tex
-	touch tex
-
-
-
 # Generates DVI output using LaTeX
 latex : $(SRC) sml2latx.sed
 	make basicac.latex
@@ -492,45 +340,6 @@ latex : $(SRC) sml2latx.sed
 	latex AC.latex
 	latex AC.latex
 	touch latex
-
-
-# Generates plain ASCII output
-txt : $(SRC)
-	make basicac.txt
-	make complex.txt
-	make xzl.txt
-	make xzc.txt
-	make xzrlc.txt
-	make resonant.txt
-	make mixed.txt
-	make filters.txt
-	make trans.txt
-	make poly.txt
-	make acpower.txt
-	make acmeter.txt
-	make acmotor.txt
-	make lines.txt
-	make about.txt
-	make contrib.txt
-	make dsl.txt
-	cat basicac.txt \
-           complex.txt \
-           xzl.txt \
-           xzc.txt \
-           xzrlc.txt \
-           resonant.txt \
-           mixed.txt \
-           filters.txt \
-           trans.txt \
-           poly.txt \
-           acpower.txt \
-           acmeter.txt \
-           about.txt \
-           contrib.txt \
-           dsl.txt > AC.txt
-	touch txt
-
-
 
 
 # Generates compressed PostScript and PDF output
