@@ -1,5 +1,5 @@
 archive :
-	tar cvf cmar0301.tar Makefile sml2*.sed hi.tex validate* submlmake* \
+	tar cvf cmar0301.tar Makefile sml2*.sed hi.tex validate* \
                 tutorial.sml test.* subml*
 
 output:
