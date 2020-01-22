@@ -1,7 +1,7 @@
 \documentclass{book} 
 \usepackage{makeidx} 
 \usepackage[dvips]{graphicx} 
-\usepackage{} 
+\usepackage{minitoc} 
 \makeindex 
 \usepackage[ 
     pdftitle = "{Lessons In Electric Circuits, Volume II -- AC}", 
@@ -32,7 +32,7 @@
 %  USA
 
 \chapter{The SubML markup language} 
-\ 
+\minitoc 
 
  
 
@@ -985,12 +985,12 @@ A  mini Table of Contents (TOC) is automatically inserted after the chapter titl
 
  
 
-In the case of html, the sml2htm.sed file contains the $<$/chpatertitle$>$ tag substitution: $<$!----$>$ which flags the html for inclusion of the mini TOC. We use a a perl script, htmltoc, modified for our requirements to htmltoc2 for placing a mini TOC at the $<$!----$>$ tag. The original script placed the mini TOC before the chapter title. So, we modified it to place the mini TOC at our tag, which is after the title. The Makefile has a line calling  with appropriate parameters:
+In the case of html, the sml2htm.sed file contains the $<$/chpatertitle$>$ tag substitution: $<$!--minitoc--$>$ which flags the html for inclusion of the mini TOC. We use a a perl script, htmltoc, modified for our requirements to htmltoc2 for placing a mini TOC at the $<$!--minitoc--$>$ tag. The original script placed the mini TOC before the chapter title. So, we modified it to place the mini TOC at our tag, which is after the title. The Makefile has a line calling minitoc with appropriate parameters:
 \begingroup \vskip\parskip \everypar={\nobreak} \obeyspaces \frenchspacing \tt \obeylines \parskip=0pt \parindent=0pt 
 ~     ./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map $\backslash$
-~       - "<$\backslash$!$\backslash$-$\backslash$-$\backslash$$\backslash$-$\backslash$->" AC\_{}1.html
+~       -minitoc "<$\backslash$!$\backslash$-$\backslash$-$\backslash$minitoc$\backslash$-$\backslash$->" AC\_{}1.html
 \endgroup 
-See the  documentation for details. We added the - parameter to the htmltoc perl script for our htmltoc2 so that it looks for the quoted tag which follows it. In our case we want the mini TOC at the $<$!----$>$ tag, so that tag with escaping backslashes follows.
+See the minitoc documentation for details. We added the -minitoc parameter to the htmltoc perl script for our htmltoc2 so that it looks for the quoted tag which follows it. In our case we want the mini TOC at the $<$!--minitoc--$>$ tag, so that tag with escaping backslashes follows.
  
 
  
@@ -1000,17 +1000,17 @@ The makefile for each book has a make target for each of the book chapters. The 
 
  
 
-In the case of the \LaTeX{} translation, .latex,  the $<$/chaptertitle$>$ in .sml is replaced by /. See sml2latx.sed. This / tells \LaTeX{} where to place the mini TOC.
+In the case of the \LaTeX{} translation, .latex,  the $<$/chaptertitle$>$ in .sml is replaced by /minitoc. See sml2latx.sed. This /minitoc tells \LaTeX{} where to place the mini TOC.
  
 
  
 
-Also, the header, hi.latex, contains $\backslash$usepackage$\{$$\}$ and $\backslash$do to load the  package and "do" the minitable of contents respectively. The table will be placed where the / command is encountered in the chapter text.
+Also, the header, hi.latex, contains $\backslash$usepackage$\{$minitoc$\}$ and $\backslash$dominitoc to load the minitoc package and "do" the minitable of contents respectively. The table will be placed where the /minitoc command is encountered in the chapter text.
  
 
  
 
-Nothing unusual is required of the makefile to generate the mini TOC. However, if we do not want the mini TOC in the appendices, a sed script in each of the latex appendix targets, removes the / command from the .latex. Normal target processing, puts a chapter mini TOC in for all chapters but appendices. Eg., see AC/Makefile targets: lines.latex, about.latex for chapter vs appendix.
+Nothing unusual is required of the makefile to generate the mini TOC. However, if we do not want the mini TOC in the appendices, a sed script in each of the latex appendix targets, removes the /minitoc command from the .latex. Normal target processing, puts a chapter mini TOC in for all chapters but appendices. Eg., see AC/Makefile targets: lines.latex, about.latex for chapter vs appendix.
  
 
 
