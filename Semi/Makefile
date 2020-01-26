@@ -27,8 +27,6 @@ SRC = amplif.sml \
       about.sml \
       contrib.sml \
       dsl.sml \
-      hi.tex \
-      bye.tex \
       hi.latex \
       hi_appendix.latex \
       bye.latex \

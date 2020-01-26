@@ -44,9 +44,7 @@ SRC = basicac.sml \
       about.sml \
       contrib.sml \
       dsl.sml \
-      hi.tex \
       hi_appendix.latex \
-      bye.tex \
       hi.latex \
       bye.latex \
       hi_1.html \
