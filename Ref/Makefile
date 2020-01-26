@@ -127,99 +127,99 @@ dsl.latex : dsl.sml sml2latx.sed
 
 # Converts SubML source into HTML source
 REF_1.html : equation.sml hi_1.html bye_1.html sml2html.sed
-	cat hi_1.html > REF_1.html
-	sed -f sml2html.sed equation.sml >> REF_1.html
-	cat bye_1.html >> REF_1.html
+	cat hi_1.html > $@
+	sed -f sml2html.sed equation.sml >> $@
+	cat bye_1.html >> $@
 
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" REF_1.html
+        -minitoc "<\!\-\-\minitoc\-\->" $@
 
 REF_2.html : colors.sml hi_2.html bye_2.html sml2html.sed
-	cat hi_2.html > REF_2.html
-	sed -f sml2html.sed colors.sml >> REF_2.html
-	cat bye_2.html >> REF_2.html
+	cat hi_2.html > $@
+	sed -f sml2html.sed colors.sml >> $@
+	cat bye_2.html >> $@
 
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" REF_2.html
+        -minitoc "<\!\-\-\minitoc\-\->" $@
 
 REF_3.html : citable.sml hi_3.html bye_3.html sml2html.sed
-	cat hi_3.html > REF_3.html
-	sed -f sml2html.sed citable.sml >> REF_3.html
-	cat bye_3.html >> REF_3.html
+	cat hi_3.html > $@
+	sed -f sml2html.sed citable.sml >> $@
+	cat bye_3.html >> $@
 
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" REF_3.html
+        -minitoc "<\!\-\-\minitoc\-\->" $@
 
 REF_4.html : algebra.sml hi_4.html bye_4.html sml2html.sed
-	cat hi_4.html > REF_4.html
-	sed -f sml2html.sed algebra.sml >> REF_4.html
-	cat bye_4.html >> REF_4.html
+	cat hi_4.html > $@
+	sed -f sml2html.sed algebra.sml >> $@
+	cat bye_4.html >> $@
 
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" REF_4.html
+        -minitoc "<\!\-\-\minitoc\-\->" $@
 
 REF_5.html : trig.sml hi_5.html bye_5.html sml2html.sed
-	cat hi_5.html > REF_5.html
-	sed -f sml2html.sed trig.sml >> REF_5.html
-	cat bye_5.html >> REF_5.html
+	cat hi_5.html > $@
+	sed -f sml2html.sed trig.sml >> $@
+	cat bye_5.html >> $@
 
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" REF_5.html
+        -minitoc "<\!\-\-\minitoc\-\->" $@
 
 REF_6.html : calculus.sml hi_6.html bye_6.html sml2html.sed
-	cat hi_6.html > REF_6.html
-	sed -f sml2html.sed calculus.sml >> REF_6.html
-	cat bye_6.html >> REF_6.html
+	cat hi_6.html > $@
+	sed -f sml2html.sed calculus.sml >> $@
+	cat bye_6.html >> $@
 
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" REF_6.html
+        -minitoc "<\!\-\-\minitoc\-\->" $@
 
 REF_7.html : spice.sml hi_7.html bye_7.html sml2html.sed
-	cat hi_7.html > REF_7.html
-	sed -f sml2html.sed spice.sml >> REF_7.html
-	cat bye_7.html >> REF_7.html
+	cat hi_7.html > $@
+	sed -f sml2html.sed spice.sml >> $@
+	cat bye_7.html >> $@
 
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" REF_7.html
+        -minitoc "<\!\-\-\minitoc\-\->" $@
 
 REF_8.html : trouble.sml hi_8.html bye_8.html sml2html.sed
-	cat hi_8.html > REF_8.html
-	sed -f sml2html.sed trouble.sml >> REF_8.html
-	cat bye_8.html >> REF_8.html
+	cat hi_8.html > $@
+	sed -f sml2html.sed trouble.sml >> $@
+	cat bye_8.html >> $@
 
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" REF_8.html
+        -minitoc "<\!\-\-\minitoc\-\->" $@
 
 REF_9.html : symbol.sml hi_9.html bye_9.html sml2html.sed
-	cat hi_9.html > REF_9.html
-	sed -f sml2html.sed symbol.sml >> REF_9.html
-	cat bye_9.html >> REF_9.html
+	cat hi_9.html > $@
+	sed -f sml2html.sed symbol.sml >> $@
+	cat bye_9.html >> $@
 
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" REF_9.html
+        -minitoc "<\!\-\-\minitoc\-\->" $@
 
 REF_10.html : periodic.sml hi_10.html bye_10.html sml2html.sed
-	cat hi_10.html > REF_10.html
-	sed -f sml2html.sed periodic.sml >> REF_10.html
-	cat bye_10.html >> REF_10.html
+	cat hi_10.html > $@
+	sed -f sml2html.sed periodic.sml >> $@
+	cat bye_10.html >> $@
 
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" REF_10.html
+        -minitoc "<\!\-\-\minitoc\-\->" $@
 
 REF_A1.html : about.sml hi_A1.html bye_A1.html sml2html.sed
-	cat hi_A1.html > REF_A1.html
-	sed -f sml2html.sed about.sml >> REF_A1.html
-	cat bye_A1.html >> REF_A1.html
+	cat hi_A1.html > $@
+	sed -f sml2html.sed about.sml >> $@
+	cat bye_A1.html >> $@
 
 REF_A2.html : contrib.sml hi_A2.html bye_A2.html sml2html.sed
-	cat hi_A2.html > REF_A2.html
-	sed -f sml2html.sed contrib.sml >> REF_A2.html
-	cat bye_A2.html >> REF_A2.html
+	cat hi_A2.html > $@
+	sed -f sml2html.sed contrib.sml >> $@
+	cat bye_A2.html >> $@
 
 REF_A3.html : dsl.sml hi_A3.html bye_A3.html sml2html.sed
-	cat hi_A3.html > REF_A3.html
-	sed -f sml2html.sed dsl.sml >> REF_A3.html
-	cat bye_A3.html >> REF_A3.html
+	cat hi_A3.html > $@
+	sed -f sml2html.sed dsl.sml >> $@
+	cat bye_A3.html >> $@
 
 
 

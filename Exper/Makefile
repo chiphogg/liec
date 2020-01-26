@@ -117,75 +117,75 @@ dsl.latex : dsl.sml sml2latx.sed
 # toc.map is necessary to htmltoc2 perl script
 # added htmltoc2 for mini-table of contnets in chapters
 EXP_1.html : intro.sml hi_1.html bye_1.html sml2html.sed
-	cat hi_1.html > EXP_1.html
-	sed -f sml2html.sed intro.sml >> EXP_1.html
-	cat bye_1.html >> EXP_1.html
+	cat hi_1.html > $@
+	sed -f sml2html.sed intro.sml >> $@
+	cat bye_1.html >> $@
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" EXP_1.html
+        -minitoc "<\!\-\-\minitoc\-\->" $@
 
 EXP_2.html : basic.sml hi_2.html bye_2.html sml2html.sed
-	cat hi_2.html > EXP_2.html
-	sed -f sml2html.sed basic.sml >> EXP_2.html
-	cat bye_2.html >> EXP_2.html
+	cat hi_2.html > $@
+	sed -f sml2html.sed basic.sml >> $@
+	cat bye_2.html >> $@
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" EXP_2.html
+        -minitoc "<\!\-\-\minitoc\-\->" $@
 
 EXP_3.html : dc.sml hi_3.html bye_3.html sml2html.sed
-	cat hi_3.html > EXP_3.html
-	sed -f sml2html.sed dc.sml >> EXP_3.html
-	cat bye_3.html >> EXP_3.html
+	cat hi_3.html > $@
+	sed -f sml2html.sed dc.sml >> $@
+	cat bye_3.html >> $@
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" EXP_3.html
+        -minitoc "<\!\-\-\minitoc\-\->" $@
 
 EXP_4.html : ac.sml hi_4.html bye_4.html sml2html.sed
-	cat hi_4.html > EXP_4.html
-	sed -f sml2html.sed ac.sml >> EXP_4.html
-	cat bye_4.html >> EXP_4.html
+	cat hi_4.html > $@
+	sed -f sml2html.sed ac.sml >> $@
+	cat bye_4.html >> $@
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" EXP_4.html
+        -minitoc "<\!\-\-\minitoc\-\->" $@
 
 EXP_5.html : discrete.sml hi_5.html bye_5.html sml2html.sed
-	cat hi_5.html > EXP_5.html
-	sed -f sml2html.sed discrete.sml >> EXP_5.html
-	cat bye_5.html >> EXP_5.html
+	cat hi_5.html > $@
+	sed -f sml2html.sed discrete.sml >> $@
+	cat bye_5.html >> $@
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" EXP_5.html
+        -minitoc "<\!\-\-\minitoc\-\->" $@
 
 EXP_6.html : a_ic.sml hi_6.html bye_6.html sml2html.sed
-	cat hi_6.html > EXP_6.html
-	sed -f sml2html.sed a_ic.sml >> EXP_6.html
-	cat bye_6.html >> EXP_6.html
+	cat hi_6.html > $@
+	sed -f sml2html.sed a_ic.sml >> $@
+	cat bye_6.html >> $@
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" EXP_6.html
+        -minitoc "<\!\-\-\minitoc\-\->" $@
 
 EXP_7.html : d_ic.sml hi_7.html bye_7.html sml2html.sed
-	cat hi_7.html > EXP_7.html
-	sed -f sml2html.sed d_ic.sml >> EXP_7.html
-	cat bye_7.html >> EXP_7.html
+	cat hi_7.html > $@
+	sed -f sml2html.sed d_ic.sml >> $@
+	cat bye_7.html >> $@
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" EXP_7.html
+        -minitoc "<\!\-\-\minitoc\-\->" $@
 
 EXP_8.html : 555.sml hi_8.html bye_8.html sml2html.sed
-	cat hi_8.html > EXP_8.html
-	sed -f sml2html.sed 555.sml >> EXP_8.html
-	cat bye_8.html >> EXP_8.html
+	cat hi_8.html > $@
+	sed -f sml2html.sed 555.sml >> $@
+	cat bye_8.html >> $@
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" EXP_8.html
+        -minitoc "<\!\-\-\minitoc\-\->" $@
 
 EXP_A1.html : about.sml hi_A1.html bye_A1.html  sml2html.sed
-	cat hi_A1.html > EXP_A1.html
-	sed -f sml2html.sed about.sml >> EXP_A1.html
-	cat bye_A1.html >> EXP_A1.html
+	cat hi_A1.html > $@
+	sed -f sml2html.sed about.sml >> $@
+	cat bye_A1.html >> $@
 
 EXP_A2.html : contrib.sml hi_A2.html bye_A2.html  sml2html.sed
-	cat hi_A2.html > EXP_A2.html
-	sed -f sml2html.sed contrib.sml >> EXP_A2.html
-	cat bye_A2.html >> EXP_A2.html
+	cat hi_A2.html > $@
+	sed -f sml2html.sed contrib.sml >> $@
+	cat bye_A2.html >> $@
 
 EXP_A3.html : dsl.sml hi_A3.html bye_A3.html  sml2html.sed
-	cat hi_A3.html > EXP_A3.html
-	sed -f sml2html.sed dsl.sml >> EXP_A3.html
-	cat bye_A3.html >> EXP_A3.html
+	cat hi_A3.html > $@
+	sed -f sml2html.sed dsl.sml >> $@
+	cat bye_A3.html >> $@
 
 
 # Generates DVI output using LaTeX

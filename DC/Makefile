@@ -174,132 +174,132 @@ dsl.latex : dsl.sml sml2latx.sed
 # toc.map is necessary to htmltoc2 perl script
 # added htmltoc2 for mini-table of contnets in chapters
 DC_1.html : basiccon.sml hi_1.html bye_1.html sml2html.sed
-	cat hi_1.html > DC_1.html
-	sed -f sml2html.sed basiccon.sml >> DC_1.html
-	cat bye_1.html >> DC_1.html
+	cat hi_1.html > $@
+	sed -f sml2html.sed basiccon.sml >> $@
+	cat bye_1.html >> $@
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" DC_1.html
+        -minitoc "<\!\-\-\minitoc\-\->" $@
 
 DC_2.html : ohm.sml hi_2.html bye_2.html sml2html.sed
-	cat hi_2.html > DC_2.html
-	sed -f sml2html.sed ohm.sml >> DC_2.html
-	cat bye_2.html >> DC_2.html
+	cat hi_2.html > $@
+	sed -f sml2html.sed ohm.sml >> $@
+	cat bye_2.html >> $@
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" DC_2.html
+        -minitoc "<\!\-\-\minitoc\-\->" $@
 
 DC_3.html : safety.sml hi_3.html bye_3.html sml2html.sed
-	cat hi_3.html > DC_3.html
-	sed -f sml2html.sed safety.sml >> DC_3.html
-	cat bye_3.html >> DC_3.html
+	cat hi_3.html > $@
+	sed -f sml2html.sed safety.sml >> $@
+	cat bye_3.html >> $@
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" DC_3.html
+        -minitoc "<\!\-\-\minitoc\-\->" $@
 
 
 DC_4.html : scientif.sml hi_4.html bye_4.html sml2html.sed
-	cat hi_4.html > DC_4.html
-	sed -f sml2html.sed scientif.sml >> DC_4.html
-	cat bye_4.html >> DC_4.html
+	cat hi_4.html > $@
+	sed -f sml2html.sed scientif.sml >> $@
+	cat bye_4.html >> $@
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" DC_4.html
+        -minitoc "<\!\-\-\minitoc\-\->" $@
 
 DC_5.html : s_and_p.sml hi_5.html bye_5.html sml2html.sed
-	cat hi_5.html > DC_5.html
-	sed -f sml2html.sed s_and_p.sml >> DC_5.html
-	cat bye_5.html >> DC_5.html
+	cat hi_5.html > $@
+	sed -f sml2html.sed s_and_p.sml >> $@
+	cat bye_5.html >> $@
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" DC_5.html
+        -minitoc "<\!\-\-\minitoc\-\->" $@
 
 DC_6.html : divider.sml hi_6.html bye_6.html sml2html.sed
-	cat hi_6.html > DC_6.html
-	sed -f sml2html.sed divider.sml >> DC_6.html
-	cat bye_6.html >> DC_6.html
+	cat hi_6.html > $@
+	sed -f sml2html.sed divider.sml >> $@
+	cat bye_6.html >> $@
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" DC_6.html
+        -minitoc "<\!\-\-\minitoc\-\->" $@
 
 DC_7.html : s_p.sml hi_7.html bye_7.html sml2html.sed
-	cat hi_7.html > DC_7.html
-	sed -f sml2html.sed s_p.sml >> DC_7.html
-	cat bye_7.html >> DC_7.html
+	cat hi_7.html > $@
+	sed -f sml2html.sed s_p.sml >> $@
+	cat bye_7.html >> $@
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" DC_7.html
+        -minitoc "<\!\-\-\minitoc\-\->" $@
 
 DC_8.html : dcmeter.sml hi_8.html bye_8.html sml2html.sed
-	cat hi_8.html > DC_8.html
-	sed -f sml2html.sed dcmeter.sml >> DC_8.html
-	cat bye_8.html >> DC_8.html
+	cat hi_8.html > $@
+	sed -f sml2html.sed dcmeter.sml >> $@
+	cat bye_8.html >> $@
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" DC_8.html
+        -minitoc "<\!\-\-\minitoc\-\->" $@
 
 DC_9.html : dcsignal.sml hi_9.html bye_9.html sml2html.sed
-	cat hi_9.html > DC_9.html
-	sed -f sml2html.sed dcsignal.sml >> DC_9.html
-	cat bye_9.html >> DC_9.html
+	cat hi_9.html > $@
+	sed -f sml2html.sed dcsignal.sml >> $@
+	cat bye_9.html >> $@
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" DC_9.html
+        -minitoc "<\!\-\-\minitoc\-\->" $@
 
 DC_10.html : dcnet.sml hi_10.html bye_10.html sml2html.sed
-	cat hi_10.html > DC_10.html
-	sed -f sml2html.sed dcnet.sml >> DC_10.html
-	cat bye_10.html >> DC_10.html
+	cat hi_10.html > $@
+	sed -f sml2html.sed dcnet.sml >> $@
+	cat bye_10.html >> $@
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" DC_10.html
+        -minitoc "<\!\-\-\minitoc\-\->" $@
 
 DC_11.html : batt.sml hi_11.html bye_11.html sml2html.sed
-	cat hi_11.html > DC_11.html
-	sed -f sml2html.sed batt.sml >> DC_11.html
-	cat bye_11.html >> DC_11.html
+	cat hi_11.html > $@
+	sed -f sml2html.sed batt.sml >> $@
+	cat bye_11.html >> $@
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" DC_11.html
+        -minitoc "<\!\-\-\minitoc\-\->" $@
 
 DC_12.html : conduct.sml hi_12.html bye_12.html sml2html.sed
-	cat hi_12.html > DC_12.html
-	sed -f sml2html.sed conduct.sml >> DC_12.html
-	cat bye_12.html >> DC_12.html
+	cat hi_12.html > $@
+	sed -f sml2html.sed conduct.sml >> $@
+	cat bye_12.html >> $@
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" DC_12.html
+        -minitoc "<\!\-\-\minitoc\-\->" $@
 
 DC_13.html : cap.sml hi_13.html bye_13.html sml2html.sed
-	cat hi_13.html > DC_13.html
-	sed -f sml2html.sed cap.sml >> DC_13.html
-	cat bye_13.html >> DC_13.html
+	cat hi_13.html > $@
+	sed -f sml2html.sed cap.sml >> $@
+	cat bye_13.html >> $@
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" DC_13.html
+        -minitoc "<\!\-\-\minitoc\-\->" $@
 
 DC_14.html : magnet.sml hi_14.html bye_14.html sml2html.sed
-	cat hi_14.html > DC_14.html
-	sed -f sml2html.sed magnet.sml >> DC_14.html
-	cat bye_14.html >> DC_14.html
+	cat hi_14.html > $@
+	sed -f sml2html.sed magnet.sml >> $@
+	cat bye_14.html >> $@
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" DC_14.html
+        -minitoc "<\!\-\-\minitoc\-\->" $@
 
 DC_15.html : inductor.sml hi_15.html bye_15.html sml2html.sed
-	cat hi_15.html > DC_15.html
-	sed -f sml2html.sed inductor.sml >> DC_15.html
-	cat bye_15.html >> DC_15.html
+	cat hi_15.html > $@
+	sed -f sml2html.sed inductor.sml >> $@
+	cat bye_15.html >> $@
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" DC_15.html
+        -minitoc "<\!\-\-\minitoc\-\->" $@
 
 DC_16.html : time.sml hi_16.html bye_16.html sml2html.sed
-	cat hi_16.html > DC_16.html
-	sed -f sml2html.sed time.sml >> DC_16.html
-	cat bye_16.html >> DC_16.html
+	cat hi_16.html > $@
+	sed -f sml2html.sed time.sml >> $@
+	cat bye_16.html >> $@
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" DC_16.html
+        -minitoc "<\!\-\-\minitoc\-\->" $@
 
 DC_A1.html : about.sml hi_A1.html bye_A1.html sml2html.sed
-	cat hi_A1.html > DC_A1.html
-	sed -f sml2html.sed about.sml >> DC_A1.html
-	cat bye_A1.html >> DC_A1.html
+	cat hi_A1.html > $@
+	sed -f sml2html.sed about.sml >> $@
+	cat bye_A1.html >> $@
 
 DC_A2.html : contrib.sml hi_A2.html bye_A2.html sml2html.sed
-	cat hi_A2.html > DC_A2.html
-	sed -f sml2html.sed contrib.sml >> DC_A2.html
-	cat bye_A2.html >> DC_A2.html
+	cat hi_A2.html > $@
+	sed -f sml2html.sed contrib.sml >> $@
+	cat bye_A2.html >> $@
 
 DC_A3.html : dsl.sml hi_A3.html bye_A3.html sml2html.sed
-	cat hi_A3.html > DC_A3.html
-	sed -f sml2html.sed dsl.sml >> DC_A3.html
-	cat bye_A3.html >> DC_A3.html
+	cat hi_A3.html > $@
+	sed -f sml2html.sed dsl.sml >> $@
+	cat bye_A3.html >> $@
 
 
 
