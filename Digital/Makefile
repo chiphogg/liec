@@ -366,11 +366,14 @@ DIGI.ps : $(SRC)
 
 
 
-# Converts schematic and equation .eps graphics into .png format
-png: $(SRC)
-	mogrify -density 120 -format png 0*.eps
-	mogrify -density 120 -format png 1*.eps
-	touch png
+%.png: %.eps
+	mogrify -density 120 -format png $<
+
+eps_source_files := $(wildcard *.eps)
+output_pngs := $(eps_source_files:.eps=.png)
+
+.PHONY: png
+png: $(output_pngs)
 
 
 
