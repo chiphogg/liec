@@ -40,6 +40,14 @@ all :
 
 #####################################################################
 
+FOLDERS := DC AC Semi Digital Ref Exper
+
+output_folders: $(patsubst %,output/%,$(FOLDERS))
+
+output/%: FORCE
+	./prepare_output.sh "$*"
+
+FORCE:
 
 
 #####################################################################

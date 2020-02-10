@@ -4,3 +4,6 @@
 *.dvi
 *.pdf
 *.aux
+
+output/
+*/output
