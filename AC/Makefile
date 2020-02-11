@@ -84,6 +84,12 @@ SRC = basicac.sml \
       index.html \
       Makefile
 
+output:
+	mkdir -p output
+
+link: | output
+	ln -rsf *.png *.jpg *.html output
+
 echotex:
 	echo "TEXINPUTS= $(TEXINPUTS)"
 

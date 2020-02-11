@@ -51,6 +51,11 @@ SRC = equation.sml \
       index.html \
       Makefile
 
+output:
+	mkdir -p output
+
+link: | output
+	ln -rsf *.png *.jpg *.html output
 
 
 # Generates HTML output

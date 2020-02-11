@@ -49,6 +49,12 @@ output/%: FORCE
 
 FORCE:
 
+link_targets := $(patsubst %,link/%,$(FOLDERS))
+
+link: $(link_targets)
+
+link/%: output/%
+	make -C "$*" link
 
 #####################################################################
 
