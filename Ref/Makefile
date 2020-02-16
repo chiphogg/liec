@@ -58,24 +58,6 @@ link: | output
 	ln -rsf *.png *.jpg *.html output
 
 
-# Generates HTML output
-html : $(SRC) sml2html.sed
-	make REF_1.html
-	make REF_2.html
-	make REF_3.html
-	make REF_4.html
-	make REF_5.html
-	make REF_6.html
-	make REF_7.html
-	make REF_8.html
-	make REF_9.html
-	make REF_10.html
-	make REF_A1.html
-	make REF_A2.html
-	make REF_A3.html
-
-
-
 include utils.mak
 
 chapter_names := \
@@ -91,6 +73,7 @@ chapter_names := \
       periodic
 chapters := $(call sourcefile,$(chapter_names))
 latex_chapters := $(call latexfile,$(chapter_names))
+html_chapters := $(call htmlfile,REF_,$(chapter_names))
 get_chapter = $(word $(1),$(chapters))
 
 appendix_names := \
@@ -99,7 +82,11 @@ appendix_names := \
       dsl
 appendices := $(call sourcefile,$(appendix_names))
 latex_appendices := $(call latexfile,$(appendix_names))
+html_appendices := $(call htmlfile,REF_A,$(appendix_names))
 get_appendix = $(word $(1),$(appendices))
+
+# Generates HTML output
+html : $(html_chapters) $(html_appendices)
 
 %.latex: %.sml sml2latx.sed
 	sed -f sml2latx.sed $< > $@

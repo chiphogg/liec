@@ -75,25 +75,6 @@ link: | output
 
 
 
-# Generates HTML output
-html : $(SRC)
-	make SEMI_1.html
-	make SEMI_2.html
-	make SEMI_3.html
-	make SEMI_4.html
-	make SEMI_5.html
-	make SEMI_6.html
-	make SEMI_7.html
-	make SEMI_8.html
-	make SEMI_9.html
-	make SEMI_10.html
-	make SEMI_11.html
-	make SEMI_12.html
-	make SEMI_13.html
-	make SEMI_A1.html
-	make SEMI_A2.html
-	make SEMI_A3.html
-
 include utils.mak
 
 chapter_names := \
@@ -112,6 +93,7 @@ chapter_names := \
       tubes
 chapters := $(call sourcefile,$(chapter_names))
 latex_chapters := $(call latexfile,$(chapter_names))
+html_chapters := $(call htmlfile,SEMI_,$(chapter_names))
 get_chapter = $(word $(1),$(chapters))
 
 appendix_names := \
@@ -120,7 +102,11 @@ appendix_names := \
       dsl
 appendices := $(call sourcefile,$(appendix_names))
 latex_appendices := $(call latexfile,$(appendix_names))
+html_appendices := $(call htmlfile,SEMI_A,$(appendix_names))
 get_appendix = $(word $(1),$(appendices))
+
+# Generates HTML output
+html : $(html_chapters) $(html_appendices)
 
 %.latex: %.sml sml2latx.sed
 	sed -f sml2latx.sed $< > $@

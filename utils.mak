@@ -16,3 +16,9 @@ is_first_word = $(if $(filter $1,$(firstword $2)),Y,)
 _pos_if_nonempty = $(if $(call is_first_word,$1,$2),$(words $3),$(call \
 		   pos,$1,$(call tail,$2),$3))
 pos = $(if $2,$(call _pos_if_nonempty,$1,$2,x $3),0)
+
+# A sequence of indices corresponding to a list.
+indices = $(if $1,$(words x $2) $(call indices,$(call tail,$1),x $2),)
+
+# HTML filenames, according to the existing convention (i.e., index-based).
+htmlfile = $(patsubst %,$1%.html,$(call indices,$2))

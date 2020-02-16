@@ -83,29 +83,6 @@ link: | output
 	ln -rsf *.png *.jpg *.html output
 
 
-# Generates HTML output
-html : $(SRC) sml2html.sed
-	make DIGI_1.html
-	make DIGI_2.html
-	make DIGI_3.html
-	make DIGI_4.html
-	make DIGI_5.html
-	make DIGI_6.html
-	make DIGI_7.html
-	make DIGI_8.html
-	make DIGI_9.html
-	make DIGI_10.html
-	make DIGI_11.html
-	make DIGI_12.html
-	make DIGI_13.html
-	make DIGI_14.html
-	make DIGI_15.html
-	make DIGI_16.html
-	make DIGI_A1.html
-	make DIGI_A2.html
-	make DIGI_A3.html
-
-
 include utils.mak
 
 chapter_names := \
@@ -128,6 +105,7 @@ chapter_names := \
 
 chapters := $(call sourcefile,$(chapter_names))
 latex_chapters := $(call latexfile,$(chapter_names))
+html_chapters := $(call htmlfile,DIGI_,$(chapter_names))
 get_chapter = $(word $(1),$(chapters))
 
 appendix_names := \
@@ -136,7 +114,11 @@ appendix_names := \
       dsl
 appendices := $(call sourcefile,$(appendix_names))
 latex_appendices := $(call latexfile,$(appendix_names))
+html_appendices := $(call htmlfile,DIGI_A,$(appendix_names))
 get_appendix = $(word $(1),$(appendices))
+
+# Generates HTML output
+html : $(html_chapters) $(html_appendices)
 
 %.latex: %.sml sml2latx.sed
 	sed -f sml2latx.sed $< > $@

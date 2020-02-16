@@ -58,20 +58,6 @@ link: | output
 
 
 
-# Generates HTML output
-html : $(SRC) sml2html.sed
-	make EXP_1.html
-	make EXP_2.html
-	make EXP_3.html
-	make EXP_4.html
-	make EXP_5.html
-	make EXP_6.html
-	make EXP_7.html
-	make EXP_8.html
-	make EXP_A1.html
-	make EXP_A2.html
-	make EXP_A3.html
-
 include utils.mak
 
 chapter_names := \
@@ -86,6 +72,7 @@ chapter_names := \
 
 chapters := $(call sourcefile,$(chapter_names))
 latex_chapters := $(call latexfile,$(chapter_names))
+html_chapters := $(call htmlfile,EXP_,$(chapter_names))
 get_chapter = $(word $(1),$(chapters))
 
 appendix_names := \
@@ -94,7 +81,11 @@ appendix_names := \
       dsl
 appendices := $(call sourcefile,$(appendix_names))
 latex_appendices := $(call latexfile,$(appendix_names))
+html_appendices := $(call htmlfile,EXP_A,$(appendix_names))
 get_appendix = $(word $(1),$(appendices))
+
+# Generates HTML output
+html : $(html_chapters) $(html_appendices)
 
 %.latex: %.sml sml2latx.sed
 	sed -f sml2latx.sed $< > $@

@@ -78,29 +78,6 @@ link: | output
 	ln -rsf *.png *.jpg *.html output
 
 
-# Generates HTML output
-html : $(SRC) sml2html.sed
-	make DC_1.html
-	make DC_2.html
-	make DC_3.html
-	make DC_4.html
-	make DC_5.html
-	make DC_6.html
-	make DC_7.html
-	make DC_8.html
-	make DC_9.html
-	make DC_10.html
-	make DC_11.html
-	make DC_12.html
-	make DC_13.html
-	make DC_14.html
-	make DC_15.html
-	make DC_16.html
-	make DC_A1.html
-	make DC_A2.html
-	make DC_A3.html
-
-
 include utils.mak
 chapter_names := \
       basiccon \
@@ -122,6 +99,7 @@ chapter_names := \
 
 chapters := $(call sourcefile,$(chapter_names))
 latex_chapters := $(call latexfile,$(chapter_names))
+html_chapters := $(call htmlfile,DC_,$(chapter_names))
 get_chapter = $(word $(1),$(chapters))
 
 appendix_names := \
@@ -130,7 +108,11 @@ appendix_names := \
       dsl
 appendices := $(call sourcefile,$(appendix_names))
 latex_appendices := $(call latexfile,$(appendix_names))
+html_appendices := $(call htmlfile,DC_A,$(appendix_names))
 get_appendix = $(word $(1),$(appendices))
+
+# Generates HTML output
+html : $(html_chapters) $(html_appendices)
 
 %.latex: %.sml sml2latx.sed
 	sed -f sml2latx.sed $< > $@
