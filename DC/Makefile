@@ -308,7 +308,7 @@ DC_A3.html : dsl.sml hi_A3.html bye_A3.html sml2html.sed
 
 
 # Generates DVI output using LaTeX
-latex : $(SRC) sml2latx.sed
+DC.latex : $(SRC) sml2latx.sed
 	make basiccon.latex
 	make ohm.latex
 	make safety.latex
@@ -349,7 +349,9 @@ latex : $(SRC) sml2latx.sed
            about.latex \
            contrib.latex \
            dsl.latex \
-           bye.latex > DC.latex
+           bye.latex > $@
+
+latex: DC.latex
 	latex DC.latex
 	makeindex DC.idx
 	latex DC.latex

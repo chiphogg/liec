@@ -271,7 +271,7 @@ SEMI_A3.html : dsl.sml  hi_A3.html bye_A3.html sml2html.sed
 
 
 # Generates DVI output using LaTeX
-latex : $(SRC) sml2latx.sed
+SEMI.latex : $(SRC) sml2latx.sed
 	make amplif.latex
 	make theory.latex
 	make diode.latex
@@ -306,7 +306,9 @@ latex : $(SRC) sml2latx.sed
            about.latex \
            contrib.latex \
            dsl.latex \
-           bye.latex > SEMI.latex
+           bye.latex > $@
+
+latex: SEMI.latex
 	latex SEMI.latex
 	makeindex SEMI.idx
 	latex SEMI.latex

@@ -196,7 +196,7 @@ EXP_A3.html : dsl.sml hi_A3.html bye_A3.html  sml2html.sed
 
 
 # Generates DVI output using LaTeX
-latex : $(SRC) sml2latx.sed
+EXP.latex : $(SRC) sml2latx.sed
 	make intro.latex
 	make basic.latex
 	make dc.latex
@@ -221,7 +221,9 @@ latex : $(SRC) sml2latx.sed
            about.latex \
            contrib.latex \
            dsl.latex \
-           bye.latex > EXP.latex
+           bye.latex > $@
+
+latex: EXP.latex
 	latex EXP.latex
 	makeindex EXP.idx
 	latex EXP.latex

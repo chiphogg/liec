@@ -311,7 +311,7 @@ DIGI_A3.html : dsl.sml hi_A3.html bye_A3.html sml2html.sed
 
 
 # Generates DVI output using LaTeX
-latex : $(SRC) sml2latx.sed
+DIGI.latex : $(SRC) sml2latx.sed
 	make numbers.latex      
 	make binary.latex
 	make gates.latex
@@ -352,7 +352,9 @@ latex : $(SRC) sml2latx.sed
            about.latex \
            contrib.latex \
            dsl.latex \
-           bye.latex > DIGI.latex
+           bye.latex > $@
+
+latex: DIGI.latex
 	latex DIGI.latex
 	makeindex DIGI.idx
 	latex DIGI.latex

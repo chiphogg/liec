@@ -229,7 +229,7 @@ REF_A3.html : dsl.sml hi_A3.html bye_A3.html sml2html.sed
 
 
 # Generates DVI output using LaTeX
-latex : $(SRC) sml2latx.sed
+REF.latex : $(SRC) sml2latx.sed
 	make equation.latex
 	make colors.latex
 	make citable.latex
@@ -258,7 +258,9 @@ latex : $(SRC) sml2latx.sed
            about.latex \
            contrib.latex \
            dsl.latex \
-           bye.latex > REF.latex
+           bye.latex > $@
+
+latex: REF.latex
 	latex REF.latex
 	makeindex REF.idx
 	latex REF.latex
