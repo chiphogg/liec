@@ -101,78 +101,45 @@ html : $(SRC) sml2html.sed
 	make DC_A3.html
 
 
+sourcefile = $(patsubst %,%.sml,$(1))
+latexfile = $(patsubst %,%.latex,$(1))
+
+chapter_names := \
+      basiccon \
+      ohm \
+      safety \
+      scientif \
+      s_and_p \
+      divider \
+      s_p \
+      dcmeter \
+      dcsignal \
+      dcnet \
+      batt \
+      conduct \
+      cap \
+      magnet \
+      inductor \
+      time
+
+chapters := $(call sourcefile,$(chapter_names))
+latex_chapters := $(call latexfile,$(chapter_names))
+
+appendix_names := \
+      about \
+      contrib \
+      dsl
+appendices := $(call sourcefile,$(appendix_names))
+latex_appendices := $(call latexfile,$(appendix_names))
  
 
-# Converts SubML source into LaTeX source
-basiccon.latex : basiccon.sml sml2latx.sed
-	sed -f sml2latx.sed basiccon.sml > basiccon.latex
-
-ohm.latex : ohm.sml sml2latx.sed
-	sed -f sml2latx.sed ohm.sml > ohm.latex
-
-safety.latex : safety.sml sml2latx.sed
-	sed -f sml2latx.sed safety.sml > safety.latex
-
-scientif.latex : scientif.sml sml2latx.sed
-	sed -f sml2latx.sed scientif.sml > scientif.latex
-
-s_and_p.latex : s_and_p.sml sml2latx.sed
-	sed -f sml2latx.sed s_and_p.sml > s_and_p.latex
-
-divider.latex : divider.sml sml2latx.sed
-	sed -f sml2latx.sed divider.sml > divider.latex
-
-s_p.latex : s_p.sml sml2latx.sed
-	sed -f sml2latx.sed s_p.sml > s_p.latex
-
-dcmeter.latex : dcmeter.sml sml2latx.sed
-	sed -f sml2latx.sed dcmeter.sml > dcmeter.latex
-
-dcsignal.latex : dcsignal.sml sml2latx.sed
-	sed -f sml2latx.sed dcsignal.sml > dcsignal.latex
-
-dcnet.latex : dcnet.sml sml2latx.sed
-	sed -f sml2latx.sed dcnet.sml > dcnet.latex
-
-batt.latex : batt.sml sml2latx.sed
-	sed -f sml2latx.sed batt.sml > batt.latex
-
-conduct.latex : conduct.sml sml2latx.sed
-	sed -f sml2latx.sed conduct.sml > conduct.latex
-
-cap.latex : cap.sml sml2latx.sed
-	sed -f sml2latx.sed cap.sml > cap.latex
-
-magnet.latex : magnet.sml sml2latx.sed
-	sed -f sml2latx.sed magnet.sml > magnet.latex
-
-inductor.latex : inductor.sml sml2latx.sed
-	sed -f sml2latx.sed inductor.sml > inductor.latex
-
-time.latex : time.sml sml2latx.sed
-	sed -f sml2latx.sed time.sml > time.latex
-
-about.latex : about.sml sml2latx.sed
-	sed -f sml2latx.sed about.sml > about.latex
-	#no mini-TOC for this chapter-- remove it
-	cp about.latex about.latex~
-	sed  s/\\minitoc//g about.latex~ >about.latex
-	rm about.latex~ 
-	
-contrib.latex : contrib.sml sml2latx.sed
-	sed -f sml2latx.sed contrib.sml > contrib.latex
-	#no mini-TOC for this chapter-- remove it
-	cp contrib.latex contrib.latex~
-	sed  s/\\minitoc//g contrib.latex~ >contrib.latex
-	rm contrib.latex~ 
-	
-dsl.latex : dsl.sml sml2latx.sed
-	sed -f sml2latx.sed dsl.sml > dsl.latex
-	#no mini-TOC for this chapter-- remove it
-	cp dsl.latex dsl.latex~
-	sed  s/\\minitoc//g dsl.latex~ >dsl.latex
-	rm dsl.latex~ 
-
+%.latex: %.sml sml2latx.sed
+	sed -f sml2latx.sed $< > $@
+	if [ $(if $(filter $<,$(appendices)),1,0) -eq 1 ]; then \
+	    cp $@ .$@; \
+	    sed  s/\\minitoc//g .$@ > $@; \
+	    rm .$@; \
+	fi
 
 # Converts SubML source into HTML source
 # toc.map is necessary to htmltoc2 perl script
@@ -308,47 +275,11 @@ DC_A3.html : dsl.sml hi_A3.html bye_A3.html sml2html.sed
 
 
 # Generates DVI output using LaTeX
-DC.latex : $(SRC) sml2latx.sed
-	make basiccon.latex
-	make ohm.latex
-	make safety.latex
-	make scientif.latex
-	make s_and_p.latex
-	make divider.latex
-	make s_p.latex
-	make dcmeter.latex
-	make dcsignal.latex
-	make dcnet.latex
-	make batt.latex
-	make conduct.latex
-	make cap.latex
-	make magnet.latex
-	make inductor.latex
-	make time.latex
-	make about.latex
-	make contrib.latex
-	make dsl.latex
+DC.latex : $(latex_chapters) $(latex_appendices) sml2latx.sed
 	cat hi.latex \
-           basiccon.latex \
-           ohm.latex \
-           safety.latex \
-           scientif.latex \
-           s_and_p.latex \
-           divider.latex \
-           s_p.latex \
-           dcmeter.latex \
-           dcsignal.latex \
-           dcnet.latex \
-           batt.latex \
-           conduct.latex \
-           cap.latex \
-           magnet.latex \
-           inductor.latex \
-           time.latex \
+           $(latex_chapters) \
            hi_appendix.latex \
-           about.latex \
-           contrib.latex \
-           dsl.latex \
+           $(latex_appendices) \
            bye.latex > $@
 
 latex: DC.latex
