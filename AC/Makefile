@@ -113,70 +113,41 @@ html : $(SRC) sml2html.sed
 	make AC_A2.html
 	make AC_A3.html
 
+sourcefile = $(patsubst %,%.sml,$(1))
+latexfile = $(patsubst %,%.latex,$(1))
 
+chapter_names := \
+      basicac \
+      complex \
+      xzl \
+      xzc \
+      xzrlc \
+      resonant \
+      mixed \
+      filters \
+      trans \
+      poly \
+      acpower \
+      acmeter \
+      acmotor \
+      lines
+chapters := $(call sourcefile,$(chapter_names))
+latex_chapters := $(call latexfile,$(chapter_names))
 
-# Converts SubML source into LaTeX source
-basicac.latex : basicac.sml sml2latx.sed
-	sed -f sml2latx.sed basicac.sml > basicac.latex
+appendix_names := \
+      about \
+      contrib \
+      dsl
+appendices := $(call sourcefile,$(appendix_names))
+latex_appendices := $(call latexfile,$(appendix_names))
 
-complex.latex : complex.sml sml2latx.sed
-	sed -f sml2latx.sed complex.sml > complex.latex
-
-xzl.latex : xzl.sml sml2latx.sed
-	sed -f sml2latx.sed xzl.sml > xzl.latex
-
-xzc.latex : xzc.sml sml2latx.sed
-	sed -f sml2latx.sed xzc.sml > xzc.latex
-
-xzrlc.latex : xzrlc.sml sml2latx.sed
-	sed -f sml2latx.sed xzrlc.sml > xzrlc.latex
-
-resonant.latex : resonant.sml sml2latx.sed
-	sed -f sml2latx.sed resonant.sml > resonant.latex
-
-mixed.latex : mixed.sml sml2latx.sed
-	sed -f sml2latx.sed mixed.sml > mixed.latex
-
-filters.latex : filters.sml sml2latx.sed
-	sed -f sml2latx.sed filters.sml > filters.latex
-
-trans.latex : trans.sml sml2latx.sed
-	sed -f sml2latx.sed trans.sml > trans.latex
-
-poly.latex : poly.sml sml2latx.sed
-	sed -f sml2latx.sed poly.sml > poly.latex
-
-acpower.latex : acpower.sml sml2latx.sed
-	sed -f sml2latx.sed acpower.sml > acpower.latex
-
-acmeter.latex : acmeter.sml sml2latx.sed
-	sed -f sml2latx.sed acmeter.sml > acmeter.latex
-
-acmotor.latex : acmotor.sml sml2latx.sed
-	sed -f sml2latx.sed acmotor.sml > acmotor.latex
-
-lines.latex : lines.sml sml2latx.sed
-	sed -f sml2latx.sed lines.sml > lines.latex
-
-about.latex : about.sml sml2latx.sed
-	sed -f sml2latx.sed about.sml > about.latex
-	#no mini-TOC for this chapter-- remove it
-	cp about.latex about.latex~
-	sed  s/^.minitoc//g about.latex~ >about.latex
-	
-contrib.latex : contrib.sml sml2latx.sed
-	sed -f sml2latx.sed contrib.sml > contrib.latex
-	#no mini-TOC for this chapter-- remove it
-	cp contrib.latex contrib.latex~
-	sed  s/^.minitoc//g contrib.latex~ >contrib.latex
-	
-dsl.latex : dsl.sml sml2latx.sed
-	sed -f sml2latx.sed dsl.sml > dsl.latex
-	#no mini-TOC for this chapter-- remove it
-	cp dsl.latex dsl.latex~
-	sed  s/^.minitoc//g dsl.latex~ >dsl.latex
-	
-
+%.latex: %.sml sml2latx.sed
+	sed -f sml2latx.sed $< > $@
+	if [ $(if $(filter $<,$(appendices)),1,0) -eq 1 ]; then \
+	    cp $@ .$@; \
+	    sed  s/^.minitoc//g .$@ > $@; \
+	    rm .$@; \
+	fi
 
 # Converts SubML source into HTML source
 # toc.map is necessary to htmltoc2 perl script
@@ -300,44 +271,12 @@ AC_A3.html : dsl.sml hi_A3.html bye_A3.html sml2html.sed
 
 
 # Generates DVI output using LaTeX
-AC.latex : $(SRC) sml2latx.sed
-	make basicac.latex
-	make complex.latex
-	make xzl.latex
-	make xzc.latex
-	make xzrlc.latex
-	make resonant.latex
-	make mixed.latex
-	make filters.latex
-	make trans.latex
-	make poly.latex
-	make acpower.latex
-	make acmeter.latex
-	make acmotor.latex
-	make lines.latex
-	make about.latex
-	make contrib.latex
-	make dsl.latex
+AC.latex : $(latex_chapters) $(latex_appendices) sml2latx.sed
 	cat hi.latex \
-           basicac.latex \
-           complex.latex \
-           xzl.latex \
-           xzc.latex \
-           xzrlc.latex \
-           resonant.latex \
-           mixed.latex \
-           filters.latex \
-           trans.latex \
-           poly.latex \
-           acpower.latex \
-           acmeter.latex \
-           acmotor.latex \
-           lines.latex \
-           hi_appendix.latex \
-           about.latex \
-           contrib.latex \
-           dsl.latex \
-           bye.latex > $@
+        $(latex_chapters) \
+        hi_appendix.latex \
+        $(latex_appendices) \
+        bye.latex > $@
 
 latex: AC.latex
 	latex AC.latex
