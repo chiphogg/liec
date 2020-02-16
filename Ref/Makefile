@@ -76,58 +76,38 @@ html : $(SRC) sml2html.sed
 
 
 
+sourcefile = $(patsubst %,%.sml,$(1))
+latexfile = $(patsubst %,%.latex,$(1))
 
-# Converts SubML source into LaTeX source
-equation.latex : equation.sml sml2latx.sed
-	sed -f sml2latx.sed equation.sml > equation.latex
+chapter_names := \
+      equation \
+      colors \
+      citable \
+      algebra \
+      trig \
+      calculus \
+      spice \
+      trouble \
+      symbol \
+      periodic
 
-colors.latex : colors.sml sml2latx.sed
-	sed -f sml2latx.sed colors.sml > colors.latex
+chapters := $(call sourcefile,$(chapter_names))
+latex_chapters := $(call latexfile,$(chapter_names))
 
-citable.latex : citable.sml sml2latx.sed
-	sed -f sml2latx.sed citable.sml > citable.latex
-
-algebra.latex : algebra.sml sml2latx.sed
-	sed -f sml2latx.sed algebra.sml > algebra.latex
-
-trig.latex : trig.sml sml2latx.sed
-	sed -f sml2latx.sed trig.sml > trig.latex
-
-calculus.latex : calculus.sml sml2latx.sed
-	sed -f sml2latx.sed calculus.sml > calculus.latex
-
-spice.latex : spice.sml sml2latx.sed
-	sed -f sml2latx.sed spice.sml > spice.latex
-
-trouble.latex : trouble.sml sml2latx.sed
-	sed -f sml2latx.sed trouble.sml > trouble.latex
-
-symbol.latex : symbol.sml sml2latx.sed
-	sed -f sml2latx.sed symbol.sml > symbol.latex
-
-periodic.latex : periodic.sml sml2latx.sed
-	sed -f sml2latx.sed periodic.sml > periodic.latex
-
-about.latex : about.sml sml2latx.sed
-	sed -f sml2latx.sed about.sml > about.latex
-	#no mini-TOC for this chapter-- remove it
-	cp about.latex about.latex~
-	sed  s/\\minitoc//g about.latex~ >about.latex
-
-contrib.latex : contrib.sml sml2latx.sed
-	sed -f sml2latx.sed contrib.sml > contrib.latex
-	#no mini-TOC for this chapter-- remove it
-	cp contrib.latex contrib.latex~
-	sed  s/\\minitoc//g contrib.latex~ >contrib.latex
-
-dsl.latex : dsl.sml sml2latx.sed
-	sed -f sml2latx.sed dsl.sml > dsl.latex
-	#no mini-TOC for this chapter-- remove it
-	cp dsl.latex dsl.latex~
-	sed  s/\\minitoc//g dsl.latex~ >dsl.latex
-
-
-
+appendix_names := \
+      about \
+      contrib \
+      dsl
+appendices := $(call sourcefile,$(appendix_names))
+latex_appendices := $(call latexfile,$(appendix_names))
+ 
+%.latex: %.sml sml2latx.sed
+	sed -f sml2latx.sed $< > $@
+	if [ $(if $(filter $<,$(appendices)),1,0) -eq 1 ]; then \
+	    cp $@ .$@; \
+	    sed  s/\\minitoc//g .$@ > $@; \
+	    rm .$@; \
+	fi
 
 
 # Converts SubML source into HTML source
@@ -229,35 +209,11 @@ REF_A3.html : dsl.sml hi_A3.html bye_A3.html sml2html.sed
 
 
 # Generates DVI output using LaTeX
-REF.latex : $(SRC) sml2latx.sed
-	make equation.latex
-	make colors.latex
-	make citable.latex
-	make algebra.latex
-	make trig.latex
-	make calculus.latex
-	make spice.latex
-	make trouble.latex
-	make symbol.latex
-	make periodic.latex
-	make about.latex
-	make contrib.latex
-	make dsl.latex
+REF.latex : $(latex_chapters) $(latex_appendices) sml2latx.sed
 	cat hi.latex \
-           equation.latex \
-           colors.latex \
-           citable.latex \
-           algebra.latex \
-           trig.latex \
-           calculus.latex \
-           spice.latex \
-           trouble.latex \
-           symbol.latex \
-           periodic.latex \
+           $(latex_chapters) \
            hi_appendix.latex \
-           about.latex \
-           contrib.latex \
-           dsl.latex \
+           $(latex_appendices) \
            bye.latex > $@
 
 latex: REF.latex
