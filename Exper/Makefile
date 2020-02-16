@@ -72,52 +72,36 @@ html : $(SRC) sml2html.sed
 	make EXP_A2.html
 	make EXP_A3.html
 
+sourcefile = $(patsubst %,%.sml,$(1))
+latexfile = $(patsubst %,%.latex,$(1))
 
-# Converts SubML source into LaTeX source
-intro.latex : intro.sml sml2latx.sed
-	sed -f sml2latx.sed intro.sml > intro.latex
+chapter_names := \
+      intro \
+      basic \
+      dc \
+      ac \
+      discrete \
+      a_ic \
+      d_ic \
+      555
 
-basic.latex : basic.sml sml2latx.sed
-	sed -f sml2latx.sed basic.sml > basic.latex
+chapters := $(call sourcefile,$(chapter_names))
+latex_chapters := $(call latexfile,$(chapter_names))
 
-dc.latex : dc.sml sml2latx.sed
-	sed -f sml2latx.sed dc.sml > dc.latex
+appendix_names := \
+      about \
+      contrib \
+      dsl
+appendices := $(call sourcefile,$(appendix_names))
+latex_appendices := $(call latexfile,$(appendix_names))
 
-ac.latex : ac.sml sml2latx.sed
-	sed -f sml2latx.sed ac.sml > ac.latex
-
-discrete.latex : discrete.sml sml2latx.sed
-	sed -f sml2latx.sed discrete.sml > discrete.latex
-
-a_ic.latex : a_ic.sml sml2latx.sed
-	sed -f sml2latx.sed a_ic.sml > a_ic.latex
-
-d_ic.latex : d_ic.sml sml2latx.sed
-	sed -f sml2latx.sed d_ic.sml > d_ic.latex
-
-555.latex : 555.sml sml2latx.sed
-	sed -f sml2latx.sed 555.sml > 555.latex
-
-about.latex : about.sml sml2latx.sed
-	sed -f sml2latx.sed about.sml > about.latex
-	#no mini-TOC for this chapter-- remove it
-	cp about.latex about.latex~
-	sed  s/\\minitoc//g about.latex~ >about.latex
-	rm about.latex~
-	
-contrib.latex : contrib.sml sml2latx.sed
-	sed -f sml2latx.sed contrib.sml > contrib.latex
-	#no mini-TOC for this chapter-- remove it
-	cp contrib.latex contrib.latex~
-	sed  s/\\minitoc//g contrib.latex~ >contrib.latex
-	rm contrib.latex~
-
-dsl.latex : dsl.sml sml2latx.sed
-	sed -f sml2latx.sed dsl.sml > dsl.latex
-	#no mini-TOC for this chapter-- remove it
-	cp dsl.latex dsl.latex~
-	sed  s/\\minitoc//g dsl.latex~ >dsl.latex
-	rm dsl.latex~
+%.latex: %.sml sml2latx.sed
+	sed -f sml2latx.sed $< > $@
+	if [ $(if $(filter $<,$(appendices)),1,0) -eq 1 ]; then \
+	    cp $@ .$@; \
+	    sed  s/\\minitoc//g .$@ > $@; \
+	    rm .$@; \
+	fi
 
 
 # Converts SubML source into HTML source
@@ -196,31 +180,11 @@ EXP_A3.html : dsl.sml hi_A3.html bye_A3.html  sml2html.sed
 
 
 # Generates DVI output using LaTeX
-EXP.latex : $(SRC) sml2latx.sed
-	make intro.latex
-	make basic.latex
-	make dc.latex
-	make ac.latex
-	make discrete.latex
-	make a_ic.latex
-	make d_ic.latex
-	make 555.latex
-	make about.latex
-	make contrib.latex
-	make dsl.latex
+EXP.latex : $(latex_chapters) $(latex_appendices) sml2latx.sed
 	cat hi.latex \
-           intro.latex \
-           basic.latex \
-           dc.latex \
-           ac.latex \
-           discrete.latex \
-           a_ic.latex \
-           d_ic.latex \
-           555.latex \
+           $(latex_chapters) \
            hi_appendix.latex \
-           about.latex \
-           contrib.latex \
-           dsl.latex \
+           $(latex_appendices) \
            bye.latex > $@
 
 latex: EXP.latex
