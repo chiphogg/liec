@@ -133,6 +133,7 @@ chapter_names := \
       lines
 chapters := $(call sourcefile,$(chapter_names))
 latex_chapters := $(call latexfile,$(chapter_names))
+get_chapter = $(word $(1),$(chapters))
 
 appendix_names := \
       about \
@@ -140,6 +141,7 @@ appendix_names := \
       dsl
 appendices := $(call sourcefile,$(appendix_names))
 latex_appendices := $(call latexfile,$(appendix_names))
+get_appendix = $(word $(1),$(appendices))
 
 %.latex: %.sml sml2latx.sed
 	sed -f sml2latx.sed $< > $@
@@ -149,125 +151,18 @@ latex_appendices := $(call latexfile,$(appendix_names))
 	    rm .$@; \
 	fi
 
-# Converts SubML source into HTML source
-# toc.map is necessary to htmltoc2 perl script
-# added htmltoc2 for mini-table of contnets in chapters
-AC_1.html : basicac.sml hi_1.html bye_1.html sml2html.sed
-	cat hi_1.html > $@
-	sed -f sml2html.sed basicac.sml >> $@
-	cat bye_1.html >> $@
+.SECONDEXPANSION:
+AC_%.html : $$(call get_chapter,%) hi_%.html bye_%.html sml2html.sed
+	cat hi_$*.html > $@
+	sed -f sml2html.sed $< >> $@
+	cat bye_$*.html >> $@
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
         -minitoc "<\!\-\-\minitoc\-\->" $@ 
-AC_2.html : complex.sml hi_2.html bye_2.html sml2html.sed
-	cat hi_2.html > $@
-	sed -f sml2html.sed complex.sml >> $@
-	cat bye_2.html >> $@
-	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-minitoc\-\->" $@
 
-AC_3.html : xzl.sml hi_3.html bye_3.html sml2html.sed
-	cat hi_3.html > $@
-	sed -f sml2html.sed xzl.sml >> $@
-	cat bye_3.html >> $@
-	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-minitoc\-\->" $@
-
-AC_4.html : xzc.sml hi_4.html bye_4.html sml2html.sed
-	cat hi_4.html > $@
-	sed -f sml2html.sed xzc.sml >> $@
-	cat bye_4.html >> $@
-	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-       -minitoc "<\!\-\-minitoc\-\->" $@
-
-AC_5.html : xzrlc.sml hi_5.html bye_5.html sml2html.sed
-	cat hi_5.html > $@
-	sed -f sml2html.sed xzrlc.sml >> $@
-	cat bye_5.html >> $@
-	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-minitoc\-\->" $@
-
-AC_6.html : resonant.sml hi_6.html bye_6.html sml2html.sed
-	cat hi_6.html > $@
-	sed -f sml2html.sed resonant.sml >> $@
-	cat bye_6.html >> $@
-	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-minitoc\-\->" $@
-
-AC_7.html : mixed.sml hi_7.html bye_7.html sml2html.sed
-	cat hi_7.html > $@
-	sed -f sml2html.sed mixed.sml >> $@
-	cat bye_7.html >> $@
-	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-minitoc\-\->" $@
-
-AC_8.html : filters.sml hi_8.html bye_8.html sml2html.sed
-	cat hi_8.html > $@
-	sed -f sml2html.sed filters.sml >> $@
-	cat bye_8.html >> $@
-	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-       -minitoc "<\!\-\-minitoc\-\->" $@
-
-AC_9.html : trans.sml hi_9.html bye_9.html sml2html.sed
-	cat hi_9.html > $@
-	sed -f sml2html.sed trans.sml >> $@
-	cat bye_9.html >> $@
-	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-minitoc\-\->" $@
-
-AC_10.html : poly.sml hi_10.html bye_10.html sml2html.sed
-	cat hi_10.html > $@
-	sed -f sml2html.sed poly.sml >> $@
-	cat bye_10.html >> $@
-	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-minitoc\-\->" $@
-
-AC_11.html : acpower.sml hi_11.html bye_11.html sml2html.sed
-	cat hi_11.html > $@
-	sed -f sml2html.sed acpower.sml >> $@
-	cat bye_11.html >> $@
-	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-minitoc\-\->" $@
-
-AC_12.html : acmeter.sml hi_12.html bye_12.html sml2html.sed
-	cat hi_12.html > $@
-	sed -f sml2html.sed acmeter.sml >> $@
-	cat bye_12.html >> $@
-	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-minitoc\-\->" $@
-
-AC_13.html : acmotor.sml hi_13.html bye_13.html sml2html.sed
-	cat hi_13.html > $@
-	sed -f sml2html.sed acmotor.sml >> $@
-	cat bye_13.html >> $@
-	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-minitoc\-\->" $@
-
-AC_14.html : lines.sml hi_14.html bye_14.html sml2html.sed
-	cat hi_14.html > $@
-	sed -f sml2html.sed lines.sml >> $@
-	cat bye_14.html >> $@
-	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-minitoc\-\->" $@
-
-AC_A1.html : about.sml hi_A1.html bye_A1.html sml2html.sed
-	cat hi_A1.html > $@
-	sed -f sml2html.sed about.sml >> $@
-	cat bye_A1.html >> $@
-#	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map $@
-
-
-AC_A2.html : contrib.sml hi_A2.html bye_A2.html sml2html.sed
-	cat hi_A2.html > $@
-	sed -f sml2html.sed contrib.sml >> $@
-	cat bye_A2.html >> $@
-#	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map $@
-
-AC_A3.html : dsl.sml hi_A3.html bye_A3.html sml2html.sed
-	cat hi_A3.html > $@
-	sed -f sml2html.sed dsl.sml >> $@
-	cat bye_A3.html >> $@
-#	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map $@
-
+AC_A%.html : $$(call get_appendix,%) hi_A%.html bye_A%.html sml2html.sed
+	cat hi_A$*.html > $@
+	sed -f sml2html.sed $< >> $@
+	cat bye_A$*.html >> $@
 
 
 # Generates DVI output using LaTeX
