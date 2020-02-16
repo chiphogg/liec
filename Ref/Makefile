@@ -90,9 +90,9 @@ chapter_names := \
       trouble \
       symbol \
       periodic
-
 chapters := $(call sourcefile,$(chapter_names))
 latex_chapters := $(call latexfile,$(chapter_names))
+get_chapter = $(word $(1),$(chapters))
 
 appendix_names := \
       about \
@@ -100,7 +100,8 @@ appendix_names := \
       dsl
 appendices := $(call sourcefile,$(appendix_names))
 latex_appendices := $(call latexfile,$(appendix_names))
- 
+get_appendix = $(word $(1),$(appendices))
+
 %.latex: %.sml sml2latx.sed
 	sed -f sml2latx.sed $< > $@
 	if [ $(if $(filter $<,$(appendices)),1,0) -eq 1 ]; then \
@@ -109,102 +110,18 @@ latex_appendices := $(call latexfile,$(appendix_names))
 	    rm .$@; \
 	fi
 
-
-# Converts SubML source into HTML source
-REF_1.html : equation.sml hi_1.html bye_1.html sml2html.sed
-	cat hi_1.html > $@
-	sed -f sml2html.sed equation.sml >> $@
-	cat bye_1.html >> $@
-
+.SECONDEXPANSION:
+REF_%.html : $$(call get_chapter,%) hi_%.html bye_%.html sml2html.sed
+	cat hi_$*.html > $@
+	sed -f sml2html.sed $< >> $@
+	cat bye_$*.html >> $@
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" $@
+        -minitoc "<\!\-\-\minitoc\-\->" $@ 
 
-REF_2.html : colors.sml hi_2.html bye_2.html sml2html.sed
-	cat hi_2.html > $@
-	sed -f sml2html.sed colors.sml >> $@
-	cat bye_2.html >> $@
-
-	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" $@
-
-REF_3.html : citable.sml hi_3.html bye_3.html sml2html.sed
-	cat hi_3.html > $@
-	sed -f sml2html.sed citable.sml >> $@
-	cat bye_3.html >> $@
-
-	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" $@
-
-REF_4.html : algebra.sml hi_4.html bye_4.html sml2html.sed
-	cat hi_4.html > $@
-	sed -f sml2html.sed algebra.sml >> $@
-	cat bye_4.html >> $@
-
-	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" $@
-
-REF_5.html : trig.sml hi_5.html bye_5.html sml2html.sed
-	cat hi_5.html > $@
-	sed -f sml2html.sed trig.sml >> $@
-	cat bye_5.html >> $@
-
-	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" $@
-
-REF_6.html : calculus.sml hi_6.html bye_6.html sml2html.sed
-	cat hi_6.html > $@
-	sed -f sml2html.sed calculus.sml >> $@
-	cat bye_6.html >> $@
-
-	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" $@
-
-REF_7.html : spice.sml hi_7.html bye_7.html sml2html.sed
-	cat hi_7.html > $@
-	sed -f sml2html.sed spice.sml >> $@
-	cat bye_7.html >> $@
-
-	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" $@
-
-REF_8.html : trouble.sml hi_8.html bye_8.html sml2html.sed
-	cat hi_8.html > $@
-	sed -f sml2html.sed trouble.sml >> $@
-	cat bye_8.html >> $@
-
-	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" $@
-
-REF_9.html : symbol.sml hi_9.html bye_9.html sml2html.sed
-	cat hi_9.html > $@
-	sed -f sml2html.sed symbol.sml >> $@
-	cat bye_9.html >> $@
-
-	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" $@
-
-REF_10.html : periodic.sml hi_10.html bye_10.html sml2html.sed
-	cat hi_10.html > $@
-	sed -f sml2html.sed periodic.sml >> $@
-	cat bye_10.html >> $@
-
-	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" $@
-
-REF_A1.html : about.sml hi_A1.html bye_A1.html sml2html.sed
-	cat hi_A1.html > $@
-	sed -f sml2html.sed about.sml >> $@
-	cat bye_A1.html >> $@
-
-REF_A2.html : contrib.sml hi_A2.html bye_A2.html sml2html.sed
-	cat hi_A2.html > $@
-	sed -f sml2html.sed contrib.sml >> $@
-	cat bye_A2.html >> $@
-
-REF_A3.html : dsl.sml hi_A3.html bye_A3.html sml2html.sed
-	cat hi_A3.html > $@
-	sed -f sml2html.sed dsl.sml >> $@
-	cat bye_A3.html >> $@
+REF_A%.html : $$(call get_appendix,%) hi_A%.html bye_A%.html sml2html.sed
+	cat hi_A$*.html > $@
+	sed -f sml2html.sed $< >> $@
+	cat bye_A$*.html >> $@
 
 
 
