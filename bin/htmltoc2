@@ -213,7 +213,6 @@ sub get_cli_opts {
     &Usage() if defined $opt_help;
 
     $tocprefix = ($opt_prefix ? $opt_prefix : 'xtocid');
-	$tocprefix .= $$;	# Append pid to prefix
     $TOCMAP = ($opt_tocmap ? $opt_tocmap : '');
     $TITLE = ($opt_title ? $opt_title : 'Table of Contents');
     $MINITOC = ($opt_minitoc ? $opt_minitoc : '<body.*>');
