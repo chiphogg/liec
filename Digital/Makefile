@@ -106,8 +106,7 @@ html : $(SRC) sml2html.sed
 	make DIGI_A3.html
 
 
-sourcefile = $(patsubst %,%.sml,$(1))
-latexfile = $(patsubst %,%.latex,$(1))
+include utils.mak
 
 chapter_names := \
       numbers \

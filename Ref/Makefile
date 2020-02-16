@@ -76,8 +76,7 @@ html : $(SRC) sml2html.sed
 
 
 
-sourcefile = $(patsubst %,%.sml,$(1))
-latexfile = $(patsubst %,%.latex,$(1))
+include utils.mak
 
 chapter_names := \
       equation \

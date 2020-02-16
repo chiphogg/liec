@@ -72,8 +72,7 @@ html : $(SRC) sml2html.sed
 	make EXP_A2.html
 	make EXP_A3.html
 
-sourcefile = $(patsubst %,%.sml,$(1))
-latexfile = $(patsubst %,%.latex,$(1))
+include utils.mak
 
 chapter_names := \
       intro \

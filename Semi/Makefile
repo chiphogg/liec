@@ -94,8 +94,7 @@ html : $(SRC)
 	make SEMI_A2.html
 	make SEMI_A3.html
 
-sourcefile = $(patsubst %,%.sml,$(1))
-latexfile = $(patsubst %,%.latex,$(1))
+include utils.mak
 
 chapter_names := \
       amplif \
