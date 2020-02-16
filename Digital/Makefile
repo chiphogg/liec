@@ -106,76 +106,44 @@ html : $(SRC) sml2html.sed
 	make DIGI_A3.html
 
 
+sourcefile = $(patsubst %,%.sml,$(1))
+latexfile = $(patsubst %,%.latex,$(1))
 
-# Converts SubML source into LaTeX source
-numbers.latex : numbers.sml sml2latx.sed
-	sed -f sml2latx.sed numbers.sml > numbers.latex
+chapter_names := \
+      numbers \
+      binary \
+      gates \
+      switches \
+      relays \
+      ladder \
+      boolean \
+      karnaugh \
+      combin \
+      multivib \
+      counters \
+      shiftreg \
+      a2d \
+      commun \
+      memory \
+      computer
 
-binary.latex : binary.sml sml2latx.sed
-	sed -f sml2latx.sed binary.sml > binary.latex
+chapters := $(call sourcefile,$(chapter_names))
+latex_chapters := $(call latexfile,$(chapter_names))
 
-gates.latex : gates.sml sml2latx.sed
-	sed -f sml2latx.sed gates.sml > gates.latex
+appendix_names := \
+      about \
+      contrib \
+      dsl
+appendices := $(call sourcefile,$(appendix_names))
+latex_appendices := $(call latexfile,$(appendix_names))
 
-switches.latex : switches.sml sml2latx.sed
-	sed -f sml2latx.sed switches.sml > switches.latex
-
-relays.latex : relays.sml sml2latx.sed
-	sed -f sml2latx.sed relays.sml > relays.latex
-
-ladder.latex : ladder.sml sml2latx.sed
-	sed -f sml2latx.sed ladder.sml > ladder.latex
-
-boolean.latex : boolean.sml sml2latx.sed
-	sed -f sml2latx.sed boolean.sml > boolean.latex
-
-karnaugh.latex : karnaugh.sml sml2latx.sed
-	sed -f sml2latx.sed karnaugh.sml > karnaugh.latex
-
-combin.latex : combin.sml sml2latx.sed
-	sed -f sml2latx.sed combin.sml > combin.latex
-
-multivib.latex : multivib.sml sml2latx.sed
-	sed -f sml2latx.sed multivib.sml > multivib.latex
-
-counters.latex : counters.sml sml2latx.sed
-	sed -f sml2latx.sed counters.sml > counters.latex
-
-shiftreg.latex : shiftreg.sml sml2latx.sed
-	sed -f sml2latx.sed shiftreg.sml > shiftreg.latex
-
-a2d.latex : a2d.sml sml2latx.sed
-	sed -f sml2latx.sed a2d.sml > a2d.latex
-
-commun.latex : commun.sml sml2latx.sed
-	sed -f sml2latx.sed commun.sml > commun.latex
-
-memory.latex : memory.sml sml2latx.sed
-	sed -f sml2latx.sed memory.sml > memory.latex
-
-computer.latex : computer.sml sml2latx.sed
-	sed -f sml2latx.sed computer.sml > computer.latex
-
-about.latex : about.sml sml2latx.sed
-	sed -f sml2latx.sed about.sml > about.latex
-	#no mini-TOC for this chapter-- remove it
-	cp about.latex about.latex~
-	sed  s/\\minitoc//g about.latex~ >about.latex
-
-contrib.latex : contrib.sml sml2latx.sed
-	sed -f sml2latx.sed contrib.sml > contrib.latex
-	#no mini-TOC for this chapter-- remove it
-	cp contrib.latex contrib.latex~
-	sed  s/\\minitoc//g contrib.latex~ >contrib.latex
-
-dsl.latex : dsl.sml sml2latx.sed
-	sed -f sml2latx.sed dsl.sml > dsl.latex
-	#no mini-TOC for this chapter-- remove it
-	cp dsl.latex dsl.latex~
-	sed  s/\\minitoc//g dsl.latex~ >dsl.latex
-
-
-
+%.latex: %.sml sml2latx.sed
+	sed -f sml2latx.sed $< > $@
+	if [ $(if $(filter $<,$(appendices)),1,0) -eq 1 ]; then \
+	    cp $@ .$@; \
+	    sed  s/\\minitoc//g .$@ > $@; \
+	    rm .$@; \
+	fi
 
 # Converts SubML source into HTML source
 # toc.map is necessary to htmltoc2 perl script
@@ -311,47 +279,11 @@ DIGI_A3.html : dsl.sml hi_A3.html bye_A3.html sml2html.sed
 
 
 # Generates DVI output using LaTeX
-DIGI.latex : $(SRC) sml2latx.sed
-	make numbers.latex      
-	make binary.latex
-	make gates.latex
-	make switches.latex
-	make relays.latex
-	make ladder.latex
-	make boolean.latex
-	make karnaugh.latex
-	make combin.latex
-	make multivib.latex
-	make counters.latex
-	make shiftreg.latex
-	make a2d.latex
-	make commun.latex
-	make memory.latex
-	make computer.latex
-	make about.latex
-	make contrib.latex
-	make dsl.latex
+DIGI.latex : $(latex_chapters) $(latex_appendices) sml2latx.sed
 	cat hi.latex \
-           numbers.latex \
-           binary.latex \
-           gates.latex \
-           switches.latex \
-           relays.latex \
-           ladder.latex \
-           boolean.latex \
-           karnaugh.latex \
-           combin.latex \
-           multivib.latex \
-           counters.latex \
-           shiftreg.latex \
-           a2d.latex \
-           commun.latex \
-           memory.latex \
-           computer.latex \
+           $(latex_chapters) \
            hi_appendix.latex \
-           about.latex \
-           contrib.latex \
-           dsl.latex \
+           $(latex_appendices) \
            bye.latex > $@
 
 latex: DIGI.latex
