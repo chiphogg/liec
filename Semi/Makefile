@@ -94,68 +94,41 @@ html : $(SRC)
 	make SEMI_A2.html
 	make SEMI_A3.html
 
+sourcefile = $(patsubst %,%.sml,$(1))
+latexfile = $(patsubst %,%.latex,$(1))
 
+chapter_names := \
+      amplif \
+      theory \
+      diode \
+      bjt \
+      jfet \
+      mosfet \
+      thyr \
+      opamp \
+      analog \
+      active \
+      dcdrive \
+      acdrive \
+      tubes
 
-# Converts SubML source into LaTeX source
-amplif.latex : amplif.sml sml2latx.sed
-	sed -f sml2latx.sed amplif.sml > amplif.latex
+chapters := $(call sourcefile,$(chapter_names))
+latex_chapters := $(call latexfile,$(chapter_names))
 
-theory.latex : theory.sml sml2latx.sed
-	sed -f sml2latx.sed theory.sml > theory.latex
-
-diode.latex : diode.sml sml2latx.sed
-	sed -f sml2latx.sed diode.sml > diode.latex
-
-bjt.latex : bjt.sml sml2latx.sed
-	sed -f sml2latx.sed bjt.sml > bjt.latex
-
-jfet.latex : jfet.sml sml2latx.sed
-	sed -f sml2latx.sed jfet.sml > jfet.latex
-
-mosfet.latex : mosfet.sml sml2latx.sed
-	sed -f sml2latx.sed mosfet.sml > mosfet.latex
-
-thyr.latex : thyr.sml sml2latx.sed
-	sed -f sml2latx.sed thyr.sml > thyr.latex
-
-opamp.latex : opamp.sml sml2latx.sed
-	sed -f sml2latx.sed opamp.sml > opamp.latex
-
-analog.latex : analog.sml sml2latx.sed
-	sed -f sml2latx.sed analog.sml > analog.latex
-
-active.latex : active.sml sml2latx.sed
-	sed -f sml2latx.sed active.sml > active.latex
-
-dcdrive.latex : dcdrive.sml sml2latx.sed
-	sed -f sml2latx.sed dcdrive.sml > dcdrive.latex
-
-acdrive.latex : acdrive.sml sml2latx.sed
-	sed -f sml2latx.sed acdrive.sml > acdrive.latex
-
-tubes.latex : tubes.sml sml2latx.sed
-	sed -f sml2latx.sed tubes.sml > tubes.latex
-
-about.latex : about.sml sml2latx.sed
-	sed -f sml2latx.sed about.sml > about.latex
-	#no mini-TOC for this chapter-- remove it
-	cp about.latex about.latex~
-	sed  s/\\minitoc//g about.latex~ >about.latex
-	rm about.latex~
-	
-contrib.latex : contrib.sml sml2latx.sed
-	sed -f sml2latx.sed contrib.sml > contrib.latex
-	#no mini-TOC for this chapter-- remove it
-	cp contrib.latex contrib.latex~
-	sed  s/\\minitoc//g contrib.latex~ >contrib.latex
-	rm contrib.latex~
-	
-dsl.latex : dsl.sml sml2latx.sed
-	sed -f sml2latx.sed dsl.sml > dsl.latex
-	#no mini-TOC for this chapter-- remove it
-	cp dsl.latex dsl.latex~
-	sed  s/\\minitoc//g dsl.latex~ >dsl.latex
-	rm dsl.latex~
+appendix_names := \
+      about \
+      contrib \
+      dsl
+appendices := $(call sourcefile,$(appendix_names))
+latex_appendices := $(call latexfile,$(appendix_names))
+ 
+%.latex: %.sml sml2latx.sed
+	sed -f sml2latx.sed $< > $@
+	if [ $(if $(filter $<,$(appendices)),1,0) -eq 1 ]; then \
+	    cp $@ .$@; \
+	    sed  s/\\minitoc//g .$@ > $@; \
+	    rm .$@; \
+	fi
 
 
 # Converts SubML source into HTML source
@@ -271,41 +244,11 @@ SEMI_A3.html : dsl.sml  hi_A3.html bye_A3.html sml2html.sed
 
 
 # Generates DVI output using LaTeX
-SEMI.latex : $(SRC) sml2latx.sed
-	make amplif.latex
-	make theory.latex
-	make diode.latex
-	make bjt.latex
-	make jfet.latex
-	make mosfet.latex
-	make thyr.latex
-	make opamp.latex
-	make analog.latex
-	make active.latex
-	make dcdrive.latex
-	make acdrive.latex
-	make tubes.latex
-	make about.latex
-	make contrib.latex
-	make dsl.latex
+SEMI.latex : $(latex_chapters) $(latex_appendices) sml2latx.sed
 	cat hi.latex \
-           amplif.latex \
-           theory.latex \
-           diode.latex \
-           bjt.latex \
-           jfet.latex \
-           mosfet.latex \
-           thyr.latex \
-           opamp.latex \
-           analog.latex \
-           active.latex \
-           dcdrive.latex \
-           acdrive.latex \
-           tubes.latex \
+           $(latex_chapters) \
            hi_appendix.latex \
-           about.latex \
-           contrib.latex \
-           dsl.latex \
+           $(latex_appendices) \
            bye.latex > $@
 
 latex: SEMI.latex
