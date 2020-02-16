@@ -111,9 +111,9 @@ chapter_names := \
       dcdrive \
       acdrive \
       tubes
-
 chapters := $(call sourcefile,$(chapter_names))
 latex_chapters := $(call latexfile,$(chapter_names))
+get_chapter = $(word $(1),$(chapters))
 
 appendix_names := \
       about \
@@ -121,7 +121,8 @@ appendix_names := \
       dsl
 appendices := $(call sourcefile,$(appendix_names))
 latex_appendices := $(call latexfile,$(appendix_names))
- 
+get_appendix = $(word $(1),$(appendices))
+
 %.latex: %.sml sml2latx.sed
 	sed -f sml2latx.sed $< > $@
 	if [ $(if $(filter $<,$(appendices)),1,0) -eq 1 ]; then \
@@ -130,117 +131,18 @@ latex_appendices := $(call latexfile,$(appendix_names))
 	    rm .$@; \
 	fi
 
-
-# Converts SubML source into HTML source
-# toc.map is necessary to htmltoc2 perl script
-# added htmltoc2 for mini-table of contnets in chapters
-SEMI_1.html : amplif.sml hi_1.html bye_1.html sml2html.sed
-	cat hi_1.html > $@
-	sed -f sml2html.sed amplif.sml >> $@
-	cat bye_1.html >> $@
+.SECONDEXPANSION:
+SEMI_%.html : $$(call get_chapter,%) hi_%.html bye_%.html sml2html.sed
+	cat hi_$*.html > $@
+	sed -f sml2html.sed $< >> $@
+	cat bye_$*.html >> $@
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-\minitoc\-\->" $@
+        -minitoc "<\!\-\-\minitoc\-\->" $@ 
 
-SEMI_2.html : theory.sml hi_2.html bye_2.html sml2html.sed
-	cat hi_2.html > $@
-	sed -f sml2html.sed theory.sml >> $@
-	cat bye_2.html >> $@
-	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-minitoc\-\->" $@
-
-SEMI_3.html : diode.sml hi_3.html bye_3.html sml2html.sed
-	cat hi_3.html > $@
-	sed -f sml2html.sed diode.sml >> $@
-	cat bye_3.html >> $@
-	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-minitoc\-\->" $@
-
-SEMI_4.html : bjt.sml hi_4.html bye_4.html sml2html.sed
-	cat hi_4.html > $@
-	sed -f sml2html.sed bjt.sml >> $@
-	cat bye_4.html >> $@
-	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-       -minitoc "<\!\-\-minitoc\-\->" $@
-
-
-SEMI_5.html : jfet.sml hi_5.html bye_5.html sml2html.sed
-	cat hi_5.html > $@
-	sed -f sml2html.sed jfet.sml >> $@
-	cat bye_5.html >> $@
-	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-minitoc\-\->" $@
-
-SEMI_6.html : mosfet.sml hi_6.html bye_6.html sml2html.sed
-	cat hi_6.html > $@
-	sed -f sml2html.sed mosfet.sml >> $@
-	cat bye_6.html >> $@
-	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-minitoc\-\->" $@
-
-SEMI_7.html : thyr.sml hi_7.html bye_7.html sml2html.sed
-	cat hi_7.html > $@
-	sed -f sml2html.sed thyr.sml >> $@
-	cat bye_7.html >> $@
-	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-minitoc\-\->" $@
-
-SEMI_8.html : opamp.sml hi_8.html bye_8.html sml2html.sed
-	cat hi_8.html > $@
-	sed -f sml2html.sed opamp.sml >> $@
-	cat bye_8.html >> $@
-	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-minitoc\-\->" $@
-
-SEMI_9.html : analog.sml hi_9.html bye_9.html sml2html.sed
-	cat hi_9.html > $@
-	sed -f sml2html.sed analog.sml >> $@
-	cat bye_9.html >> $@
-	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-minitoc\-\->" $@
-
-SEMI_10.html : active.sml hi_10.html bye_10.html sml2html.sed
-	cat hi_10.html > $@
-	sed -f sml2html.sed active.sml >> $@
-	cat bye_10.html >> $@
-	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-minitoc\-\->" $@
-
-SEMI_11.html : dcdrive.sml hi_11.html bye_11.html sml2html.sed
-	cat hi_11.html > $@
-	sed -f sml2html.sed dcdrive.sml >> $@
-	cat bye_11.html >> $@
-	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-minitoc\-\->" $@
-
-SEMI_12.html : acdrive.sml hi_12.html bye_12.html sml2html.sed
-	cat hi_12.html > $@
-	sed -f sml2html.sed acdrive.sml >> $@
-	cat bye_12.html >> $@
-	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-minitoc\-\->" $@
-
-SEMI_13.html : tubes.sml hi_13.html bye_13.html sml2html.sed
-	cat hi_13.html > $@
-	sed -f sml2html.sed tubes.sml >> $@
-	cat bye_13.html >> $@
-	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
-        -minitoc "<\!\-\-minitoc\-\->" $@
-
-SEMI_A1.html : about.sml  hi_A1.html bye_A1.html sml2html.sed
-	cat hi_A1.html > $@
-	sed -f sml2html.sed about.sml >> $@
-	cat bye_A1.html >> $@
-
-SEMI_A2.html : contrib.sml  hi_A2.html bye_A2.html sml2html.sed
-	cat hi_A2.html > $@
-	sed -f sml2html.sed contrib.sml >> $@
-	cat bye_A2.html >> $@
-
-SEMI_A3.html : dsl.sml  hi_A3.html bye_A3.html sml2html.sed
-	cat hi_A3.html > $@
-	sed -f sml2html.sed dsl.sml >> $@
-	cat bye_A3.html >> $@
-
+SEMI_A%.html : $$(call get_appendix,%) hi_A%.html bye_A%.html sml2html.sed
+	cat hi_A$*.html > $@
+	sed -f sml2html.sed $< >> $@
+	cat bye_A$*.html >> $@
 
 
 # Generates DVI output using LaTeX
