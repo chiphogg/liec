@@ -239,15 +239,13 @@ s+\(<htmlo>\)\(.*\)\(</htmlo>\)++g
 #
 s/<book>/\\documentclass{book} \
 \\usepackage{makeidx} \
-\\usepackage[dvips]{graphicx} \
+\\usepackage{graphicx} \
 \\usepackage[sectionbib]{chapterbib} \
 \\usepackage{minitoc} \
 \\makeindex \
 \\usepackage[ \
     pdftitle = "{Lessons In Electric Circuits, Volume II -- AC}", \
     pdfauthor = "{Tony R. Kuphaldt}", \
-    dvips = true, \
-    ps2pdf = true, \
     bookmarks = true, \
     colorlinks = true, \
     hyperindex = true \

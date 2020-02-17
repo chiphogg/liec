@@ -11,8 +11,7 @@
 \usepackage{newcent}
 
 \usepackage{makeidx}
-%\usepackage[dvips]{graphics} %%was graphics, changed to  graphicx
-\usepackage[dvips]{graphicx}
+\usepackage{graphicx}
 \usepackage[sectionbib]{chapterbib}
 
 %package for chapter table of contents
@@ -29,8 +28,6 @@
 \usepackage[
     pdftitle = "{Lessons In Electric Circuits, Volume IV -- Digital}",
     pdfauthor = "{Tony R. Kuphaldt}",
-    dvips = true,
-    ps2pdf = true,
     colorlinks = true,
     breaklinks= true,
     linkcolor = webred,
