@@ -18,14 +18,14 @@
 
 %package for chapter table of contents
 % newer than at ibiblio \usepackage{minitoci}
-\usepackage{../bin/minitoc}
+\usepackage{minitoc}
 
 %%%%% original line %%%% \usepackage{tocvsec2}
 %tocvsec2 is not a standard package, nor in system level directories
 %%%%%works%%%%%%\usepackage{/home/dennis/lessons/bin/tocvsec2}
 % But the line below is more portable
 %%works%%
-\usepackage{../bin/tocvsec2}
+\usepackage{tocvsec2}
 \usepackage{color}
 \usepackage{verbatim}
 
