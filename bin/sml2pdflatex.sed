@@ -1,11 +1,8 @@
 ##########################################################################
 # SED script for converting SubML (Substitutionary Markup Language)
-# into LaTeX2e (Leslie Lamport's macro package for TeX).
+# into latex files for consumption by `pdflatex`.
 #
-# Version 0.97
-#
-# Copyright (C) 2001-2003 Tony R. Kuphaldt
-# Last updated 10/14/2006 
+# Copyright (C) 2020 Chip Hogg
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,61 +20,7 @@
 # USA
 #
 ##########################################################################
-#
-# Modified 10/27/2005 (DC) - Added <superscript2> <subscript2> <math>
-# Modified 10/28/2005 (DC) - Added <sp> tag 
-# -See Devel/tutorial.* for documentation of these 
-# Modified  01/01/ 2006 (DC)  - Added <htmlo>, <tex> tags.
-# -See Devel/tutorial.sml for usage
-#########################################################################
-#
-# Modified (DC) 01/01/2006  - added minitoc - minitable of contents
-# after the chapter title. Adds \\minitoc command to latex output.
-# This is subsittuted on the end of </chpatertitle> sml. Also, see
-# </book> tag where \\usepackage{minitoc} was added 
-# The minitoc package looks for \\minitoc in the latex
-# and puts a mini-table of contents there. 
-#  \\dominitoc  was edited into hi.latex  
-# Those commands must be there. Google on minitoc latex for documentation.
-#
-#########################################################################
-#
-# Modified 02/04/2006 (DC) - Changed image tags to float images
-# - <caption> tags added between <image> tags, See Devel/tutorial.sml 
-# -Added <ref> tags. See Devel/tutorial.sml
-# Modified 03/04/2006 (DC) - Added <scale>tag to image processing
-# Modified 02/05/2006 (DC) - Added nonfloating image <imagenf> tags
-# Modified 07/25/2007 (DC) - Removed  nonfloating image <imagenf> tags
-# Modified 02/06/2006 (DC) - Added more Mathmatical tags after angle.
-# Modified 02/22/2006 (DC) - Added  <caption> <ref> <label> tags related--
-# --to <image> tag processing. Added <table> tag for non-breaking lintings.
-# Modified 02/24/2006 (DC) - Added boolean overbar 
-# Modified 03/05/2006 (DC) - Expanded capability of <url> tags
-# Modified 03/07/2006 (DC) - Added <hyperlink>, <hypertarget> tags 
-# Modified 10/14/2006 (DC) - added space before section, subsection, --
-#			--subsubsection titles 
-# Modified 01/06/2006 (DC) - moved addcontentsline from <\thebibliography> 
-#			--to thebibliography>
-# Modified 03/15/2007 (DC) - Added [page.html] to <hyperlink> 
-# Modified 03/15/2007 (DC) - <htmlo>,<tex> work have two forms.
-# Modified 03/22/2007 (DC) - <tabular>,<tr>,<td>,<th><allowbreak>
-# Modified 03/23/2007 (DC) - Added latex floating table with caption
-# Modified 03/23/2007 (DC) - Added <latexin>
-# Modified 04/25/2007 (DC) - Added <figure>, resurected <label>, <caption>
-# Modified 04/29/2007 (DC) - Added <pageref> </pageref>
-# Modified 04/30/2007 (DC) - Added <sectiontitle*>
-# Modified 07/01/2007 (DC) - Added <proofread>
-# Modified 07/01/2007 (DC) - Added bibitem cleanup, See thebibliography
-# Modified 07/07/2007 (DC) - Added <ref> now handles 9 per line
-# Modified 03/13/2008 (DC) - modified old 0xxx images, no caption centered
-# Modified 03/21/2008 (DC) - Added back in nonfloating image <imagenf> tags
-# Modified 03/17/2009 (DC) - Changed s+\$|\$+|+g to /{tabular/s+\$|\$+|+g
-# Modified 01/16/2009 (DC) - duplicated <image> as <imagen>
-#                             
-# ##########################################################################
-#
-#
-#
+
 ##########################################################################
 #
 # Deletes all blank lines.  This merely reduces the size of the translated
