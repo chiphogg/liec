@@ -451,8 +451,8 @@ s/<\/para>/ \
 ####/<image>/s/\.[a-z][a-z][a-z]/.eps}/g 02/10/2006 to below fix caption
 /<ref>/s/<ref>\(.*\)[jp][pn][g]/<ref>\1tmp/g
 /caption><label>/s/<label>\(.*\)[jp][pn][g]/<label>\1eps/g
-/<image>/s/\.png/.eps}/
-/<image>/s/\.jpg/.eps}/g
+/<image>/s/\.png/.eps/g
+/<image>/s/\.jpg/.eps/g
 /<imagenf>/s/\.png/.eps/g
 /<imagenf>/s/\.jpg/.eps/g
 /<label>/s/\.png/.eps/g
@@ -471,10 +471,10 @@ s/<\/para>/ \
 # <image>[scale=0.5]12345.png<caption>My figure</caption><label>12345a.png</label></image>
 # 2008/03/20   s/ 8/8}/ 
 # 
-s+\(<image>\)\(\[.*\]\)\(.*\.eps}\)\(<caption>\)\(.*\)\(</caption>\)\(<label>\)\(.*\)\(</label>\)\(.*$\)+ \
+s+\(<image>\)\(\[.*\]\)\(.*\)\.eps\(<caption>\)\(.*\)\(</caption>\)\(<label>\)\(.*\)\(</label>\)\(.*$\)+ \
 \\begin{figure}[htbp!] \
 \\centering \
-\\includegraphics\2{\3 \
+\\includegraphics\2{\3} \
 \\caption{\\sl \5 } \
 \\label{\8} \
 \\end{figure} \
@@ -486,10 +486,10 @@ s+\(<image>\)\(\[.*\]\)\(.*\.eps}\)\(<caption>\)\(.*\)\(</caption>\)\(<label>\)\
 # <image>12345.png<caption>My figure</caption><label>12345a.png</label></image>
 # 2008/03/20   s/ 7/7}/ 
 # 
-s+\(<image>\)\(.*\.eps}\)\(<caption>\)\(.*\)\(</caption>\)\(<label>\)\(.*\)\(</label>\)\(.*$\)+ \
+s+\(<image>\)\(.*\)\.eps\(<caption>\)\(.*\)\(</caption>\)\(<label>\)\(.*\)\(</label>\)\(.*$\)+ \
 \\begin{figure}[htbp!] \
 \\centering \
-\\includegraphics{\2 \
+\\includegraphics{\2} \
 \\caption{\\sl \4 } \
 \\label{\7} \
 \\end{figure} \
@@ -506,12 +506,12 @@ s+\(<image>\)\(.*\.eps}\)\(<caption>\)\(.*\)\(</caption>\)\(<label>\)\(.*\)\(</l
 #
 # Auto lebeling-- uses image name as label
 #centering for images
-s+\(<image>\)\(.*\.eps}\)\(<caption>\)\(.*\)\(</caption>\)\(.*$\)+ \
+s+\(<image>\)\(.*\)\.eps\(<caption>\)\(.*\)\(</caption>\)\(.*$\)+ \
 \\begin{figure}[htbp!] \
 \\centering \
-\\includegraphics{\2 \
+\\includegraphics{\2} \
 \\caption{\\sl \4 } \
-\\label{\2 \
+\\label{\2} \
 \\end{figure}\
 +g
 
@@ -524,12 +524,12 @@ s+\(<image>\)\(.*\.eps}\)\(<caption>\)\(.*\)\(</caption>\)\(.*$\)+ \
 #
 # Auto lebeling-- uses image name as label
 #centering for images
-s+\(<imagen>\)\(.*\.eps}\)\(<caption>\)\(.*\)\(</caption>\)\(.*$\)+ \
+s+\(<imagen>\)\(.*\)\.eps\(<caption>\)\(.*\)\(</caption>\)\(.*$\)+ \
 \\begin{figure}[h!] \
 \\centering \
-\\includegraphics{\2 \
+\\includegraphics{\2} \
 \\caption{\\sl \4 } \
-\\label{\2 \
+\\label{\2} \
 \\end{figure}\
 +g
 
@@ -540,19 +540,18 @@ s+</imagen>+}+g
 # Take care of equation image  w/o caption, no centering
 # was 2nd line below to float\\begin{figure}[htbp!] \
 # Don't want equation to float
-s+\(<image>\)\(1.*\.eps}\)\(.*</image>\)+ \
-\\includegraphics{\2+g 
+s+\(<image>\)\(1.*\)\.eps\(.*</image>\)+ \
+\\includegraphics{\2}+g 
 #
 # Any image  w/o caption, with  no centering
 # mainly used in minipage
-s+<imagenf>+\\medskip \\includegraphics{+g 
-s+</imagenf>+}+g 
+s:<imagenf>\([^<]+\)\.eps\s*</imagenf>:\\medskip \\includegraphics{\1}:g 
 #
 # 03/13/2008 
 # Take care of old  image  w/o caption, centering desired
 # Don't want want to float
-s+\(<image>\)\(0.*\.eps}\)\(.*</image>\)+ \
-\\medskip \\centerline{\\includegraphics{\2}+g 
+s+\(<image>\)\(0.*\)\.eps\(.*</image>\)+ \
+\\medskip \\centerline{\\includegraphics{\2}}+g 
 
 
 
@@ -563,8 +562,7 @@ s+\(<image>\)\(0.*\.eps}\)\(.*</image>\)+ \
 # --other than 0xxxx 0r 1xxxx images
 # As of 08/05/2006, this section replaces next ##ed section.  We want to
 # have old un-captioned, un-labeled images NOT float.
-s/<image>/\\medskip \\includegraphics{/g
-s/<\/image>//g
+s:<image>\([^.]*\)\.eps\s*</image>:\\medskip \\includegraphics{\1}:g
 ##########################################################################
 
 
@@ -587,7 +585,7 @@ s/<\/label>/}/g
 ##########################################################################
 
 
-###sample s+\(<image>\)\(.*\.eps}\)\(<caption>.*</caption>\)\(.*$\)
+###sample s+\(<image>\)\(.*\.eps\)\(<caption>.*</caption>\)\(.*$\)
 ##########################################################################
 # 02/05/2006 (D) Added reference tags for latex.
 # Only handles one reference per line (paragraph)
