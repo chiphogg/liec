@@ -1,0 +1,1 @@
+../bin/sml2pdflatex.sed
