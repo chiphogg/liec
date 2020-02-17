@@ -87,8 +87,8 @@ get_appendix = $(word $(1),$(appendices))
 # Generates HTML output
 html : $(html_chapters) $(html_appendices)
 
-%.latex: %.sml sml2latx.sed
-	sed -f sml2latx.sed $< > $@
+%.latex: %.sml sml2pdflatex.sed
+	sed -f sml2pdflatex.sed $< > $@
 	if [ $(if $(filter $<,$(appendices)),1,0) -eq 1 ]; then \
 	    cp $@ .$@; \
 	    sed  s/\\minitoc//g .$@ > $@; \
@@ -138,6 +138,12 @@ EXP.ps : $(SRC)
 eps_source_files := $(wildcard *.eps)
 output_pngs := $(eps_source_files:.eps=.png)
 pdf_figures := $(eps_source_files:.eps=.pdf)
+
+EXP.pdf: EXP.latex $(pdf_figures)
+	pdflatex $<
+	makeindex EXP.idx
+	pdflatex $<
+	pdflatex $<
 
 %.pdf: %.eps
 	ps2pdf -dEPSCrop $< $@
