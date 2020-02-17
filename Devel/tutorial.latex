@@ -377,7 +377,7 @@ Graphic image inclusion is perhaps the best feature of SubML.  Note the followin
  
 
  
-\begin{figure}[h, t, b, p, !] 
+\begin{figure}[htbp!] 
 \centering 
 \includegraphics{test.eps} 
 \end{figure}
@@ -402,7 +402,7 @@ Two versions of the image exist: \texttt{test.png} for inclusion into the HTML o
  
 
  
-\begin{figure}[h, t, b, p, !] 
+\begin{figure}[htbp!] 
 \centering 
 \includegraphics{test.eps} 
 \caption{\sl This is a fine caption. } 
@@ -469,7 +469,7 @@ Do not confuse the "Labeling" with the caption on a figure. In most all cases yo
  
 
  
-\begin{figure}[h, t, b, p, !] 
+\begin{figure}[htbp!] 
 \centering 
 \includegraphics{test.eps} 
 \caption{\sl Caption for the second instance of our image. } 
@@ -539,7 +539,7 @@ The image command must be on a single line, a CR only at the end, none in the mi
  
 
  
-\begin{figure}[h, t, b, p, !] 
+\begin{figure}[htbp!] 
 \centering 
 \includegraphics[scale=0.5]{test.eps} 
 \caption{\sl This is scaled down in LaTeX. } 

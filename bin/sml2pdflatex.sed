@@ -472,7 +472,7 @@ s/<\/para>/ \
 # 2008/03/20   s/ 8/8}/ 
 # 
 s+\(<image>\)\(\[.*\]\)\(.*\.eps}\)\(<caption>\)\(.*\)\(</caption>\)\(<label>\)\(.*\)\(</label>\)\(.*$\)+ \
-\\begin{figure}[h, t, b, p, !] \
+\\begin{figure}[htbp!] \
 \\centering \
 \\includegraphics\2{\3 \
 \\caption{\\sl \5 } \
@@ -487,7 +487,7 @@ s+\(<image>\)\(\[.*\]\)\(.*\.eps}\)\(<caption>\)\(.*\)\(</caption>\)\(<label>\)\
 # 2008/03/20   s/ 7/7}/ 
 # 
 s+\(<image>\)\(.*\.eps}\)\(<caption>\)\(.*\)\(</caption>\)\(<label>\)\(.*\)\(</label>\)\(.*$\)+ \
-\\begin{figure}[h, t, b, p, !] \
+\\begin{figure}[htbp!] \
 \\centering \
 \\includegraphics{\2 \
 \\caption{\\sl \4 } \
@@ -507,7 +507,7 @@ s+\(<image>\)\(.*\.eps}\)\(<caption>\)\(.*\)\(</caption>\)\(<label>\)\(.*\)\(</l
 # Auto lebeling-- uses image name as label
 #centering for images
 s+\(<image>\)\(.*\.eps}\)\(<caption>\)\(.*\)\(</caption>\)\(.*$\)+ \
-\\begin{figure}[h, t, b, p, !] \
+\\begin{figure}[htbp!] \
 \\centering \
 \\includegraphics{\2 \
 \\caption{\\sl \4 } \
@@ -538,7 +538,7 @@ s+</imagen>+}+g
 
 
 # Take care of equation image  w/o caption, no centering
-# was 2nd line below to float\\begin{figure}[h, t, b, p, !] \
+# was 2nd line below to float\\begin{figure}[htbp!] \
 # Don't want equation to float
 s+\(<image>\)\(1.*\.eps}\)\(.*</image>\)+ \
 \\includegraphics{\2+g 
@@ -573,7 +573,7 @@ s/<\/image>//g
 # 04/25/2007
 #
 s/<figure>/ \
-\\begin{figure}[h, t, b, p, !] \
+\\begin{figure}[htbp!] \
 \\centering \
 /g
 
@@ -660,7 +660,7 @@ s+</pageref>+})+g
 #
 #centering for table
 s+\(<table>\)\(.*\)\(<caption>\)\(.*\)\(</caption>\)+ \
-\\begin{table}[h, t, b, p, !] \
+\\begin{table}[htbp!] \
 \\caption{\\sl \4 } \
 \\label{\2} \
 +g
@@ -670,7 +670,7 @@ s+\(<ref>\)\(.*\.tbl\)\(.*\)\(</ref>\)+~\\ref{\2}+g
 ##########################################################################
 # 02/07/2006 (DC) Added nonbreaking table in latex. See Devel/tutorial.sml 
 #
-s/<table>/\\begin{table} [h, t, b, p, !]/g
+s/<table>/\\begin{table} [htbp!]/g
 # This terminates nonbreaking table. Also, floating table above.
 s/<\/table>/\\end{table}/g
 ##########################################################################
