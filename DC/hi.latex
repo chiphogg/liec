@@ -92,7 +92,7 @@
 
 \thispagestyle{empty}
 
-\centerline {\includegraphics[ scale =1.2 ]{40000.eps}}
+\centerline {\includegraphics[ scale =1.2 ]{40000}}
 \bigskip
 
 \centerline{\bf Fifth Edition, last update  October 18, 2006}

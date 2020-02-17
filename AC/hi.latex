@@ -92,7 +92,7 @@
 
 %\begin{figure}
 %\centering
-\centerline {\includegraphics[ scale =1.2 ]{42000.eps}}
+\centerline {\includegraphics[ scale =1.2 ]{42000}}
 \bigskip
 
 \centerline {\bf Sixth Edition, last update  July 25, 2007}
