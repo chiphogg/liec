@@ -162,8 +162,12 @@ SEMI.ps :
 
 eps_source_files := $(wildcard *.eps)
 output_pngs := $(eps_source_files:.eps=.png)
+pdf_figures := $(eps_source_files:.eps=.pdf)
 
-.PHONY: png
+%.pdf: %.eps
+	ps2pdf -dEPSCrop $< $@
+
+.PHONY: png pdf_figures
 png: $(output_pngs)
 
 
