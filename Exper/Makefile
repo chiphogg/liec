@@ -108,9 +108,8 @@ EXP_A%.html : $$(call get_appendix,%) hi_A%.html bye_A%.html sml2html.sed
 	sed -f sml2html.sed $< >> $@
 	cat bye_A$*.html >> $@
 
-
-# Generates DVI output using LaTeX
-EXP.latex : $(latex_chapters) $(latex_appendices) sml2latx.sed
+latex_templates := $(patsubst %,%.latex,hi hi_appendix bye)
+EXP.latex : $(latex_chapters) $(latex_appendices) $(latex_templates)
 	cat hi.latex \
            $(latex_chapters) \
            hi_appendix.latex \
