@@ -1,52 +1,4 @@
-# Makefile for managing "Lessons In Electric Circuits -- Experiments"
-# modified  01/7/2006 (DC) -Added mini-TOC  to each chapter of html, .latex
-# modified 09/22/2007 (DC) - eps: target modified for smaller better looking (pdf) files
-# modified 10/03/2008 (DC) -Added sml2latx.sed, sml2html.sed to Latex and html sections--
-#                           -- to for rebuild for changes to these .sed files.
-# modified 08/28/2008 (DC) -Added 54*.png processing to eps: target
-# 			   -Added rm 2\*.eps to eps: tagget; \*=not wild card
-# modified 01/15/2010 (DC) -Added 555.sml
-# modified 01/15/2010 (DC) -Added png to eps processing for 45???.png images
-#                           Some authors send me .png instead of prefered .eps
-
-SRC = intro.sml \
-      basic.sml \
-      dc.sml \
-      ac.sml \
-      discrete.sml \
-      a_ic.sml \
-      d_ic.sml \
-      555.sml \
-      about.sml \
-      contrib.sml \
-      dsl.sml \
-      hi.latex \
-      hi_appendix.latex \
-      bye.latex \
-      hi_1.html \
-      hi_2.html \
-      hi_3.html \
-      hi_4.html \
-      hi_5.html \
-      hi_6.html \
-      hi_7.html \
-      hi_8.html \
-      hi_A1.html \
-      hi_A2.html \
-      hi_A3.html \
-      bye_1.html \
-      bye_2.html \
-      bye_3.html \
-      bye_4.html \
-      bye_5.html \
-      bye_6.html \
-      bye_7.html \
-      bye_8.html \
-      bye_A1.html \
-      bye_A2.html \
-      bye_A3.html \
-      index.html \
-      Makefile
+# Makefile for textbook Volume 6: Experiments.
 
 output:
 	mkdir -p output
@@ -142,48 +94,9 @@ EXP.pdf: EXP.latex $(pdf_figures)
 png: $(output_pngs)
 
 
-# Generates a .tar.gz archive containing source files
-EXPsrc.tar.gz: $(SRC)
-	tar cvf EXPsrc.tar \
-            $(SRC) \
-            *.eps \
-            *.jpg \
-            *.png \
-            *.lps \
-            *.sed \
-            toc.map \
-            htmltoc2 \
-            Makefile
-	gzip -f EXPsrc.tar
-
-
-# Generates a .tar.gz archive containing only ESSENTIAL source files
-EXPtiny.tar.gz: $(SRC)
-	tar cvf EXPtiny.tar \
-            $(SRC) \
-             0*.eps \
-             1*.eps \
-	     4*.[jp][pn]g \
-             5*.jpg \
-            previous.jpg \
-            contents.jpg \
-            next.jpg \
-            ps.* \
-            pdf.* \
-            src1.* \
-            src2.* \
-            *.lps \
-            *.sed \
-            toc.map \
-            htmltoc2 \
-            Makefile
-	gzip -f EXPtiny.tar
-
-
 # Cleans out old, unwanted files
 clean:
 	-rm *.bak
 	-rm *.spn
 	-rm junk*
 	-rm core
-

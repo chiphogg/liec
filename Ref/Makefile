@@ -1,52 +1,4 @@
-# Makefile for managing "Lessons In Electric Circuits -- Reference"
-# modified  01/7/2006 (DC) -Added mini-TOC  to each chapter of html, .latex
-# modified 10/03/2008 (DC) -Added sml2latx.sed, sml2html.sed to Latex and html sections--
-#                           -- to for rebuild for changes to these .sed files.
-
-SRC = equation.sml \
-      colors.sml \
-      citable.sml \
-      algebra.sml \
-      trig.sml \
-      calculus.sml \
-      spice.sml \
-      trouble.sml \
-      symbol.sml \
-      periodic.sml \
-      about.sml \
-      contrib.sml \
-      dsl.sml \
-      hi.latex \
-      hi_appendix.latex \
-      bye.latex \
-      hi_1.html \
-      hi_2.html \
-      hi_3.html \
-      hi_4.html \
-      hi_5.html \
-      hi_6.html \
-      hi_7.html \
-      hi_8.html \
-      hi_9.html \
-      hi_10.html \
-      hi_A1.html \
-      hi_A2.html \
-      hi_A3.html \
-      bye_1.html \
-      bye_2.html \
-      bye_3.html \
-      bye_4.html \
-      bye_5.html \
-      bye_6.html \
-      bye_7.html \
-      bye_8.html \
-      bye_9.html \
-      bye_10.html \
-      bye_A1.html \
-      bye_A2.html \
-      bye_A3.html \
-      index.html \
-      Makefile
+# Makefile for textbook Volume 5: Reference.
 
 output:
 	mkdir -p output
@@ -142,50 +94,9 @@ REF.pdf: REF.latex $(pdf_figures)
 png: $(output_pngs)
 
 
-# Generates a .tar.gz archive containing source files
-REFsrc.tar.gz: $(SRC)
-	tar cvf REFsrc.tar \
-            $(SRC) \
-            *.eps \
-            *.jpg \
-            *.png \
-            *.lps \
-            *.sed \
-            toc.map \
-            htmltoc2 \
-            Makefile
-	gzip -f REFsrc.tar
-
-
-
-
-# Generates a .tar.gz archive containing only ESSENTIAL source files
-REFtiny.tar.gz: $(SRC)
-	tar cvf REFtiny.tar \
-            $(SRC) \
-            0*.eps \
-            1*.eps \
-            4*.jpg \
-            5*.jpg \
-            previous.jpg \
-            contents.jpg \
-            next.jpg \
-            ps.* \
-            pdf.* \
-            src1.* \
-            src2.* \
-            *.lps \
-            *.sed \
-            toc.map \
-            htmltoc2 \
-            Makefile
-	gzip -f REFtiny.tar
-
-
 # Cleans out old, unwanted files
 clean:
 	-rm *.bak
 	-rm *.spn
 	-rm junk*
 	-rm core
-

@@ -1,8 +1,4 @@
-## Master makefile for managing "Lessons In Electric Circuits" ##
-#
-# Last modified 04/07/2002, Tony R. Kuphaldt
-# Last modified 04/09/2005, Dennis Crunkilton, added log.html to liectiny: targets
-# modified 0415/2005 (DC) added sm_hosted.gif, README to liecsrc, liectiny and liechtml 
+# Master Makefile for managing the "Lessons In Electric Circuits" textbooks.
 
 #####################################################################
 
@@ -22,9 +18,6 @@ html :
 
 all :
 	make html
-	make liechtml
-	make liecsrc
-	make liectiny
 	make -C DC DC.pdf
 	make -C AC AC.pdf
 	make -C Semi SEMI.pdf
@@ -58,32 +51,6 @@ link/%: output/%
 
 #####################################################################
 
-alls:
-	make html
-	make liechtml
-	make liectiny
-	make liecsrc
-# alls is a short version of all, make all except ps
-
-
-tinyinstall :
-	make png
-	make eps
-	make html
-	make -C DC DC.pdf
-	make -C AC AC.pdf
-	make -C Semi SEMI.pdf
-	make -C Digital DIGI.pdf
-	make -C Ref REF.pdf
-	make -C Exper EXP.pdf
-
-# The 'tinyinstall' option installs all necessary files from the
-# untarred 'liectiny.tar' archive file, after each of the '.tar'
-# archive files in the book directories have been ungzipped and
-# untarred as well. 
-
-#####################################################################
-
 png : 
 	make -C DC png
 	make -C AC png
@@ -94,120 +61,3 @@ png :
 
 # The 'png' option creates PNG versions of all illustrations, 
 # graphs, and equations from their respective EPS source files.
-
-#####################################################################
-
-liectiny : 
-	make -C DC DCtiny.tar.gz
-	make -C AC ACtiny.tar.gz
-	make -C Semi SEMItiny.tar.gz
-	make -C Digital DIGItiny.tar.gz
-	make -C Ref REFtiny.tar.gz
-	make -C Exper EXPtiny.tar.gz
-	tar cvf liectiny.tar Makefile \
-			     README\
-			     sm_hosted.gif\
-			     log.html\
-			     index.* \
-			     Devel/* \
-			     bin/* \
-	                     *.jpg \
-	                     *.eps \
-	                     *.png \
-	                     submlreg \
-	                     DC/DCtiny.tar.gz \
-	                     AC/ACtiny.tar.gz \
-			     Semi/SEMItiny.tar.gz \
-			     Digital/DIGItiny.tar.gz \
-			     Ref/REFtiny.tar.gz \
-			     Exper/EXPtiny.tar.gz
-
-# The 'liectiny' option archives the bare minimum set of files 
-# necessary to reconstruct the entire book.  Image files, while 
-# duplicated in the directories as both .eps and .jpg formats for 
-# HTML and TeX/LaTeX/DVI output, respectively, are archived here 
-# only in their raw source (native) formats: that is, .eps for all
-# schematics, .eps for tables and equations, .jpg for artwork, and
-# .jpg for photographs.
-
-#####################################################################
-
-liecsrc : 
-	make -C DC DCsrc.tar.gz
-	make -C AC ACsrc.tar.gz
-	make -C Semi SEMIsrc.tar.gz
-	make -C Digital DIGIsrc.tar.gz
-	make -C Ref REFsrc.tar.gz
-	make -C Exper EXPsrc.tar.gz
-	tar cvf liecsrc.tar Makefile \
-	                    README\
-	                    sm_hosted.gif\
-	                    log.html\
-	                    index.* \
-	                    Devel/* \
-			     bin/* \
-	                    *.jpg \
-	                    *.eps \
-	                    *.png \
-	                    submlreg \
-	                    DC/DCsrc.tar.gz \
-	                    AC/ACsrc.tar.gz \
-			    Semi/SEMIsrc.tar.gz \
-			    Digital/DIGIsrc.tar.gz \
-			    Ref/REFsrc.tar.gz \
-			    Exper/EXPsrc.tar.gz
-
-# The 'liecsrc' option archives all source files necessary to 
-# reconstruct the entire book.  
-
-#####################################################################
-
-liechtml : 
-	tar cf liechtml.tar \
-             DC/*.htm* DC/*.jpg DC/*.png \
-             AC/*.htm* AC/*.jpg AC/*.png \
-             Semi/*.htm* Semi/*.jpg Semi/*.png \
-             Digital/*.htm* Digital/*.jpg Digital/*.png \
-             Ref/*.htm* Ref/*.jpg Ref/*.png \
-             Exper/*.htm* Exper/*.jpg Exper/*.png \
-             Devel/*.htm* Devel/*.jpg Devel/*.png \
-             index.htm *.jpg *.png
-	gzip -f liechtml.tar
-
-# The 'liechtml' option pieces together only those files 
-# necessary for all volumes of the book to be viewable in HTML 
-# format.  No source code is included (only HTML code) and only 
-# JPEG and PNG image formats.  Designed for the non-contributing
-# reader who just wants a browsable copy on their own machine.
-
-#####################################################################
-
-untarliectiny : 
-	@cd DC && tar xvzf DCtiny.tar.gz
-	@cd AC && tar xvzf ACtiny.tar.gz
-	@cd Semi && tar xvzf SEMItiny.tar.gz
-	@cd Digital && tar xvzf DIGItiny.tar.gz
-	@cd Ref && tar xvzf REFtiny.tar.gz
-	@cd Exper && tar xvzf EXPtiny.tar.gz
-
-# The "untarliectiny" make target will unzip and untar the tar.gz
-#residing in each of the individual subdirectories after executing
-# tar xvf liectiny.tar, which procuces these subdirectories and files.
-#The subdirectories include AC, DC, Semi, Digital, REf, Exper
-#####################################################################
-
-untarliecsrc : 
-	@cd DC && tar xvzf DCsrc.tar.gz
-	@cd AC && tar xvzf ACsrc.tar.gz
-	@cd Semi && tar xvzf SEMIsrc.tar.gz
-	@cd Digital && tar xvzf DIGIsrc.tar.gz
-	@cd Ref && tar xvzf REFsrc.tar.gz
-	@cd Exper && tar xvzf EXPsrc.tar.gz
-
-#The "untarliecsrc" make target will unzip and untar the tar.gz
-#residing in each of the individual subdirectories after executing
-#tar xvf liecsrc.tar, which procuces these subdirectories and files.
-#The subdirectories include AC, DC, Semi, Digital, REf, Exper
-#####################################################################
-
-

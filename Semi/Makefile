@@ -1,67 +1,4 @@
-# Makefile for managing "Lessons In Electric Circuits -- Semiconductors"
-# modified 06/14/2005 (DC) 2*.png \ added to SEMItiny.tar:
-# modified 06/14/2005 (DC) -Added  mogrify -density 175 -format eps 2*.png to eps:
-# modified  01/7/2006 (DC) -Added mini-TOC  to each chapter of html, .latex
-# modified 08/02/2006 (DC) - eps: target modified for smaller better looking (pdf) files
-# modified 10/03/2006 (DC) -Added bibliography to .html, .latex pending for others; .tex, .txt, etc
-# modified 04/39/2007 (DC) -Removed  bibliography to .html, .latex pending for others; .tex, .txt, etc
-# modified 10/03/2008 (DC) -Added sml2latx.sed, sml2html.sed to Latex and html sections--
-#                           -- to for rebuild for changes to these .sed files.
-
-SRC = amplif.sml \
-      theory.sml \
-      diode.sml \
-      bjt.sml \
-      jfet.sml \
-      mosfet.sml \
-      thyr.sml \
-      opamp.sml \
-      analog.sml \
-      active.sml \
-      dcdrive.sml \
-      acdrive.sml \
-      tubes.sml \
-      about.sml \
-      contrib.sml \
-      dsl.sml \
-      hi.latex \
-      hi_appendix.latex \
-      bye.latex \
-      hi_1.html \
-      hi_2.html \
-      hi_3.html \
-      hi_4.html \
-      hi_5.html \
-      hi_6.html \
-      hi_7.html \
-      hi_8.html \
-      hi_9.html \
-      hi_10.html \
-      hi_11.html \
-      hi_12.html \
-      hi_13.html \
-      bye_11.html \
-      hi_A1.html \
-      hi_A2.html \
-      hi_A3.html \
-      bye_1.html \
-      bye_2.html \
-      bye_3.html \
-      bye_4.html \
-      bye_5.html \
-      bye_6.html \
-      bye_7.html \
-      bye_8.html \
-      bye_9.html \
-      bye_10.html \
-      bye_11.html \
-      bye_12.html \
-      bye_13.html \
-      bye_A1.html \
-      bye_A2.html \
-      bye_A3.html \
-      index.html \
-      Makefile
+# Makefile for textbook Volume 3: Semiconductors.
 
 output:
 	mkdir -p output
@@ -161,48 +98,6 @@ SEMI.pdf: SEMI.latex $(pdf_figures)
 
 .PHONY: png pdf_figures
 png: $(output_pngs)
-
-
-# Generates a .tar.gz archive containing source files
-SEMIsrc.tar.gz: $(SRC)
-	tar cvf SEMIsrc.tar \
-            $(SRC) \
-            *.eps \
-            *.jpg \
-            *.png \
-            *.lps \
-            *.sed \
-            toc.map \
-            htmltoc2 \
-            Makefile
-	gzip -f SEMIsrc.tar
-
-
-
-
-# Generates a .tar.gz archive containing only ESSENTIAL source files
-SEMItiny.tar.gz: $(SRC)
-	tar cvf SEMItiny.tar \
-            $(SRC) \
-            0*.eps \
-            1*.eps \
-            2*.png \
-            4*.[jp][pn]g \
-            5*.jpg \
-            previous.jpg \
-            contents.jpg \
-            next.jpg \
-            ps.* \
-            pdf.* \
-            src1.* \
-            src2.* \
-            *.lps \
-            *.sed \
-            toc.map \
-            htmltoc2 \
-            Makefile
-	gzip -f SEMItiny.tar
-
 
 
 # Cleans out old, unwanted files
