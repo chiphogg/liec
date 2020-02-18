@@ -51,17 +51,17 @@ html : $(html_chapters) $(html_appendices)
 	fi
 
 .SECONDEXPANSION:
-SEMI_%.html : $$(call get_chapter,%) hi_%.html bye_%.html sml2html.sed
-	cat hi_$*.html > $@
+SEMI_%.html : $$(call get_chapter,%) $$(call html_templates,hi_ bye_,%) sml2html.sed
+	cat $(call html_templates,hi_,$*) > $@
 	sed -f sml2html.sed $< >> $@
-	cat bye_$*.html >> $@
+	cat $(call html_templates,bye_,$*) >> $@
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
         -minitoc "<\!\-\-\minitoc\-\->" $@ 
 
-SEMI_A%.html : $$(call get_appendix,%) hi_A%.html bye_A%.html sml2html.sed
-	cat hi_A$*.html > $@
+SEMI_A%.html : $$(call get_appendix,%) $$(call html_templates,hi_A bye_A,%) sml2html.sed
+	cat $(call html_templates,hi_A,$*) > $@
 	sed -f sml2html.sed $< >> $@
-	cat bye_A$*.html >> $@
+	cat $(call html_templates,bye_A,$*) >> $@
 
 latex_templates := $(patsubst %,%.latex,hi hi_appendix bye)
 SEMI.latex : $(latex_chapters) $(latex_appendices) $(latex_templates)
