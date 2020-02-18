@@ -24,4 +24,4 @@ indices = $(if $1,$(words x $2) $(call indices,$(call tail,$1),x $2),)
 htmlfile = $(patsubst %,$1%.html,$(call indices,$2))
 
 # The HTML template filenames with stems in $(1) for index $(2).
-html_templates = $(patsubst %,%$(2).html,$(1))
+html_templates = $(patsubst %,templates/%$(2).html,$(1))
