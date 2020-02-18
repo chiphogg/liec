@@ -25,12 +25,12 @@ all :
 	make liechtml
 	make liecsrc
 	make liectiny
-	make -C DC DC.ps
-	make -C AC AC.ps
-	make -C Semi SEMI.ps
-	make -C Digital DIGI.ps
-	make -C Ref REF.ps
-	make -C Exper EXP.ps
+	make -C DC DC.pdf
+	make -C AC AC.pdf
+	make -C Semi SEMI.pdf
+	make -C Digital DIGI.pdf
+	make -C Ref REF.pdf
+	make -C Exper EXP.pdf
 
 # The 'all' option generates HTML and compressed PostScript output 
 # for all volumes, and also updates all archive files.  The intent 
@@ -70,12 +70,12 @@ tinyinstall :
 	make png
 	make eps
 	make html
-	make -C DC DC.ps
-	make -C AC AC.ps
-	make -C Semi SEMI.ps
-	make -C Digital DIGI.ps
-	make -C Ref REF.ps
-	make -C Exper EXP.ps
+	make -C DC DC.pdf
+	make -C AC AC.pdf
+	make -C Semi SEMI.pdf
+	make -C Digital DIGI.pdf
+	make -C Ref REF.pdf
+	make -C Exper EXP.pdf
 
 # The 'tinyinstall' option installs all necessary files from the
 # untarred 'liectiny.tar' archive file, after each of the '.tar'
@@ -94,20 +94,6 @@ png :
 
 # The 'png' option creates PNG versions of all illustrations, 
 # graphs, and equations from their respective EPS source files.
-
-#####################################################################
-
-eps : 
-	make -C DC eps
-	make -C AC eps
-	make -C Semi eps
-	make -C Digital eps
-	make -C Ref eps
-	make -C Exper eps
-
-# The 'eps' option creates Encapsulated PostScript (EPS) versions 
-# of all photographic images and artwork images from their
-# respective JPG source files.
 
 #####################################################################
 

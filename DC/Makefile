@@ -5,7 +5,6 @@
 # modified 10/03/2008 (DC) -Added sml2latx.sed, sml2html.sed to Latex and html sections--
 #                           -- to for rebuild for changes to these .sed files.
 #
-YRES=108
 
 SRC = basiccon.sml \
       ohm.sml \
@@ -152,15 +151,6 @@ latex: DC.latex
 
 
 
-# Generates PostScript and PDF output
-DC.ps : $(SRC)
-	make latex
-	dvips -Ppdf -o DC.ps DC.dvi
-	ps2pdf DC.ps DC.pdf
-	gzip -f DC.ps
-
-
-
 %.png: %.eps
 	mogrify -density 120 -format png $<
 
@@ -180,72 +170,6 @@ DC.pdf: DC.latex $(pdf_figures)
 .PHONY: png pdf_figures
 png: $(output_pngs)
 
-
-
-# Converts photograph .jpg graphics into .eps format
-# Don't have png2eps? Then use eps2: target instead of eps: target It
-# only needs mogrify. But images files are larger, Images not as nice.
-# This (eps2: or eps:) is only required for TeX/LaTeX.
-
-eps2: $(SRC)
-	mogrify -density 175 -format eps 2*.png
-	mogrify -density 175 -format eps 4*.jpg
-	mogrify -density 175 -format eps 5*.jpg
-	touch eps
-
-
-# Convert *.jpg to .eps -smaller .eps files than above, alternative to above
-
-
-eps: $(SRC)
-	YRES=108  #Y resolution to shrink height, 72 normal
-	for file in 2*.png; do \
-	../bin/png2eps $$file $(YRES) >`echo $$file | sed -ne 's/png/eps/p;'`; \
-	done
-
-	for file in 5*.jpg; do \
-	cp $$file $$file'~' ; \
-	done
-
-	for file in 4*.jpg; do \
-	cp $$file $$file'~' ; \
-	done
-
-#       jpeg2eps makes bigger eps's from jpg, so shrink them       
-####	mogrify -scale 42% -format jpeg 4*.jpg~
-####	mogrify -scale 42% -format jpeg 5*.jpg~
-
-	../bin/jpeg2eps 4*.jpg
-	../bin/jpeg2eps 5*.jpg
-
-
-#	for file in 5*.eps; do \
-#	cp $$file $$file'~' ; \
-#	done
-
-	for file in 4*.eps; do \
-	cp $$file $$file'~' ; \
-	done
-
-	for file in 5*.eps; do \
-	cp $$file $$file'~' ; \
-	done
-
-	for file in 4*.eps; do \
-	../bin/./scale.sh 50% $$file'~' $$file ; \
-	done
-
-	for file in 5*.eps; do \
-	../bin/./scale.sh 50% $$file'~' $$file ; \
-	done
-
-
-#	rm [45]2*.jpeg
-	rm 40*.jpg~
-	rm 50*.jpg~
-	rm 40*.eps~
-	rm 50*.eps~
-	touch eps
 
 
 # Generates a .tar.gz archive containing source files

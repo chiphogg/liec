@@ -23,10 +23,6 @@
 #TEXINPUTS=/home/dennis/lessons/bin/
 
 
-#This shrinks screen capture height eps:
-YRES=108
-
-
 SRC = basicac.sml \
       complex.sml \
       xzl.sml \
@@ -164,16 +160,6 @@ latex: AC.latex
 	touch latex
 
 
-# Generates compressed PostScript and PDF output
-AC.ps : $(SRC)
-	make latex
-	dvips -z -Ppdf -o AC.ps AC.dvi
-	ps2pdf AC.ps AC.pdf
-	gzip -f AC.ps
-
-
-
-
 # Converts schematic and equation .eps graphics into .png format
 %.png: %.eps
 	mogrify -density 120 -format png $<
@@ -193,75 +179,6 @@ AC.pdf: AC.latex $(pdf_figures)
 
 .PHONY: png pdf_figures
 png: $(output_pngs)
-
-
-# Converts photograph .jpg graphics into .eps format
-# Don't have png2eps? Then use eps2: target instead of eps: target It
-# only needs mogrify. But images files are larger, Images not as nice.
-# This (eps2: or eps:) is only required for TeX/LaTeX.
-
-eps2: $(SRC)
-#	mogrify -density 175 -format eps 2*.png # poor spice eps 10/31/1005 (DC)
-	mogrify -density 20 -format eps 2*.png  # make a clean image (DC)
-	mogrify -resize 24% -format eps 2*.eps  # make it smaller (DC)
-
-	mogrify -density 175 -format eps 4*.jpg
-	mogrify -density 175 -format eps 5*.jpg
-	touch eps
-
-# Convert *.jpg to .eps -smaller .eps files than above, alternative to above
-
-
-eps: $(SRC)
-	YRES=108  #Y resolution to shrink height, 72 normal
-	for file in 2*.png; do \
-	../bin/png2eps $$file $(YRES) >`echo $$file | sed -ne 's/png/eps/p;'`; \
-	done
-
-	for file in 5*.jpg; do \
-	cp $$file $$file'~' ; \
-	done
-
-	for file in 4*.jpg; do \
-	cp $$file $$file'~' ; \
-	done
-
-#       jpeg2eps makes bigger eps's from jpg, so shrink them       
-####	mogrify -scale 42% -format jpeg 4*.jpg~
-####	mogrify -scale 42% -format jpeg 5*.jpg~
-
-	../bin/jpeg2eps 4*.jpg
-	../bin/jpeg2eps 5*.jpg
-
-
-#	for file in 5*.eps; do \
-#	cp $$file $$file'~' ; \
-#	done
-
-	for file in 4*.eps; do \
-	cp $$file $$file'~' ; \
-	done
-
-	for file in 5*.eps; do \
-	cp $$file $$file'~' ; \
-	done
-
-	for file in 4*.eps; do \
-	../bin/./scale.sh 50% $$file'~' $$file ; \
-	done
-
-	for file in 5*.eps; do \
-	../bin/./scale.sh 50% $$file'~' $$file ; \
-	done
-
-
-#	rm [45]2*.jpeg
-	rm 42*.jpg~
-	rm 52*.jpg~
-	rm 42*.eps~
-	rm 52*.eps~
-	touch eps
-
 
 
 # Generates a .tar.gz archive containing source files
