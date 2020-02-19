@@ -6,9 +6,6 @@ output:
 link: | output
 	ln -rsf *.png *.jpg *.html output
 
-echotex:
-	echo "TEXINPUTS= $(TEXINPUTS)"
-
 include utils.mak
 
 chapter_names := \
