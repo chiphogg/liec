@@ -63,13 +63,12 @@ SEMI_A%.html : $$(call get_appendix,%) $$(call html_templates,hi_A bye_A,%) sml2
 	sed -f sml2html.sed $< >> $@
 	cat $(call html_templates,bye_A,$*) >> $@
 
-latex_templates := $(patsubst %,%.latex,hi hi_appendix bye)
-SEMI.latex : $(latex_chapters) $(latex_appendices) $(latex_templates)
-	cat hi.latex \
+SEMI.latex : $(latex_chapters) $(latex_appendices) $(call latex_templates,hi hi_appendix bye)
+	cat $(call latex_templates,hi) \
            $(latex_chapters) \
-           hi_appendix.latex \
+           $(call latex_templates,hi_appendix) \
            $(latex_appendices) \
-           bye.latex > $@
+           $(call latex_templates,bye) > $@
 
 latex: SEMI.latex
 	latex SEMI.latex
