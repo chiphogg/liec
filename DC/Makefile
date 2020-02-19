@@ -34,7 +34,7 @@ chapter_names := \
       time
 
 chapters := $(call sourcefile,$(chapter_names))
-latex_chapters := $(call latexfile,$(chapter_names))
+latex_chapters := $(call latexoutput,$(chapter_names))
 html_chapters := $(call htmlfile,DC_,$(chapter_names))
 get_chapter = $(word $(1),$(chapters))
 
@@ -43,19 +43,19 @@ appendix_names := \
       contrib \
       dsl
 appendices := $(call sourcefile,$(appendix_names))
-latex_appendices := $(call latexfile,$(appendix_names))
+latex_appendices := $(call latexoutput,$(appendix_names))
 html_appendices := $(call htmlfile,DC_A,$(appendix_names))
 get_appendix = $(word $(1),$(appendices))
 
 # Generates HTML output
 html : $(html_chapters) $(html_appendices)
 
-%.latex: %.sml sml2pdflatex.sed
+output/%.latex: %.sml sml2pdflatex.sed
 	sed -f sml2pdflatex.sed $< > $@
 	if [ $(if $(filter $<,$(appendices)),1,0) -eq 1 ]; then \
-	    cp $@ .$@; \
-	    sed  s/\\minitoc//g .$@ > $@; \
-	    rm .$@; \
+	    cp $@ $@_; \
+	    sed  s/\\minitoc//g $@_ > $@; \
+	    rm $@_; \
 	fi
 
 .SECONDEXPANSION:
@@ -71,36 +71,27 @@ DC_A%.html : $$(call get_appendix,%) $$(call html_templates,hi_A bye_A,%) sml2ht
 	sed -f sml2html.sed $< >> $@
 	cat $(call html_templates,bye_A,$*) >> $@
 
-DC.latex : $(latex_chapters) $(latex_appendices) $(call latex_templates,hi hi_appendix bye)
+output/DC.latex : $(latex_chapters) $(latex_appendices) $(call latex_templates,hi hi_appendix bye)
 	cat $(call latex_templates,hi) \
            $(latex_chapters) \
            $(call latex_templates,hi_appendix) \
            $(latex_appendices) \
            $(call latex_templates,bye) > $@
 
-latex: DC.latex
-	latex DC.latex
-	makeindex DC.idx
-	latex DC.latex
-	latex DC.latex
-	touch latex
-
-
-
 %.png: %.eps
 	mogrify -density 120 -format png $<
 
 eps_source_files := $(wildcard *.eps)
 output_pngs := $(eps_source_files:.eps=.png)
-pdf_figures := $(eps_source_files:.eps=.pdf)
+pdf_figures := $(patsubst %.eps,output/%.pdf,$(eps_source_files))
 
-DC.pdf: DC.latex $(pdf_figures)
-	pdflatex $<
-	makeindex DC.idx
-	pdflatex $<
-	pdflatex $<
+output/DC.pdf: output/DC.latex $(pdf_figures)
+	pdflatex -output-directory output $<
+	makeindex output/DC.idx
+	pdflatex -output-directory output $<
+	pdflatex -output-directory output $<
 
-%.pdf: %.eps
+output/%.pdf: %.eps
 	ps2pdf -dEPSCrop $< $@
 
 .PHONY: png pdf_figures

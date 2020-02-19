@@ -18,12 +18,12 @@ html :
 
 all :
 	make html
-	make -C DC DC.pdf
-	make -C AC AC.pdf
-	make -C Semi SEMI.pdf
-	make -C Digital DIGI.pdf
-	make -C Ref REF.pdf
-	make -C Exper EXP.pdf
+	make -C DC output/DC.pdf
+	make -C AC output/AC.pdf
+	make -C Semi output/SEMI.pdf
+	make -C Digital output/DIGI.pdf
+	make -C Ref output/REF.pdf
+	make -C Exper output/EXP.pdf
 
 # The 'all' option generates HTML and compressed PostScript output 
 # for all volumes, and also updates all archive files.  The intent 

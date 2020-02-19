@@ -1,9 +1,2 @@
-*.tar.gz
-*.tar
-*.out
-*.dvi
-*.pdf
-*.aux
-
 output/
 */output
