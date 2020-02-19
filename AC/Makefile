@@ -3,8 +3,16 @@
 output:
 	mkdir -p output
 
-link: | output
-	ln -rsf *.png *.jpg *.html output
+sources := $(wildcard *.png *.jpg *.html)
+source_links := $(patsubst %,output/%,$(sources))
+output/%.html: %.html | output
+	ln -rsf $< $@
+output/%.png: %.png | output
+	ln -rsf $< $@
+output/%.jpg: %.jpg | output
+	ln -rsf $< $@
+
+link: $(source_links) | output
 
 include utils.mak
 
