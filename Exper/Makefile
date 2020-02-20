@@ -28,7 +28,7 @@ chapter_names := \
 
 chapters := $(call sourcefile,$(chapter_names))
 latex_chapters := $(call latexoutput,$(chapter_names))
-html_chapters := $(call htmlfile,EXP_,$(chapter_names))
+html_chapters := $(call htmloutput,EXP_,$(chapter_names))
 get_chapter = $(word $(1),$(chapters))
 
 appendix_names := \
@@ -37,11 +37,11 @@ appendix_names := \
       dsl
 appendices := $(call sourcefile,$(appendix_names))
 latex_appendices := $(call latexoutput,$(appendix_names))
-html_appendices := $(call htmlfile,EXP_A,$(appendix_names))
+html_appendices := $(call htmloutput,EXP_A,$(appendix_names))
 get_appendix = $(word $(1),$(appendices))
 
 # Generates HTML output
-html : $(html_chapters) $(html_appendices)
+html : $(html_chapters) $(html_appendices) png
 
 output/%.latex: %.sml sml2pdflatex.sed
 	sed -f sml2pdflatex.sed $< > $@
@@ -52,14 +52,14 @@ output/%.latex: %.sml sml2pdflatex.sed
 	fi
 
 .SECONDEXPANSION:
-EXP_%.html : $$(call get_chapter,%) $$(call html_templates,hi_ bye_,%) sml2html.sed
+output/EXP_%.html : $$(call get_chapter,%) $$(call html_templates,hi_ bye_,%) sml2html.sed
 	cat $(call html_templates,hi_,$*) > $@
 	sed -f sml2html.sed $< >> $@
 	cat $(call html_templates,bye_,$*) >> $@
 	./htmltoc2 -inline -noorg  -toclabel " " -tocmap toc.map \
         -minitoc "<\!\-\-\minitoc\-\->" $@ 
 
-EXP_A%.html : $$(call get_appendix,%) $$(call html_templates,hi_A bye_A,%) sml2html.sed
+output/EXP_A%.html : $$(call get_appendix,%) $$(call html_templates,hi_A bye_A,%) sml2html.sed
 	cat $(call html_templates,hi_A,$*) > $@
 	sed -f sml2html.sed $< >> $@
 	cat $(call html_templates,bye_A,$*) >> $@
@@ -71,11 +71,11 @@ output/EXP.latex : $(latex_chapters) $(latex_appendices) $(call latex_templates,
            $(latex_appendices) \
            $(call latex_templates,bye) > $@
 
-%.png: %.eps
-	mogrify -density 120 -format png $<
+output/%.png: %.eps
+	mogrify -density 120 -path output -format png $<
 
 eps_source_files := $(wildcard *.eps)
-output_pngs := $(eps_source_files:.eps=.png)
+output_pngs := $(patsubst %.eps,output/%.png,$(eps_source_files))
 pdf_figures := $(patsubst %.eps,output/%.pdf,$(eps_source_files))
 
 output/EXP.pdf: output/EXP.latex $(pdf_figures)
