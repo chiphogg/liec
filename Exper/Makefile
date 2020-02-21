@@ -78,7 +78,7 @@ eps_source_files := $(wildcard *.eps)
 output_pngs := $(patsubst %.eps,output/%.png,$(eps_source_files))
 pdf_figures := $(patsubst %.eps,output/%.pdf,$(eps_source_files))
 
-output/EXP.pdf: output/EXP.latex $(pdf_figures)
+output/EXP.pdf: output/EXP.latex $(pdf_figures) | link
 	pdflatex -output-directory output $<
 	makeindex output/EXP.idx
 	pdflatex -output-directory output $<
@@ -87,7 +87,7 @@ output/EXP.pdf: output/EXP.latex $(pdf_figures)
 output/%.pdf: %.eps
 	ps2pdf -dEPSCrop $< $@
 
-.PHONY: png pdf_figures
+.PHONY: png pdf_figures link
 png: $(output_pngs)
 
 
