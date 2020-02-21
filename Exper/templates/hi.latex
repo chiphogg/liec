@@ -91,7 +91,7 @@
 
 \thispagestyle{empty}
 
-\centerline {\includegraphics[ scale =1.2 ]{45000}}
+\centerline {\includegraphics[ scale =1.2 ]{output/45000}}
 \bigskip
 
 \centerline {\bf First Edition, last update  January 18, 2010}

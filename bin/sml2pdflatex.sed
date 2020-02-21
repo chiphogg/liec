@@ -474,7 +474,7 @@ s/<\/para>/ \
 s+\(<image>\)\(\[.*\]\)\(.*\)\.eps\(<caption>\)\(.*\)\(</caption>\)\(<label>\)\(.*\)\(</label>\)\(.*$\)+ \
 \\begin{figure}[htbp!] \
 \\centering \
-\\includegraphics\2{\3} \
+\\includegraphics\2{output/\3} \
 \\caption{\\sl \5 } \
 \\label{\8} \
 \\end{figure} \
@@ -489,7 +489,7 @@ s+\(<image>\)\(\[.*\]\)\(.*\)\.eps\(<caption>\)\(.*\)\(</caption>\)\(<label>\)\(
 s+\(<image>\)\(.*\)\.eps\(<caption>\)\(.*\)\(</caption>\)\(<label>\)\(.*\)\(</label>\)\(.*$\)+ \
 \\begin{figure}[htbp!] \
 \\centering \
-\\includegraphics{\2} \
+\\includegraphics{output/\2} \
 \\caption{\\sl \4 } \
 \\label{\7} \
 \\end{figure} \
@@ -509,7 +509,7 @@ s+\(<image>\)\(.*\)\.eps\(<caption>\)\(.*\)\(</caption>\)\(<label>\)\(.*\)\(</la
 s+\(<image>\)\(.*\)\.eps\(<caption>\)\(.*\)\(</caption>\)\(.*$\)+ \
 \\begin{figure}[htbp!] \
 \\centering \
-\\includegraphics{\2} \
+\\includegraphics{output/\2} \
 \\caption{\\sl \4 } \
 \\label{\2} \
 \\end{figure}\
@@ -527,7 +527,7 @@ s+\(<image>\)\(.*\)\.eps\(<caption>\)\(.*\)\(</caption>\)\(.*$\)+ \
 s+\(<imagen>\)\(.*\)\.eps\(<caption>\)\(.*\)\(</caption>\)\(.*$\)+ \
 \\begin{figure}[h!] \
 \\centering \
-\\includegraphics{\2} \
+\\includegraphics{output/\2} \
 \\caption{\\sl \4 } \
 \\label{\2} \
 \\end{figure}\
@@ -541,17 +541,17 @@ s+</imagen>+}+g
 # was 2nd line below to float\\begin{figure}[htbp!] \
 # Don't want equation to float
 s+\(<image>\)\(1.*\)\.eps\(.*</image>\)+ \
-\\includegraphics{\2}+g 
+\\includegraphics{output/\2}+g 
 #
 # Any image  w/o caption, with  no centering
 # mainly used in minipage
-s:<imagenf>\([^<]+\)\.eps\s*</imagenf>:\\medskip \\includegraphics{\1}:g 
+s:<imagenf>\([^<]+\)\.eps\s*</imagenf>:\\medskip \\includegraphics{output/\1}:g 
 #
 # 03/13/2008 
 # Take care of old  image  w/o caption, centering desired
 # Don't want want to float
 s+\(<image>\)\(0.*\)\.eps\(.*</image>\)+ \
-\\medskip \\centerline{\\includegraphics{\2}}+g 
+\\medskip \\centerline{\\includegraphics{output/\2}}+g 
 
 
 
@@ -562,7 +562,7 @@ s+\(<image>\)\(0.*\)\.eps\(.*</image>\)+ \
 # --other than 0xxxx 0r 1xxxx images
 # As of 08/05/2006, this section replaces next ##ed section.  We want to
 # have old un-captioned, un-labeled images NOT float.
-s:<image>\([^.]*\)\.eps\s*</image>:\\medskip \\includegraphics{\1}:g
+s:<image>\([^.]*\)\.eps\s*</image>:\\medskip \\includegraphics{output/\1}:g
 ##########################################################################
 
 
