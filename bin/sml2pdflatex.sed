@@ -545,7 +545,7 @@ s+\(<image>\)\(1.*\)\.eps\(.*</image>\)+ \
 #
 # Any image  w/o caption, with  no centering
 # mainly used in minipage
-s:<imagenf>\([^<]+\)\.eps\s*</imagenf>:\\medskip \\includegraphics{output/\1}:g 
+s:<imagenf>\([^.]*\)\.eps\s*</imagenf>:\\medskip \\includegraphics{output/\1}:g 
 #
 # 03/13/2008 
 # Take care of old  image  w/o caption, centering desired
