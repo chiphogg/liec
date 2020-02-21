@@ -6,6 +6,9 @@ sourcefile = $(patsubst %,%.sml,$(1))
 # Get the latex target filename corresponding to a stem.
 latexoutput = $(patsubst %,output/%.latex,$(1))
 
+# Get all elements after the first.
+tail = $(wordlist 2,$(words $1),$1)
+
 # A sequence of indices corresponding to a list.
 indices = $(if $1,$(words x $2) $(call indices,$(call tail,$1),x $2),)
 
