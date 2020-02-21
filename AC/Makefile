@@ -3,13 +3,14 @@
 output:
 	mkdir -p output
 
-sources := $(wildcard *.png *.jpg *.html)
-source_links := $(patsubst %,output/%,$(sources))
-output/%.html: %.html | output
+sources := $(wildcard figures/*.png figures/*.jpg)
+source_links := $(patsubst figures/%,output/%,$(sources))
+output/%.png: figures/%.png | output
 	ln -rsf $< $@
-output/%.png: %.png | output
+output/%.jpg: figures/%.jpg | output
 	ln -rsf $< $@
-output/%.jpg: %.jpg | output
+
+output/index.html: index.html | output
 	ln -rsf $< $@
 
 link: $(source_links) | output
@@ -77,12 +78,12 @@ output/AC.latex : $(latex_chapters) $(latex_appendices) $(call latex_templates,h
         $(call latex_templates,bye) > $@
 
 # Converts schematic and equation .eps graphics into .png format
-output/%.png: %.eps
+output/%.png: figures/%.eps
 	mogrify -density 120 -path output -format png $<
 
-eps_source_files := $(wildcard *.eps)
-output_pngs := $(patsubst %.eps,output/%.png,$(eps_source_files))
-pdf_figures := $(patsubst %.eps,output/%.pdf,$(eps_source_files))
+eps_source_files := $(wildcard figures/*.eps)
+output_pngs := $(patsubst figures/%.eps,output/%.png,$(eps_source_files))
+pdf_figures := $(patsubst figures/%.eps,output/%.pdf,$(eps_source_files))
 
 output/AC.pdf: output/AC.latex $(pdf_figures) | link
 	pdflatex -output-directory output $<
@@ -90,7 +91,7 @@ output/AC.pdf: output/AC.latex $(pdf_figures) | link
 	pdflatex -output-directory output $<
 	pdflatex -output-directory output $<
 
-output/%.pdf: %.eps
+output/%.pdf: figures/%.eps
 	ps2pdf -dEPSCrop $< $@
 
 .PHONY: png pdf_figures link
