@@ -11,6 +11,7 @@ html : output_folders
 	make -C Digital html
 	make -C Ref html
 	make -C Exper html
+	ln -rsf index.htm output/
 
 # Make PDF versions of every textbook.
 pdf : output_folders
