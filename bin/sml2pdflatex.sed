@@ -439,6 +439,10 @@ s/<\/para>/ \
 ##########################################################################
 
 
+# Images starting with "4" or "5" should be scaled by 50% in PDF output.
+# See chiphogg/lessons-in-electronic-circuits#11.
+/<image\(nf\)\?>[45]/s/<image\(nf\)\?>/\0[scale=0.5]/g
+
 
 ##########################################################################
 # <image> tags: mark a filename to be included as a graphic image in 
@@ -506,12 +510,12 @@ s+\(<image>\)\(.*\)\.eps\(<caption>\)\(.*\)\(</caption>\)\(<label>\)\(.*\)\(</la
 #
 # Auto lebeling-- uses image name as label
 #centering for images
-s+\(<image>\)\(.*\)\.eps\(<caption>\)\(.*\)\(</caption>\)\(.*$\)+ \
+s+\(<image>\)\(\[.*\]\)\?\(.*\)\.eps\(<caption>\)\(.*\)\(</caption>\)\(.*$\)+ \
 \\begin{figure}[htbp!] \
 \\centering \
-\\includegraphics{output/\2} \
-\\caption{\\sl \4 } \
-\\label{\2} \
+\\includegraphics\2{output/\3} \
+\\caption{\\sl \5 } \
+\\label{\3} \
 \\end{figure}\
 +g
 
@@ -545,7 +549,7 @@ s+\(<image>\)\(1.*\)\.eps\(.*</image>\)+ \
 #
 # Any image  w/o caption, with  no centering
 # mainly used in minipage
-s:<imagenf>\([^.]*\)\.eps\s*</imagenf>:\\medskip \\includegraphics{output/\1}:g 
+s:<imagenf>\(\[.*\]\)\?\([^.]*\)\.eps\s*</imagenf>:\\medskip \\includegraphics\1{output/\2}:g 
 #
 # 03/13/2008 
 # Take care of old  image  w/o caption, centering desired
@@ -562,7 +566,7 @@ s+\(<image>\)\(0.*\)\.eps\(.*</image>\)+ \
 # --other than 0xxxx 0r 1xxxx images
 # As of 08/05/2006, this section replaces next ##ed section.  We want to
 # have old un-captioned, un-labeled images NOT float.
-s:<image>\([^.]*\)\.eps\s*</image>:\\medskip \\includegraphics{output/\1}:g
+s:<image>\(\[.*\]\)\?\([^.]*\)\.eps\s*</image>:\\medskip \\includegraphics\1{output/\2}:g
 ##########################################################################
 
 
