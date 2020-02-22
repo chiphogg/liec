@@ -6,12 +6,12 @@ output:
 sources := $(wildcard figures/*.png figures/*.jpg)
 source_links := $(patsubst figures/%,output/%,$(sources))
 output/%.png: figures/%.png | output
-	ln -rsf $< $@
+	cp $< $@
 output/%.jpg: figures/%.jpg | output
-	ln -rsf $< $@
+	cp $< $@
 
 output/index.html: index.html | output
-	ln -rsf $< $@
+	cp $< $@
 
 link: $(source_links) | output
 
