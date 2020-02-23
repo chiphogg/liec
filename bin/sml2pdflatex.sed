@@ -1174,3 +1174,6 @@ s+</latexin>++g
 #/<latexin>/,/<\/latexin>/s+\\&+\&+g
 ##########################################################################
 
+# Hack: remove extensions from (page-)refs and labels as post processing.
+/\\\(ref\|pageref\|label\){[^.}]*\.\w*}/s:\(\\\(ref\|pageref\|label\){[^.}]*\)\.\w*:\1:g
+
