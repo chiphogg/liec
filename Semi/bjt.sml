@@ -2516,7 +2516,7 @@ v1 4 0 dc 15
 
 
 <para>
-The new resistor values of 6 k<OMEGA> and 4 k<OMEGA> (R<subscript>2</subscript> and R<subscript>3</subscript>, respectively) in Figure<ref>023014.png above</ref> results in class A waveform reproduction, just the way we wanted.
+The new resistor values of 6 k<OMEGA> and 4 k<OMEGA> (R<subscript>2</subscript> and R<subscript>3</subscript>, respectively) in Figure<ref>23014.png above</ref> results in class A waveform reproduction, just the way we wanted.
 </para>
 
 <itemize>
