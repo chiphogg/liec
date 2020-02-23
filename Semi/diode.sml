@@ -2563,12 +2563,12 @@ The 1n4004 SPICE parameters derived from the data sheet are listed in the last l
 <para>
 Figure<ref>03468.png below</ref> shows a circuit to compare the manufacturers model, the model derived from the datasheet, and the default model using default parameters. The three dummy  0 V sources are necessary for diode current measurement. The 1 V source is swept from 0 to 1.4 V in 0.2 mV steps. 
 <comment>split for double ref</comment>
-See .DC statement in the netlist in Table<ref>03468.tbl below</ref>. DI1N4004 is the manufacturer's diode model, Da1N4004 is our derived diode model.
+See .DC statement in the netlist in Table<ref>03468tbl below</ref>. DI1N4004 is the manufacturer's diode model, Da1N4004 is our derived diode model.
 </para>
 
 <image>03468.png<caption>SPICE circuit for comparison of manufacturer model (D1), calculated datasheet model (D2), and default model (D3).</caption></image>
 
-<table>03468.tbl<caption>SPICE netlist parameters: (D1) DI1N4004 manufacturer's model, (D2) Da1N40004  datasheet derived, (D3)  default diode model.</caption>
+<table>03468tbl<caption>SPICE netlist parameters: (D1) DI1N4004 manufacturer's model, (D2) Da1N40004  datasheet derived, (D3)  default diode model.</caption>
 <literal>
 *SPICE circuit <03468.eps> from XCircuit v3.20
 D1 1 5 DI1N4004
