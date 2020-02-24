@@ -658,7 +658,7 @@ A practical application of a clipper is to prevent an  amplified speech signal f
 <image>03440.png<caption>Clipper prevents over driving radio transmitter by voice peaks.</caption></image>
 
 <para>
-A sinewave may be  squared up by overdriving a clipper. Another clipper application is the protection of exposed inputs of integrated circuits. The input of the IC is connected to a pair  of diodes as at node ``2''  of Figure<ref>03439.png above </ref>. The voltage sources are replaced by the power supply rails of the IC. For example, CMOS IC's use 0V and +5 V. Analog amplifiers might use <plusminus>12V for the V1 and V2 sources.
+A sinewave may be  squared up by overdriving a clipper. Another clipper application is the protection of exposed inputs of integrated circuits. The input of the IC is connected to a pair  of diodes as at node ``2''  of Figure<ref>03439.png above</ref>. The voltage sources are replaced by the power supply rails of the IC. For example, CMOS IC's use 0V and +5 V. Analog amplifiers might use <plusminus>12V for the V1 and V2 sources.
 </para>
 
 
@@ -1169,7 +1169,7 @@ An AND gate is shown in Figure<ref>03461.png above</ref>. Logic gates have input
 </para>
 
 <para>
-A two input OR gate composed of a pair of diodes is shown in Figure<ref>0a3462.png below</ref>. If both inputs are logic low at (a) as simulated by both switches ``downward,'' the output Y is pulled low by the resistor. This logic zero is recorded in the first line of the truth table at (c). If one of the inputs is high as at (b), or the other input is high, or both inputs high, the diode(s) conduct(s), pulling the output Y high. These results are reordered in the second through fourth lines of the truth table. Summary: any input ``high'' is a high out at Y.
+A two input OR gate composed of a pair of diodes is shown in Figure<ref>03462.png below</ref>. If both inputs are logic low at (a) as simulated by both switches ``downward,'' the output Y is pulled low by the resistor. This logic zero is recorded in the first line of the truth table at (c). If one of the inputs is high as at (b), or the other input is high, or both inputs high, the diode(s) conduct(s), pulling the output Y high. These results are reordered in the second through fourth lines of the truth table. Summary: any input ``high'' is a high out at Y.
 </para>
 
 <image>03462.png<caption>OR gate: (a) First line, truth table (TT). (b) Third line TT. (d) Logical OR of power line supply and back-up battery.</caption></image>
@@ -1641,7 +1641,7 @@ Because LEDs are made of different chemical substances than silicon diodes, thei
 <image>03295.png<caption>Setting LED current at 20 ma. (a) for a 6 V source, (b) for a 24 V source.</caption></image> 
 
 <para>
-With the LED dropping 1.6 volts, there will be 4.4 volts dropped across the resistor.  Sizing the resistor for an LED current of 20 mA is as simple as taking its voltage drop (4.4 volts) and dividing by circuit current (20 mA), in accordance with Ohm's Law (R=E/I).  This gives us a figure of 220 <OMEGA>.  Calculating power dissipation for this resistor, we take its voltage drop and multiply by its current (P=IE), and end up with 88 mW, well within the rating of a 1/8 watt resistor.  Higher battery voltages will require larger-value dropping resistors, and possibly higher-power rating resistors as well.  Consider the example in Figure<ref>03295.png above </ref> (b) for a supply voltage of 24 volts:
+With the LED dropping 1.6 volts, there will be 4.4 volts dropped across the resistor.  Sizing the resistor for an LED current of 20 mA is as simple as taking its voltage drop (4.4 volts) and dividing by circuit current (20 mA), in accordance with Ohm's Law (R=E/I).  This gives us a figure of 220 <OMEGA>.  Calculating power dissipation for this resistor, we take its voltage drop and multiply by its current (P=IE), and end up with 88 mW, well within the rating of a 1/8 watt resistor.  Higher battery voltages will require larger-value dropping resistors, and possibly higher-power rating resistors as well.  Consider the example in Figure<ref>03295.png above</ref> (b) for a supply voltage of 24 volts:
 </para>
 
 
@@ -1654,7 +1654,7 @@ Dropping resistor values need not be precise for LED circuits.  Suppose we were 
 </para>
 
 <para>
-Multiple LEDs are sometimes required, say in lighting. If LEDs are operated in parallel, each must have its own current limiting resistor as in Figure<ref>0396.png below</ref> (a) to ensure  currents dividing more equally.
+Multiple LEDs are sometimes required, say in lighting. If LEDs are operated in parallel, each must have its own current limiting resistor as in Figure<ref>03296.png below</ref> (a) to ensure  currents dividing more equally.
 <comment>split for double ref</comment>
 However, it is more efficient to operate LEDs in series (Figure<ref>03296.png below</ref> (b)) with a single dropping resistor. As the number of series LEDs increases the series resistor value must decrease to maintain current, to a point. The number of LEDs in series (V<subscript>f</subscript>) cannot exceed the capability of the power supply.
 <comment>split for double ref</comment>
@@ -2660,7 +2660,7 @@ Suggested reader exercise: decrease N so that the current at VD=0.925 V is resto
 </literal>
 
 <para>
-The second approach models the zener with a subcircuit. Clamper D1 and VZ in  Figure<ref>03470.png below</ref> models the 15 V reverse breakdown voltage of a 1N4477A zener diode. Diode DR accounts for the forward conduction of the zener in the subcircuit.
+The second approach models the zener with a subcircuit. Clamper D1 and VZ in Figure<ref>23036.png below</ref> models the 15 V reverse breakdown voltage of a 1N4477A zener diode. Diode DR accounts for the forward conduction of the zener in the subcircuit.
 </para>
 
 <figure>

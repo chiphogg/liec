@@ -267,8 +267,7 @@ My circuit didn't work, and I was mystified.  However useful the ``two diode'' d
 
 <para>
 What happens in a transistor is this: the reverse bias of the base-collector junction prevents collector current when the transistor is in cutoff mode (that is, when there is no base current).  If the base-emitter junction is forward biased by the controlling signal, the normally-blocking action of the base-collector junction is overridden and current is permitted through the collector, despite the fact that electrons are going the ``wrong way'' through that PN junction.  This action is dependent on the quantum physics of semiconductor junctions, and can only take place when the two junctions are properly spaced and the doping concentrations of the three layers are properly proportioned.  Two diodes wired in series fail to meet these criteria; the top diode can never ``turn on'' when it is reversed biased, no matter how much current goes through the bottom diode in the base wire loop.
-See <pageref>BJTtheory[Bipolar junction transistors, Ch 2 ][SEMI_2.html]</pageref> for more details.
-
+See <hyperlink>BJTtheory[Bipolar junction transistors, Ch 2][SEMI_2.html]</hyperlink> for more details.
 </para>
 
 <para>
@@ -1990,7 +1989,7 @@ A trend should be evident in  Table <ref>bjt6.tbl above</ref>.  With increases i
 </para>
 
 <para>
-The last three lines of Table <ref>bjt.tbl above</ref>(right) show the <bold>I(v1)/Iin</bold>  current gain of 0.99. (The last two lines look invalid.)  This makes sense for <beta>=100; <alpha>= <beta>/(<beta>+1), <alpha>=0.99=100/(100-1).   The combination of low current gain (always less than 1) and somewhat unpredictable voltage gain conspire against the common-base design, relegating it to few practical applications.
+The last three lines of Table <ref>bjt6.tbl above</ref>(right) show the <bold>I(v1)/Iin</bold>  current gain of 0.99. (The last two lines look invalid.)  This makes sense for <beta>=100; <alpha>= <beta>/(<beta>+1), <alpha>=0.99=100/(100-1).   The combination of low current gain (always less than 1) and somewhat unpredictable voltage gain conspire against the common-base design, relegating it to few practical applications.
 </para>
 
 <para>
