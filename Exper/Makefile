@@ -86,7 +86,7 @@ output/EXP.pdf: output/EXP.latex $(pdf_figures) | link
 	pdflatex -output-directory output $<
 
 output/%.pdf: figures/%.eps
-	ps2pdf -dEPSCrop $< $@
+	ps2pdf -dMaxSubsetPct=100 -dSubsetFonts=true -dEmbedAllFonts=true -dPDFSETTINGS=/printer -dEPSCrop $< $@
 
 .PHONY: png pdf_figures link
 png: $(output_pngs)
