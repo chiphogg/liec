@@ -1017,7 +1017,7 @@ Nothing unusual is required of the makefile to generate the mini TOC. However, i
 \subsection{Table of contents - TOC }
  
 
-The LaTeX table of contents is due to commands in the hi.latex header file. The command $\backslash$setcounter$\{$tocdepth$\}$$\{$1$\}$ limits the depth of the TOC entries to one level below chapter. Thus, we get chapter and section entries. The file hi\_{}appendix, inserted between the chapters and appendices by Makefile, sets the counter to the chapter level with $\backslash$settocdepth$\{$chapter$\}$. This leaves a single TOC entry for each appendix. The package tocvsec2 is required to reset the counter. See $\backslash$usepackage$\{$../bin/tocvsec2$\}$ in hi.latex
+The LaTeX table of contents is due to commands in the hi.latex header file. The command $\backslash$setcounter$\{$tocdepth$\}$$\{$1$\}$ limits the depth of the TOC entries to one level below chapter. Thus, we get chapter and section entries. The file hi\_{}appendix, inserted between the chapters and appendices by Makefile, sets the counter to the chapter level with $\backslash$settocdepth$\{$chapter$\}$. This leaves a single TOC entry for each appendix. The package tocvsec2 is required to reset the counter. See $\backslash$usepackage$\{$tocvsec2$\}$ in hi.latex
  
 
  

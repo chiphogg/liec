@@ -17,7 +17,7 @@
 
 %package for chapter table of contents
 % newer than at ibiblio \usepackage{minitoc}y
-\usepackage{../bin/minitoc}
+\usepackage{minitoc}
 
 
 
@@ -26,7 +26,7 @@
 %%%%%works%%%%%%\usepackage{/home/dennis/lessons/bin/tocvsec2}
 % But the line below is more portable
 
-\usepackage{../bin/tocvsec2}
+\usepackage{tocvsec2}
 \usepackage{color}
 \usepackage{verbatim}
 
