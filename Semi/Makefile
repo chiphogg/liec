@@ -46,7 +46,7 @@ html_appendices := $(call htmloutput,SEMI_A,$(appendix_names))
 get_appendix = $(word $(1),$(appendices))
 
 # Generates HTML output
-html : $(html_chapters) $(html_appendices) png
+html : $(html_chapters) $(html_appendices) png output/index.html
 
 output/%.latex: %.sml sml2pdflatex.sed
 	sed -f sml2pdflatex.sed $< > $@
